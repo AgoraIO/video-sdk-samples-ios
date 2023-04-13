@@ -19,9 +19,9 @@ public struct GettingStartedView: View {
     public var body: some View {
         // Show a scrollable view of video feeds for all participants.
         GettingStartedScrollView(
-            users: agoraManager.allUsers, agoraKit: agoraManager.agoraKit
+            users: agoraManager.allUsers, agoraEngine: agoraManager.agoraEngine
         ).onAppear {
-            agoraManager.agoraKit.joinChannel(byToken: AppKeys.agoraToken, channelId: channelId, info: nil, uid: 0)
+            agoraManager.agoraEngine.joinChannel(byToken: AppKeys.agoraToken, channelId: channelId, info: nil, uid: 0)
         }.onDisappear {
             agoraManager.leaveChannel()
         }
@@ -39,15 +39,15 @@ public struct GettingStartedScrollView: View {
     /// The set of user IDs for all participants in the channel.
     public var users: Set<UInt>
     /// A weak reference to the `AgoraRtcEngineKit` object for the session.
-    public weak var agoraKit: AgoraRtcEngineKit?
+    public weak var agoraEngine: AgoraRtcEngineKit?
 
     public var body: some View {
-        if let agoraKit {
+        if let agoraEngine {
             ScrollView {
                 VStack {
                     // Show the video feeds for each participant.
                     ForEach(Array(users), id: \.self) { uid in
-                        AgoraVideoCanvasView(agoraKit: agoraKit, uid: uid)
+                        AgoraVideoCanvasView(agoraEngine: agoraEngine, uid: uid)
                             .aspectRatio(contentMode: .fit).cornerRadius(10)
                     }
                 }.padding(20)

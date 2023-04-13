@@ -29,6 +29,9 @@
 		F310F63929C8D02E006DB727 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F310F63B29C8D031006DB727 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F310F63E29C8D031006DB727 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F33A889929E83B6F0029499C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F33A889A29E841DE0029499C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F33A889B29E845AB0029499C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F372069829C8EE420029EEC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F3CA2CD229C9746F00561441 /* AppKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKeys.swift; sourceTree = "<group>"; };
 		F3CA2CDA29C97AF400561441 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
@@ -74,11 +77,11 @@
 			children = (
 				F372069829C8EE420029EEC8 /* Info.plist */,
 				F310F63729C8D02E006DB727 /* Docs_ExamplesApp.swift */,
+				F33A889729E839DE0029499C /* Utilities */,
 				F310F63929C8D02E006DB727 /* ContentView.swift */,
-				F3CA2CD929C9777900561441 /* GettingStarted */,
-				F3CA2CD129C9745400561441 /* Develop */,
-				F3CA2CE229CB00C900561441 /* AgoraSwiftUIHelpers */,
-				F3CA2CCC29C96B1600561441 /* PassParamPages */,
+				F3CA2CD929C9777900561441 /* get-started-sdk */,
+				F33A889829E83A0A0029499C /* authentication-workflow */,
+				F3CA2CD129C9745400561441 /* ensure-channel-quality */,
 				F3CA2CD229C9746F00561441 /* AppKeys.swift */,
 				F3CA2CDA29C97AF400561441 /* Documentation.docc */,
 				F310F63B29C8D031006DB727 /* Assets.xcassets */,
@@ -95,6 +98,24 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		F33A889729E839DE0029499C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				F3CA2CE229CB00C900561441 /* AgoraSwiftUIHelpers */,
+				F3CA2CCC29C96B1600561441 /* PassParamPages */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		F33A889829E83A0A0029499C /* authentication-workflow */ = {
+			isa = PBXGroup;
+			children = (
+				F3D7BD4A29DB31D70014DEC0 /* TokenAuthenticationView.swift */,
+				F33A889B29E845AB0029499C /* README.md */,
+			);
+			path = "authentication-workflow";
+			sourceTree = "<group>";
+		};
 		F3CA2CCC29C96B1600561441 /* PassParamPages */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,28 +125,29 @@
 			path = PassParamPages;
 			sourceTree = "<group>";
 		};
-		F3CA2CD129C9745400561441 /* Develop */ = {
+		F3CA2CD129C9745400561441 /* ensure-channel-quality */ = {
 			isa = PBXGroup;
 			children = (
 				F3D7BD4C29DB37430014DEC0 /* CallQualityView.swift */,
-				F3D7BD4A29DB31D70014DEC0 /* TokenAuthenticationView.swift */,
+				F33A889A29E841DE0029499C /* README.md */,
 			);
-			path = Develop;
+			path = "ensure-channel-quality";
 			sourceTree = "<group>";
 		};
-		F3CA2CD929C9777900561441 /* GettingStarted */ = {
+		F3CA2CD929C9777900561441 /* get-started-sdk */ = {
 			isa = PBXGroup;
 			children = (
 				F3D7BD4829DB30B80014DEC0 /* GettingStartedView.swift */,
+				F3D7BD4629DB30680014DEC0 /* AgoraManager.swift */,
+				F3CA2CE329CB00F400561441 /* AgoraVideoCanvasView.swift */,
+				F33A889929E83B6F0029499C /* README.md */,
 			);
-			path = GettingStarted;
+			path = "get-started-sdk";
 			sourceTree = "<group>";
 		};
 		F3CA2CE229CB00C900561441 /* AgoraSwiftUIHelpers */ = {
 			isa = PBXGroup;
 			children = (
-				F3CA2CE329CB00F400561441 /* AgoraVideoCanvasView.swift */,
-				F3D7BD4629DB30680014DEC0 /* AgoraManager.swift */,
 			);
 			path = AgoraSwiftUIHelpers;
 			sourceTree = "<group>";

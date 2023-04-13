@@ -21,7 +21,7 @@ public struct AgoraVideoCanvasView: UIViewRepresentable {
     @StateObject var canvas = AgoraRtcVideoCanvas()
 
     /// A weak reference to the `AgoraRtcEngineKit` object for the session.
-    public weak var agoraKit: AgoraRtcEngineKit?
+    public weak var agoraEngine: AgoraRtcEngineKit?
     /// The user ID of the remote user whose video to display, or `0` to display the local user's video.
     public let uid: UInt
 
@@ -29,13 +29,13 @@ public struct AgoraVideoCanvasView: UIViewRepresentable {
      A UIViewRepresentable wrapper for an AgoraRtcVideoCanvas, which can be used to display a remote or local video stream in a SwiftUI view.
 
      - Parameters:
-        - agoraKit: An instance of the AgoraRtcEngineKit, which manages the video stream.
+        - agoraEngine: An instance of the AgoraRtcEngineKit, which manages the video stream.
         - uid: The user ID for the video stream.
 
      - Returns: An AgoraVideoCanvasView instance, which can be added to a SwiftUI view hierarchy.
     */
-    public init(agoraKit: AgoraRtcEngineKit, uid: UInt) {
-        self.agoraKit = agoraKit
+    public init(agoraEngine: AgoraRtcEngineKit, uid: UInt) {
+        self.agoraEngine = agoraEngine
         self.uid = uid
     }
 
@@ -60,10 +60,10 @@ public struct AgoraVideoCanvasView: UIViewRepresentable {
         canvasView.isHidden = false
         if self.uid == 0 {
             // Start the local video preview
-            agoraKit?.startPreview()
-            agoraKit?.setupLocalVideo(canvas)
+            agoraEngine?.startPreview()
+            agoraEngine?.setupLocalVideo(canvas)
         } else {
-            agoraKit?.setupRemoteVideo(canvas)
+            agoraEngine?.setupRemoteVideo(canvas)
         }
         return canvasView
     }

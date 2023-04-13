@@ -17,10 +17,10 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
     public let appId: String
     /// The client's role in the session.
     public var role: AgoraClientRole = .audience {
-        didSet { agoraKit.setClientRole(role) }
+        didSet { agoraEngine.setClientRole(role) }
     }
     /// The Agora RTC Engine Kit for the session.
-    public var agoraKit: AgoraRtcEngineKit {
+    public var agoraEngine: AgoraRtcEngineKit {
         let eng = AgoraRtcEngineKit.sharedEngine(withAppId: appId, delegate: self)
         eng.enableVideo()
         eng.setClientRole(role)
@@ -45,13 +45,14 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
     /**
      Leaves the channel and stops the preview for the session.
 
-     - Parameter leaveChannelBlock: An optional closure that will be called when the client leaves the channel. The closure takes an `AgoraChannelStats` object as its parameter.
+     - Parameters:
+        - leaveChannelBlock: An optional closure that will be called when the client leaves the channel. The closure takes an `AgoraChannelStats` object as its parameter.
 
      This method also empties all entries in ``allUsers``
      */
     open func leaveChannel(leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil) {
-        self.agoraKit.leaveChannel(leaveChannelBlock)
-        self.agoraKit.stopPreview()
+        self.agoraEngine.leaveChannel(leaveChannelBlock)
+        self.agoraEngine.stopPreview()
         AgoraRtcEngineKit.destroy()
         self.allUsers.removeAll()
     }
@@ -87,9 +88,9 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
      Tells the delegate that a remote user has left the channel.
 
      - Parameters:
-         - engine: The Agora RTC engine kit object.
-         - uid: The ID of the user who left the channel.
-         - reason: The reason why the user left the channel.
+        - engine: The Agora RTC engine kit object.
+        - uid: The ID of the user who left the channel.
+        - reason: The reason why the user left the channel.
 
      This method removes the remote user from the `allUsers` set.
      */
