@@ -8,6 +8,7 @@
 import Foundation
 
 struct AppKeys {
-    static let agoraKey: String = "613192ffbda44bc0a74a17e82c2eb330"
+    static let agoraKey: String = <#Agora App Key#>
     static let agoraToken: String? = nil
+    static let screenShareId: UInt = 10001
 }
