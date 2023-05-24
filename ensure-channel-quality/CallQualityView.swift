@@ -92,7 +92,7 @@ struct CallQualityView: View {
                 }
             }.padding(20)
         }.onAppear {
-            agoraManager.engine.joinChannel(byToken: AppKeys.agoraToken, channelId: channelId, info: nil, uid: 0)
+            agoraManager.joinChannel(channelId, token: AppKeys.agoraToken)
         }.onDisappear {
             agoraManager.leaveChannel()
         }

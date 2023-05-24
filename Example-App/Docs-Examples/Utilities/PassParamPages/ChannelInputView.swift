@@ -17,6 +17,7 @@ protocol ChannelOnlyNeeded: View {
 
 extension GettingStartedView: ChannelOnlyNeeded {}
 extension CallQualityView: ChannelOnlyNeeded {}
+extension ScreenShareAndVolumeView: ChannelOnlyNeeded {}
 
 /**
  A view that takes a user inputted `channelId` string and navigates to a view that conforms to the `ChannelOnlyNeeded` protocol.

@@ -27,7 +27,7 @@ struct ContentView: View {
                         ChannelInputView(continueTo: CallQualityView.self) // <- SwiftUI Example
                     }
                     NavigationLink("Screen share, volume control and mute") {
-                        EmptyView()
+                        ChannelInputView(continueTo: ScreenShareAndVolumeView.self)
                     }
                     NavigationLink("Audio and voice effects") {
                         EmptyView()
