@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var channelName: String = ""
-    @State var isShowingBasicInput = false
     var body: some View {
         NavigationStack {
             List {

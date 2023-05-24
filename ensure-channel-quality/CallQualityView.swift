@@ -27,21 +27,22 @@ public class CallQualityManager: AgoraManager {
         // The expected downlink bitrate (bps). The value range is [100000,5000000].
         config.expectedDownlinkBitrate = 100000
 
-        agoraEngine.startLastmileProbeTest(config)
+        engine.startLastmileProbeTest(config)
     }
 
     public func rtcEngine(_ engine: AgoraRtcEngineKit, lastmileProbeTest result: AgoraLastmileProbeResult) {
-        agoraEngine.stopLastmileProbeTest()
+        engine.stopLastmileProbeTest()
         // The result object contains the detailed test results that help you
         // manage call quality. For example, the downlink jitter"
         print("downlink jitter: \(result.downlinkReport.jitter)")
     }
 
     /**
-     Updates the call quality statistics for a remote user.
-
-     - Parameter engine: The Agora SDK engine.
-     - Parameter stats: The remote video statistics.
+     * Updates the call quality statistics for a remote user.
+     *;
+     * - Parameters:
+     *   - engine: The Agora SDK engine.
+     *   - stats: The remote video statistics.
      */
     public func rtcEngine(_ engine: AgoraRtcEngineKit, remoteVideoStats stats: AgoraRtcRemoteVideoStats) {
         self.callQualities[stats.uid] = """
@@ -53,14 +54,15 @@ public class CallQualityManager: AgoraManager {
     }
 
     /**
-     Updates the call quality statistics for the local user.
-
-     - Parameter engine: The Agora SDK engine.
-     - Parameter stats: The local video statistics.
-     - Parameter sourceType: The type of video source.
+     * Updates the call quality statistics for the local user.
+     *
+     * - Parameters:
+     *   - engine: The Agora SDK engine.
+     *   - stats: The local video statistics.
+     *   - sourceType: The type of video source.
      */
     public func rtcEngine(_ engine: AgoraRtcEngineKit, localVideoStats stats: AgoraRtcLocalVideoStats, sourceType: AgoraVideoSourceType) {
-        self.callQualities[0] = """
+        self.callQualities[self.localUserId] = """
         Captured Frame = \(stats.captureFrameWidth)x\(stats.captureFrameHeight), \(stats.captureFrameRate)fps
         Encoded Frame = \(stats.encodedFrameWidth)x\(stats.encodedFrameHeight), \(stats.encoderOutputFrameRate)fps
         Sent Data = \(stats.sentFrameRate)fps, bitrate: \(stats.sentBitrate)
@@ -82,7 +84,7 @@ struct CallQualityView: View {
         ScrollView {
             VStack {
                 ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                    AgoraVideoCanvasView(agoraEngine: agoraManager.agoraEngine, uid: uid)
+                    AgoraVideoCanvasView(manager: agoraManager, uid: uid)
                         .aspectRatio(contentMode: .fit).cornerRadius(10)
                         .overlay(alignment: .topLeading) {
                             Text(agoraManager.callQualities[uid] ?? "no data").padding()
@@ -90,7 +92,7 @@ struct CallQualityView: View {
                 }
             }.padding(20)
         }.onAppear {
-            agoraManager.agoraEngine.joinChannel(byToken: AppKeys.agoraToken, channelId: channelId, info: nil, uid: 0)
+            agoraManager.engine.joinChannel(byToken: AppKeys.agoraToken, channelId: channelId, info: nil, uid: 0)
         }.onDisappear {
             agoraManager.leaveChannel()
         }

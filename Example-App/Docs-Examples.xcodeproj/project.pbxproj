@@ -11,14 +11,14 @@
 		F310F63A29C8D02E006DB727 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F310F63929C8D02E006DB727 /* ContentView.swift */; };
 		F310F63C29C8D031006DB727 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F310F63B29C8D031006DB727 /* Assets.xcassets */; };
 		F310F63F29C8D031006DB727 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F310F63E29C8D031006DB727 /* Preview Assets.xcassets */; };
+		F3A88CCE2A1DE629000B2292 /* GettingStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CCC2A1DE629000B2292 /* GettingStartedView.swift */; };
+		F3A88CD42A1DE645000B2292 /* CallQualityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CD22A1DE645000B2292 /* CallQualityView.swift */; };
+		F3A88CD92A1DE663000B2292 /* TokenAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CD72A1DE663000B2292 /* TokenAuthenticationView.swift */; };
 		F3C571C229C8E50E0002B322 /* RtcBasic in Frameworks */ = {isa = PBXBuildFile; productRef = F3C571C129C8E50E0002B322 /* RtcBasic */; };
 		F3CA2CD329C9746F00561441 /* AppKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CA2CD229C9746F00561441 /* AppKeys.swift */; };
 		F3CA2CDB29C97AF400561441 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = F3CA2CDA29C97AF400561441 /* Documentation.docc */; };
 		F3CA2CE429CB00F400561441 /* AgoraVideoCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CA2CE329CB00F400561441 /* AgoraVideoCanvasView.swift */; };
 		F3D7BD4729DB30680014DEC0 /* AgoraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7BD4629DB30680014DEC0 /* AgoraManager.swift */; };
-		F3D7BD4929DB30B80014DEC0 /* GettingStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7BD4829DB30B80014DEC0 /* GettingStartedView.swift */; };
-		F3D7BD4B29DB31D70014DEC0 /* TokenAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7BD4A29DB31D70014DEC0 /* TokenAuthenticationView.swift */; };
-		F3D7BD4D29DB37430014DEC0 /* CallQualityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7BD4C29DB37430014DEC0 /* CallQualityView.swift */; };
 		F3D7BD4F29DB42D00014DEC0 /* ChannelInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7BD4E29DB42D00014DEC0 /* ChannelInputView.swift */; };
 		F3D7BD5129DB46BB0014DEC0 /* TokenAuthInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7BD5029DB46BB0014DEC0 /* TokenAuthInputView.swift */; };
 /* End PBXBuildFile section */
@@ -29,17 +29,17 @@
 		F310F63929C8D02E006DB727 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F310F63B29C8D031006DB727 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F310F63E29C8D031006DB727 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		F33A889929E83B6F0029499C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		F33A889A29E841DE0029499C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		F33A889B29E845AB0029499C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F372069829C8EE420029EEC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F3A88CCC2A1DE629000B2292 /* GettingStartedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GettingStartedView.swift; path = "../../../../get-started-sdk/GettingStartedView.swift"; sourceTree = "<group>"; };
+		F3A88CCD2A1DE629000B2292 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../get-started-sdk/README.md"; sourceTree = "<group>"; };
+		F3A88CD12A1DE645000B2292 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../ensure-channel-quality/README.md"; sourceTree = "<group>"; };
+		F3A88CD22A1DE645000B2292 /* CallQualityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CallQualityView.swift; path = "../../../../ensure-channel-quality/CallQualityView.swift"; sourceTree = "<group>"; };
+		F3A88CD62A1DE663000B2292 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../authentication-workflow/README.md"; sourceTree = "<group>"; };
+		F3A88CD72A1DE663000B2292 /* TokenAuthenticationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TokenAuthenticationView.swift; path = "../../../../authentication-workflow/TokenAuthenticationView.swift"; sourceTree = "<group>"; };
 		F3CA2CD229C9746F00561441 /* AppKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKeys.swift; sourceTree = "<group>"; };
 		F3CA2CDA29C97AF400561441 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
-		F3CA2CE329CB00F400561441 /* AgoraVideoCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgoraVideoCanvasView.swift; sourceTree = "<group>"; };
-		F3D7BD4629DB30680014DEC0 /* AgoraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgoraManager.swift; sourceTree = "<group>"; };
-		F3D7BD4829DB30B80014DEC0 /* GettingStartedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingStartedView.swift; sourceTree = "<group>"; };
-		F3D7BD4A29DB31D70014DEC0 /* TokenAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAuthenticationView.swift; sourceTree = "<group>"; };
-		F3D7BD4C29DB37430014DEC0 /* CallQualityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallQualityView.swift; sourceTree = "<group>"; };
+		F3CA2CE329CB00F400561441 /* AgoraVideoCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AgoraVideoCanvasView.swift; path = ../../../../AgoraManager/AgoraVideoCanvasView.swift; sourceTree = "<group>"; };
+		F3D7BD4629DB30680014DEC0 /* AgoraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AgoraManager.swift; path = ../../../../AgoraManager/AgoraManager.swift; sourceTree = "<group>"; };
 		F3D7BD4E29DB42D00014DEC0 /* ChannelInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelInputView.swift; sourceTree = "<group>"; };
 		F3D7BD5029DB46BB0014DEC0 /* TokenAuthInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAuthInputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,14 +75,11 @@
 		F310F63629C8D02E006DB727 /* Docs-Examples */ = {
 			isa = PBXGroup;
 			children = (
+				F310F63929C8D02E006DB727 /* ContentView.swift */,
+				F3A88CCA2A1DE5FE000B2292 /* app-stories */,
 				F372069829C8EE420029EEC8 /* Info.plist */,
 				F310F63729C8D02E006DB727 /* Docs_ExamplesApp.swift */,
 				F33A889729E839DE0029499C /* Utilities */,
-				F310F63929C8D02E006DB727 /* ContentView.swift */,
-				F3CA2CD929C9777900561441 /* get-started-sdk */,
-				F33A889829E83A0A0029499C /* authentication-workflow */,
-				F3CA2CD129C9745400561441 /* ensure-channel-quality */,
-				F3CA2CD229C9746F00561441 /* AppKeys.swift */,
 				F3CA2CDA29C97AF400561441 /* Documentation.docc */,
 				F310F63B29C8D031006DB727 /* Assets.xcassets */,
 				F310F63D29C8D031006DB727 /* Preview Content */,
@@ -101,17 +98,46 @@
 		F33A889729E839DE0029499C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				F3CA2CE229CB00C900561441 /* AgoraSwiftUIHelpers */,
+				F3CA2CD229C9746F00561441 /* AppKeys.swift */,
+				F3CA2CE229CB00C900561441 /* AgoraManager */,
 				F3CA2CCC29C96B1600561441 /* PassParamPages */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		F33A889829E83A0A0029499C /* authentication-workflow */ = {
+		F3A88CCA2A1DE5FE000B2292 /* app-stories */ = {
 			isa = PBXGroup;
 			children = (
-				F3D7BD4A29DB31D70014DEC0 /* TokenAuthenticationView.swift */,
-				F33A889B29E845AB0029499C /* README.md */,
+				F3A88CCB2A1DE618000B2292 /* get-started-sdk */,
+				F3A88CD52A1DE650000B2292 /* authentication-workflow */,
+				F3A88CD02A1DE634000B2292 /* ensure-channel-quality */,
+			);
+			path = "app-stories";
+			sourceTree = "<group>";
+		};
+		F3A88CCB2A1DE618000B2292 /* get-started-sdk */ = {
+			isa = PBXGroup;
+			children = (
+				F3A88CCC2A1DE629000B2292 /* GettingStartedView.swift */,
+				F3A88CCD2A1DE629000B2292 /* README.md */,
+			);
+			path = "get-started-sdk";
+			sourceTree = "<group>";
+		};
+		F3A88CD02A1DE634000B2292 /* ensure-channel-quality */ = {
+			isa = PBXGroup;
+			children = (
+				F3A88CD22A1DE645000B2292 /* CallQualityView.swift */,
+				F3A88CD12A1DE645000B2292 /* README.md */,
+			);
+			path = "ensure-channel-quality";
+			sourceTree = "<group>";
+		};
+		F3A88CD52A1DE650000B2292 /* authentication-workflow */ = {
+			isa = PBXGroup;
+			children = (
+				F3A88CD62A1DE663000B2292 /* README.md */,
+				F3A88CD72A1DE663000B2292 /* TokenAuthenticationView.swift */,
 			);
 			path = "authentication-workflow";
 			sourceTree = "<group>";
@@ -125,31 +151,13 @@
 			path = PassParamPages;
 			sourceTree = "<group>";
 		};
-		F3CA2CD129C9745400561441 /* ensure-channel-quality */ = {
+		F3CA2CE229CB00C900561441 /* AgoraManager */ = {
 			isa = PBXGroup;
 			children = (
-				F3D7BD4C29DB37430014DEC0 /* CallQualityView.swift */,
-				F33A889A29E841DE0029499C /* README.md */,
-			);
-			path = "ensure-channel-quality";
-			sourceTree = "<group>";
-		};
-		F3CA2CD929C9777900561441 /* get-started-sdk */ = {
-			isa = PBXGroup;
-			children = (
-				F3D7BD4829DB30B80014DEC0 /* GettingStartedView.swift */,
 				F3D7BD4629DB30680014DEC0 /* AgoraManager.swift */,
 				F3CA2CE329CB00F400561441 /* AgoraVideoCanvasView.swift */,
-				F33A889929E83B6F0029499C /* README.md */,
 			);
-			path = "get-started-sdk";
-			sourceTree = "<group>";
-		};
-		F3CA2CE229CB00C900561441 /* AgoraSwiftUIHelpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AgoraSwiftUIHelpers;
+			path = AgoraManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,15 +236,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3A88CD42A1DE645000B2292 /* CallQualityView.swift in Sources */,
+				F3A88CD92A1DE663000B2292 /* TokenAuthenticationView.swift in Sources */,
 				F3D7BD4F29DB42D00014DEC0 /* ChannelInputView.swift in Sources */,
 				F3D7BD5129DB46BB0014DEC0 /* TokenAuthInputView.swift in Sources */,
-				F3D7BD4B29DB31D70014DEC0 /* TokenAuthenticationView.swift in Sources */,
 				F310F63A29C8D02E006DB727 /* ContentView.swift in Sources */,
 				F3D7BD4729DB30680014DEC0 /* AgoraManager.swift in Sources */,
-				F3D7BD4929DB30B80014DEC0 /* GettingStartedView.swift in Sources */,
+				F3A88CCE2A1DE629000B2292 /* GettingStartedView.swift in Sources */,
 				F3CA2CDB29C97AF400561441 /* Documentation.docc in Sources */,
 				F3CA2CD329C9746F00561441 /* AppKeys.swift in Sources */,
-				F3D7BD4D29DB37430014DEC0 /* CallQualityView.swift in Sources */,
 				F310F63829C8D02E006DB727 /* Docs_ExamplesApp.swift in Sources */,
 				F3CA2CE429CB00F400561441 /* AgoraVideoCanvasView.swift in Sources */,
 			);

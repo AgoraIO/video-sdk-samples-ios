@@ -10,13 +10,13 @@ This page shows the minimum code you need to integrate high-quality, low-latency
 
 ### Agora Logic
 
-Most of the business logic for the Agora quickstart guide can be found in [AgoraManager](AgoraManager.swift). Here you will find code snippets for [initialising the engine](AgoraManager.swift#L23-L28), monitoring when someone [joins the channel](AgoraManager.swift#L84-L86) or [leaves the channel](AgoraManager.swift#L97-L99).
+Most of the business logic for the Agora quickstart guide can be found in [AgoraManager](../AgoraManager/AgoraManager.swift). Here you will find code snippets for [initialising the engine](../AgoraManager/AgoraManager.swift#L23-L28), monitoring when someone [joins the channel](../AgoraManager/AgoraManager.swift#L84-L86) or [leaves the channel](../AgoraManager/AgoraManager.swift#L97-L99).
 
 Joining and leaving the channel can be found in [GettingStartedView](GettingStartedView.swift), in the onAppear and onDisappear views.
 
 ### Creating a Canvas
 
-Creating a canvas for local or remote users in this project and example with Agora uses `AgoraRtcVideoCanvas`, and the SwiftUI class `UIViewRepresentable`. This can be found in [AgoraVideoCanvasView.swift](AgoraVideoCanvasView.swift).
+Creating a canvas for local or remote users in this project and example with Agora uses `AgoraRtcVideoCanvas`, and the SwiftUI class `UIViewRepresentable`. This can be found in [AgoraVideoCanvasView.swift](../AgoraManager/AgoraVideoCanvasView.swift).
 
 ## Full Documentation
 

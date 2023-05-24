@@ -8,6 +8,6 @@
 import Foundation
 
 struct AppKeys {
-    static let agoraKey: String = <#Agora App ID#>
-    static let agoraToken: String? = <#Agora Token#>
+    static let agoraKey: String = "613192ffbda44bc0a74a17e82c2eb330"
+    static let agoraToken: String? = nil
 }
