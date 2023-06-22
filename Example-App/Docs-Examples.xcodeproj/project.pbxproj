@@ -28,6 +28,10 @@
 		F3D7BD4729DB30680014DEC0 /* AgoraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7BD4629DB30680014DEC0 /* AgoraManager.swift */; };
 		F3D7BD4F29DB42D00014DEC0 /* ChannelInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7BD4E29DB42D00014DEC0 /* ChannelInputView.swift */; };
 		F3D7BD5129DB46BB0014DEC0 /* TokenAuthInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7BD5029DB46BB0014DEC0 /* TokenAuthInputView.swift */; };
+		F3E8E6F42A42E56E00E6B774 /* MediaEncryptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8E6F22A42E56E00E6B774 /* MediaEncryptionView.swift */; };
+		F3E8E6F92A42EAD100E6B774 /* CloudProxyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8E6F72A42EAD100E6B774 /* CloudProxyView.swift */; };
+		F3E8E6FB2A42F60500E6B774 /* ProxyInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8E6FA2A42F60500E6B774 /* ProxyInputView.swift */; };
+		F3E8E6FD2A43E8AD00E6B774 /* EncryptionKeysInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8E6FC2A43E8AD00E6B774 /* EncryptionKeysInputView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +86,12 @@
 		F3D7BD4629DB30680014DEC0 /* AgoraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AgoraManager.swift; path = ../../../../AgoraManager/AgoraManager.swift; sourceTree = "<group>"; };
 		F3D7BD4E29DB42D00014DEC0 /* ChannelInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelInputView.swift; sourceTree = "<group>"; };
 		F3D7BD5029DB46BB0014DEC0 /* TokenAuthInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAuthInputView.swift; sourceTree = "<group>"; };
+		F3E8E6F12A42E56E00E6B774 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../media-stream-encryption/README.md"; sourceTree = "<group>"; };
+		F3E8E6F22A42E56E00E6B774 /* MediaEncryptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaEncryptionView.swift; path = "../../../../media-stream-encryption/MediaEncryptionView.swift"; sourceTree = "<group>"; };
+		F3E8E6F62A42EAD100E6B774 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../cloud-proxy/README.md"; sourceTree = "<group>"; };
+		F3E8E6F72A42EAD100E6B774 /* CloudProxyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CloudProxyView.swift; path = "../../../../cloud-proxy/CloudProxyView.swift"; sourceTree = "<group>"; };
+		F3E8E6FA2A42F60500E6B774 /* ProxyInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProxyInputView.swift; sourceTree = "<group>"; };
+		F3E8E6FC2A43E8AD00E6B774 /* EncryptionKeysInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionKeysInputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,8 +172,10 @@
 			isa = PBXGroup;
 			children = (
 				F3A88CCB2A1DE618000B2292 /* get-started-sdk */,
-				F3A88CD52A1DE650000B2292 /* authentication-workflow */,
+				F3E8E6F52A42EABF00E6B774 /* cloud-proxy */,
+				F3E8E6F02A42E53F00E6B774 /* media-stream-encryption */,
 				F3A88CD02A1DE634000B2292 /* ensure-channel-quality */,
+				F3A88CD52A1DE650000B2292 /* authentication-workflow */,
 				F3A88CDF2A1DF27F000B2292 /* product-workflow */,
 				F3A88CDA2A1DEEE0000B2292 /* custom-video-and-audio */,
 			);
@@ -237,6 +249,8 @@
 			children = (
 				F3D7BD4E29DB42D00014DEC0 /* ChannelInputView.swift */,
 				F3D7BD5029DB46BB0014DEC0 /* TokenAuthInputView.swift */,
+				F3E8E6FC2A43E8AD00E6B774 /* EncryptionKeysInputView.swift */,
+				F3E8E6FA2A42F60500E6B774 /* ProxyInputView.swift */,
 			);
 			path = PassParamPages;
 			sourceTree = "<group>";
@@ -248,6 +262,24 @@
 				F3CA2CE329CB00F400561441 /* AgoraVideoCanvasView.swift */,
 			);
 			path = AgoraManager;
+			sourceTree = "<group>";
+		};
+		F3E8E6F02A42E53F00E6B774 /* media-stream-encryption */ = {
+			isa = PBXGroup;
+			children = (
+				F3E8E6F12A42E56E00E6B774 /* README.md */,
+				F3E8E6F22A42E56E00E6B774 /* MediaEncryptionView.swift */,
+			);
+			path = "media-stream-encryption";
+			sourceTree = "<group>";
+		};
+		F3E8E6F52A42EABF00E6B774 /* cloud-proxy */ = {
+			isa = PBXGroup;
+			children = (
+				F3E8E6F62A42EAD100E6B774 /* README.md */,
+				F3E8E6F72A42EAD100E6B774 /* CloudProxyView.swift */,
+			);
+			path = "cloud-proxy";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -363,12 +395,16 @@
 				F3A88CD92A1DE663000B2292 /* TokenAuthenticationView.swift in Sources */,
 				F3D7BD4F29DB42D00014DEC0 /* ChannelInputView.swift in Sources */,
 				F3D7BD5129DB46BB0014DEC0 /* TokenAuthInputView.swift in Sources */,
+				F3E8E6F42A42E56E00E6B774 /* MediaEncryptionView.swift in Sources */,
 				F310F63A29C8D02E006DB727 /* ContentView.swift in Sources */,
 				F3D7BD4729DB30680014DEC0 /* AgoraManager.swift in Sources */,
 				F3A88CCE2A1DE629000B2292 /* GettingStartedView.swift in Sources */,
 				F3CA2CDB29C97AF400561441 /* Documentation.docc in Sources */,
 				F3A88CFD2A1E17E0000B2292 /* RPSystemBroadcastPickerWrapper.swift in Sources */,
 				F3CA2CD329C9746F00561441 /* AppKeys.swift in Sources */,
+				F3E8E6FD2A43E8AD00E6B774 /* EncryptionKeysInputView.swift in Sources */,
+				F3E8E6F92A42EAD100E6B774 /* CloudProxyView.swift in Sources */,
+				F3E8E6FB2A42F60500E6B774 /* ProxyInputView.swift in Sources */,
 				F310F63829C8D02E006DB727 /* Docs_ExamplesApp.swift in Sources */,
 				F3A88CE22A1DF2F1000B2292 /* ScreenShareAndVolumeView.swift in Sources */,
 				F3CA2CE429CB00F400561441 /* AgoraVideoCanvasView.swift in Sources */,
