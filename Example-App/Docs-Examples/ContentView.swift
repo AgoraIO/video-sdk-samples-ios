@@ -15,9 +15,6 @@ struct ContentView: View {
                     NavigationLink("Basic Implementation") {
                         ChannelInputView(continueTo: GettingStartedView.self) // <- SwiftUI Example
                     }
-                    NavigationLink("UIKit Implementation") {
-                        EmptyView()
-                    }
                 }
                 Section("Develop") {
                     NavigationLink("Secure Authentication") {
@@ -29,10 +26,16 @@ struct ContentView: View {
                     NavigationLink("Screen share, volume control and mute") {
                         ChannelInputView(continueTo: ScreenShareAndVolumeView.self)
                     }
-                    NavigationLink("Audio and voice effects") {
-                        EmptyView()
+                    NavigationLink("Cloud Proxy") {
+                        ProxyInputView(continueTo: CloudProxyView.self)
+                    }
+                    NavigationLink("Stream Encryption") {
+                        EncryptionKeysInputView(continueTo: MediaEncryptionView.self)
                     }
                     NavigationLink("Custom video and audio sources") {
+                        EmptyView()
+                    }
+                    NavigationLink("Audio and voice effects") {
                         EmptyView()
                     }
                 }
