@@ -33,7 +33,7 @@ struct ContentView: View {
                         EncryptionKeysInputView(continueTo: MediaEncryptionView.self)
                     }
                     NavigationLink("Custom video and audio sources") {
-                        EmptyView()
+                        CustomCameraInputView(continueTo: CustomAudioVideoView.self)
                     }
                     NavigationLink("Audio and voice effects") {
                         EmptyView()

@@ -11,6 +11,10 @@
 		F310F63A29C8D02E006DB727 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F310F63929C8D02E006DB727 /* ContentView.swift */; };
 		F310F63C29C8D031006DB727 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F310F63B29C8D031006DB727 /* Assets.xcassets */; };
 		F310F63F29C8D031006DB727 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F310F63E29C8D031006DB727 /* Preview Assets.xcassets */; };
+		F344ED9A2A45942B00B3C313 /* AgoraCameraSourcePush.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344ED982A45942A00B3C313 /* AgoraCameraSourcePush.swift */; };
+		F344ED9B2A45942B00B3C313 /* CustomAudioVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344ED992A45942A00B3C313 /* CustomAudioVideoView.swift */; };
+		F344ED9E2A494CE700B3C313 /* CustomCameraInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344ED9D2A494CE700B3C313 /* CustomCameraInputView.swift */; };
+		F344EDA02A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344ED9F2A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift */; };
 		F3A88CCE2A1DE629000B2292 /* GettingStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CCC2A1DE629000B2292 /* GettingStartedView.swift */; };
 		F3A88CD42A1DE645000B2292 /* CallQualityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CD22A1DE645000B2292 /* CallQualityView.swift */; };
 		F3A88CD92A1DE663000B2292 /* TokenAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CD72A1DE663000B2292 /* TokenAuthenticationView.swift */; };
@@ -64,6 +68,11 @@
 		F310F63929C8D02E006DB727 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F310F63B29C8D031006DB727 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F310F63E29C8D031006DB727 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F344ED982A45942A00B3C313 /* AgoraCameraSourcePush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AgoraCameraSourcePush.swift; path = "../../../../custom-video-and-audio/AgoraCameraSourcePush.swift"; sourceTree = "<group>"; };
+		F344ED992A45942A00B3C313 /* CustomAudioVideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomAudioVideoView.swift; path = "../../../../custom-video-and-audio/CustomAudioVideoView.swift"; sourceTree = "<group>"; };
+		F344ED9C2A45943400B3C313 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../custom-video-and-audio/README.md"; sourceTree = "<group>"; };
+		F344ED9D2A494CE700B3C313 /* CustomCameraInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCameraInputView.swift; sourceTree = "<group>"; };
+		F344ED9F2A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AgoraCustomVideoCanvasView.swift; path = "../../../../custom-video-and-audio/AgoraCustomVideoCanvasView.swift"; sourceTree = "<group>"; };
 		F372069829C8EE420029EEC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F3A88CCC2A1DE629000B2292 /* GettingStartedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GettingStartedView.swift; path = "../../../../get-started-sdk/GettingStartedView.swift"; sourceTree = "<group>"; };
 		F3A88CCD2A1DE629000B2292 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../get-started-sdk/README.md"; sourceTree = "<group>"; };
@@ -212,6 +221,10 @@
 		F3A88CDA2A1DEEE0000B2292 /* custom-video-and-audio */ = {
 			isa = PBXGroup;
 			children = (
+				F344ED992A45942A00B3C313 /* CustomAudioVideoView.swift */,
+				F344ED982A45942A00B3C313 /* AgoraCameraSourcePush.swift */,
+				F344ED9F2A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift */,
+				F344ED9C2A45943400B3C313 /* README.md */,
 			);
 			path = "custom-video-and-audio";
 			sourceTree = "<group>";
@@ -250,6 +263,7 @@
 				F3D7BD4E29DB42D00014DEC0 /* ChannelInputView.swift */,
 				F3D7BD5029DB46BB0014DEC0 /* TokenAuthInputView.swift */,
 				F3E8E6FC2A43E8AD00E6B774 /* EncryptionKeysInputView.swift */,
+				F344ED9D2A494CE700B3C313 /* CustomCameraInputView.swift */,
 				F3E8E6FA2A42F60500E6B774 /* ProxyInputView.swift */,
 			);
 			path = PassParamPages;
@@ -396,8 +410,10 @@
 				F3D7BD4F29DB42D00014DEC0 /* ChannelInputView.swift in Sources */,
 				F3D7BD5129DB46BB0014DEC0 /* TokenAuthInputView.swift in Sources */,
 				F3E8E6F42A42E56E00E6B774 /* MediaEncryptionView.swift in Sources */,
+				F344ED9A2A45942B00B3C313 /* AgoraCameraSourcePush.swift in Sources */,
 				F310F63A29C8D02E006DB727 /* ContentView.swift in Sources */,
 				F3D7BD4729DB30680014DEC0 /* AgoraManager.swift in Sources */,
+				F344EDA02A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift in Sources */,
 				F3A88CCE2A1DE629000B2292 /* GettingStartedView.swift in Sources */,
 				F3CA2CDB29C97AF400561441 /* Documentation.docc in Sources */,
 				F3A88CFD2A1E17E0000B2292 /* RPSystemBroadcastPickerWrapper.swift in Sources */,
@@ -407,7 +423,9 @@
 				F3E8E6FB2A42F60500E6B774 /* ProxyInputView.swift in Sources */,
 				F310F63829C8D02E006DB727 /* Docs_ExamplesApp.swift in Sources */,
 				F3A88CE22A1DF2F1000B2292 /* ScreenShareAndVolumeView.swift in Sources */,
+				F344ED9E2A494CE700B3C313 /* CustomCameraInputView.swift in Sources */,
 				F3CA2CE429CB00F400561441 /* AgoraVideoCanvasView.swift in Sources */,
+				F344ED9B2A45942B00B3C313 /* CustomAudioVideoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
