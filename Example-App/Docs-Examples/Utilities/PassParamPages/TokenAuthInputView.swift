@@ -10,7 +10,7 @@ import SwiftUI
 /**
  A protocol for views that require a token server to fetch a token.
  */
-public protocol TokenServerNeeded: View {
+public protocol HasTokenServerInput: View {
     /// The channel ID to join.
     var channelId: String { get }
     /// The channel ID to join.
@@ -18,16 +18,16 @@ public protocol TokenServerNeeded: View {
     init(channelId: String, tokenUrl: String)
 }
 
-extension TokenAuthenticationView: TokenServerNeeded {}
+extension TokenAuthenticationView: HasTokenServerInput {}
 
 /**
  A view that allows the user to input a channel ID and a token URL, and then navigates to a view that requires authentication.
 
- The `TokenAuthInputView` takes a generic parameter `Content` that conforms to the `TokenServerNeeded` protocol. It shows two text fields for entering the channel ID and token URL, respectively, and a navigation link that navigates to `Content` when the "Join Channel" button is pressed. The navigation link is disabled if either field is empty.
+ The `TokenAuthInputView` takes a generic parameter `Content` that conforms to the `HasTokenServerInput` protocol. It shows two text fields for entering the channel ID and token URL, respectively, and a navigation link that navigates to `Content` when the "Join Channel" button is pressed. The navigation link is disabled if either field is empty.
 
  After `TokenAuthInputView` is dismissed, the navigation stack returns to the previous view.
  */
-public struct TokenAuthInputView<Content: TokenServerNeeded>: View {
+public struct TokenAuthInputView<Content: HasTokenServerInput>: View {
     /// The channel ID entered by the user.
     @State public var channelId: String = ""
     /// The token URL entered by the user.
@@ -36,15 +36,17 @@ public struct TokenAuthInputView<Content: TokenServerNeeded>: View {
     public var continueTo: Content.Type
     public var body: some View {
         VStack {
-            TextField("Enter channel id", text: $channelId).padding()
-            TextField("Enter token URL", text: $tokenUrl).keyboardType(.URL).padding()
+            TextField("Enter channel id", text: $channelId)
+                .textFieldStyle(.roundedBorder).padding([.horizontal, .top])
+            TextField("Enter token URL", text: $tokenUrl).keyboardType(.URL)
+                .textFieldStyle(.roundedBorder).padding([.horizontal, .bottom])
             NavigationLink(destination: continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces),
                 tokenUrl: tokenUrl.trimmingCharacters(in: .whitespaces)
             ), label: {
-                Text("Join Channel")
+                Text("Join Channel").foregroundColor(.accentColor)
             }).disabled(channelId.isEmpty || tokenUrl.isEmpty)
-            .padding()
+                .buttonStyle(.borderedProminent)
         }
     }
 }
