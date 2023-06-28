@@ -11,13 +11,13 @@ import AgoraRtcKit
 /**
  A protocol for views that require a proxy type for cloud proxy.
  */
-public protocol ProxyServerNeeded: View {
+public protocol HasProxyServerInput: View {
     /// The channel ID to join.
     var channelId: String { get }
     init(channelId: String, proxyType: AgoraCloudProxyType)
 }
 
-extension CloudProxyView: ProxyServerNeeded {}
+extension CloudProxyView: HasProxyServerInput {}
 
 /// ProxyType is an internal type just for representing the picker to select a proxy.
 enum ProxyType: String, CaseIterable, Identifiable {
@@ -37,9 +37,9 @@ enum ProxyType: String, CaseIterable, Identifiable {
 /**
  A view that allows the user to input a channel ID and a proxy selection, and then navigates to a view that accepts both of those parameters.
 
- The `ProxyInputView` takes a generic parameter `Content` that conforms to the `ProxyServerNeeded` protocol. It shows two input fields for entering the channel ID and type of proxy server, respectively, and a navigation link that navigates to `Content` when the "Join Channel" button is pressed. The navigation link is disabled if the channel name is empty.
+ The `ProxyInputView` takes a generic parameter `Content` that conforms to the `HasProxyServerInput` protocol. It shows two input fields for entering the channel ID and type of proxy server, respectively, and a navigation link that navigates to `Content` when the "Join Channel" button is pressed. The navigation link is disabled if the channel name is empty.
  */
-public struct ProxyInputView<Content: ProxyServerNeeded>: View {
+public struct ProxyInputView<Content: HasProxyServerInput>: View {
     /// The channel ID entered by the user.
     @State private var channelId: String = ""
     /// The token URL entered by the user.
@@ -49,19 +49,18 @@ public struct ProxyInputView<Content: ProxyServerNeeded>: View {
     public var body: some View {
         VStack {
             Spacer()
-            TextField("Enter channel id", text: $channelId).padding()
+            TextField("Enter channel id", text: $channelId)
+                .textFieldStyle(.roundedBorder).padding([.horizontal, .top])
             Picker("Choose Proxy Type", selection: $proxyType) {
-                ForEach(ProxyType.allCases) { option in
-                    Text(option.rawValue).tag(option)
-                }
+                ForEach(ProxyType.allCases) { Text($0.rawValue).tag($0) }
             }.pickerStyle(SegmentedPickerStyle()).padding()
             NavigationLink(destination: continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces),
                 proxyType: proxyType.agoraProxyType()
             ), label: {
-                Text("Join Channel")
+                Text("Join Channel").foregroundColor(.accentColor)
             }).disabled(channelId.isEmpty)
-            .padding()
+                .buttonStyle(.borderedProminent)
             Spacer()
             Text("Make sure you have enabled Cloud Proxy in Agora's Console")
                 .font(.callout).foregroundColor(.accentColor).multilineTextAlignment(.center)

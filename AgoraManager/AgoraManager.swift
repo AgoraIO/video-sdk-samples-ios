@@ -21,7 +21,7 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
         didSet { engine.setClientRole(role) }
     }
     /// Integer ID of the local user.
-    @Published public private(set) var localUserId: UInt = 0
+    @Published public var localUserId: UInt = 0
     /// The Agora RTC Engine Kit for the session.
     public var engine: AgoraRtcEngineKit {
         let eng = AgoraRtcEngineKit.sharedEngine(withAppId: appId, delegate: self)

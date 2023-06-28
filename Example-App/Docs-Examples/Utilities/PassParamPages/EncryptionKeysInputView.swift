@@ -11,18 +11,20 @@ import AgoraRtcKit
 /**
  A protocol for views that require an encryption key, salt and mode.
  */
-public protocol EncryptionKeysNeeded: View {
+public protocol HasEncryptionInput: View {
+    /// The channel ID to join.
+    var channelId: String { get }
     init(channelId: String, encryptionKey: String, encryptionSalt: String, encryptionMode: AgoraEncryptionMode)
 }
 
-extension MediaEncryptionView: EncryptionKeysNeeded {}
+extension MediaEncryptionView: HasEncryptionInput {}
 
 /**
  A view that allows the user to input a channel ID encyprtion key, salt and encryption mode. It then navigates to a view that accepts these inputs and connects to a channel with the appropriate encryption enabled.
 
- The `EncryptionKeysInputView` takes a generic parameter `Content` that conforms to the `EncryptionKeysNeeded` protocol.
+ The `EncryptionKeysInputView` takes a generic parameter `Content` that conforms to the `HasEncryptionInput` protocol.
  */
-public struct EncryptionKeysInputView<Content: EncryptionKeysNeeded>: View {
+public struct EncryptionKeysInputView<Content: HasEncryptionInput>: View {
     /// The channel ID entered by the user.
     @State private var channelId: String = ""
     /// A 32-byte string for encryption.
@@ -36,23 +38,26 @@ public struct EncryptionKeysInputView<Content: EncryptionKeysNeeded>: View {
     public var continueTo: Content.Type
     public var body: some View {
         VStack {
-            TextField("Enter channel id", text: $channelId).padding()
-            TextField("Enter Encryption Key", text: $encryptionKey).autocorrectionDisabled().padding()
-            TextField("Enter Encryption Salt", text: $encryptionSalt).autocorrectionDisabled().padding()
+            TextField("Enter channel id", text: $channelId)
+                .textFieldStyle(.roundedBorder).padding([.horizontal, .top])
+            TextField("Enter Encryption Key", text: $encryptionKey).autocorrectionDisabled()
+                .textFieldStyle(.roundedBorder).padding([.horizontal])
+            TextField("Enter Encryption Salt", text: $encryptionSalt).autocorrectionDisabled()
+                .textFieldStyle(.roundedBorder).padding([.horizontal])
             Picker("Choose Encryption Type", selection: $encryptionType) {
                 ForEach(AgoraEncryptionMode.allCases) { option in
                     Text(option.description).tag(option)
                 }
-            }.pickerStyle(MenuPickerStyle()).padding()
+            }.pickerStyle(MenuPickerStyle()).textFieldStyle(.roundedBorder).padding()
             NavigationLink(destination: continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces),
                 encryptionKey: encryptionKey.trimmingCharacters(in: .whitespaces),
                 encryptionSalt: encryptionSalt.trimmingCharacters(in: .whitespaces),
                 encryptionMode: self.encryptionType
             ), label: {
-                Text("Join Channel")
+                Text("Join Channel").foregroundColor(.accentColor)
             }).disabled(channelId.isEmpty || encryptionKey.isEmpty || encryptionSalt.isEmpty)
-            .padding()
+                .buttonStyle(.borderedProminent)
         }
     }
 }

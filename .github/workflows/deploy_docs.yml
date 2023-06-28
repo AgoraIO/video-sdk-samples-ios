@@ -28,7 +28,7 @@ jobs:
       - name: Build All DocC 🛠
         run: |
           cd Example-App
-          xcodebuild docbuild -scheme Docs-Examples -derivedDataPath /tmp/docbuild -destination 'generic/platform=iOS';
+          xcodebuild docbuild -scheme Docs-Examples -derivedDataPath /tmp/docbuild -destination 'generic/platform=iOS' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO;
           cd ../
           $(xcrun --find docc) process-archive \
             transform-for-static-hosting /tmp/docbuild/Build/Products/Debug-iphoneos/Docs-Examples.doccarchive \
