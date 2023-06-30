@@ -26,13 +26,13 @@ extension MediaEncryptionView: HasEncryptionInput {}
  */
 public struct EncryptionKeysInputView<Content: HasEncryptionInput>: View {
     /// The channel ID entered by the user.
-    @State private var channelId: String = ""
+    @State private var channelId: String = DocsAppConfig.shared.channel
     /// A 32-byte string for encryption.
-    @State private var encryptionKey: String = ""
+    @State private var encryptionKey: String = DocsAppConfig.shared.cipherKey
     /// A 32-byte string in Base64 format for encryption.
-    @State private var encryptionSalt: String = ""
+    @State private var encryptionSalt: String = DocsAppConfig.shared.salt
     /// Type of encryption to enable
-    @State private var encryptionType: AgoraEncryptionMode = .AES128GCM2
+    @State private var encryptionType: AgoraEncryptionMode = .init(rawValue: DocsAppConfig.shared.encryptionMode) ?? .AES128GCM2
 
     /// The type of view to navigate to after the user inputs the channel ID and token URL.
     public var continueTo: Content.Type
@@ -49,15 +49,16 @@ public struct EncryptionKeysInputView<Content: HasEncryptionInput>: View {
                     Text(option.description).tag(option)
                 }
             }.pickerStyle(MenuPickerStyle()).textFieldStyle(.roundedBorder).padding()
-            NavigationLink(destination: continueTo.init(
-                channelId: channelId.trimmingCharacters(in: .whitespaces),
-                encryptionKey: encryptionKey.trimmingCharacters(in: .whitespaces),
-                encryptionSalt: encryptionSalt.trimmingCharacters(in: .whitespaces),
-                encryptionMode: self.encryptionType
-            ), label: {
-                Text("Join Channel").foregroundColor(.accentColor)
-            }).disabled(channelId.isEmpty || encryptionKey.isEmpty || encryptionSalt.isEmpty)
-                .buttonStyle(.borderedProminent)
+            NavigationLink {
+                continueTo.init(
+                    channelId: channelId.trimmingCharacters(in: .whitespaces),
+                    encryptionKey: encryptionKey.trimmingCharacters(in: .whitespaces),
+                    encryptionSalt: encryptionSalt.trimmingCharacters(in: .whitespaces),
+                    encryptionMode: self.encryptionType
+                )
+            } label: {
+                Text("Join Channel")
+            }.buttonStyle(.borderedProminent).disabled(channelId.isEmpty || encryptionKey.isEmpty || encryptionSalt.isEmpty)
         }
     }
 }

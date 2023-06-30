@@ -18,7 +18,7 @@ struct ScreenShareAndVolumeView: View {
     @State var volumeSetting: [UInt: Double] = [:]
 
     /// The Agora SDK manager for call quality.
-    @ObservedObject var agoraManager = AgoraManager(appId: AppKeys.agoraKey, role: .broadcaster)
+    @ObservedObject var agoraManager = AgoraManager(appId: DocsAppConfig.shared.appId, role: .broadcaster)
     /// The channel ID to join.
     let channelId: String
 
@@ -38,7 +38,7 @@ struct ScreenShareAndVolumeView: View {
                     }
                 }.padding(20)
             }.onAppear {
-                agoraManager.joinChannel(channelId, token: AppKeys.agoraToken)
+                agoraManager.joinChannel(channelId, token: DocsAppConfig.shared.rtcToken)
 
                 // suiteName is the App Group assigned to the main app and the broadcast extension.
                 // This sets the channel name so the broadcast extension can join the same channel.

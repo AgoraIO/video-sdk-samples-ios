@@ -12,7 +12,7 @@ class SampleHandler: RPBroadcastSampleHandler, AgoraRtcEngineDelegate {
     /// Engine instance required for sharing the screen.
     var engine: AgoraRtcEngineKit {
         let config = AgoraRtcEngineConfig()
-        config.appId = AppKeys.agoraKey
+        config.appId = DocsAppConfig.shared.appId
         config.channelProfile = .liveBroadcasting
         let agoraEngine = AgoraRtcEngineKit.sharedEngine(with: config, delegate: self)
         agoraEngine.enableVideo()
@@ -58,7 +58,8 @@ class SampleHandler: RPBroadcastSampleHandler, AgoraRtcEngineDelegate {
         channelMediaOptions.clientRoleType = .broadcaster
 
         engine.joinChannel(
-            byToken: AppKeys.agoraToken, channelId: channel, uid: AppKeys.screenShareId,
+            byToken: DocsAppConfig.shared.rtcToken, channelId: channel,
+            uid: DocsAppConfig.shared.screenShareId,
             mediaOptions: channelMediaOptions
         )
     }

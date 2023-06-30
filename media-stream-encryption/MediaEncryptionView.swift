@@ -9,24 +9,7 @@ import SwiftUI
 import AgoraRtcKit
 
 
-class MediaEncryptionManager: AgoraManager {
-    /// Create a new AgoraManager for media encryption, passing the key, salt and encryption mode.
-    /// - Parameters:
-    ///   - appId: App ID for connecting to Agora.
-    ///   - role: Role for the local user
-    ///   - encryptionKey: A 32-byte string for encryption.
-    ///   - encryptionSalt: A 32-byte string in Base64 format for encryption.
-    ///   - encryptionMode: Mode of encryption for Agora's encryption settings.
-    init(
-        appId: String, role: AgoraClientRole = .audience,
-        encryptionKey: String, encryptionSalt: String, encryptionMode: AgoraEncryptionMode
-    ) {
-        super.init(appId: appId, role: role)
-        self.enableEncryption(
-            key: encryptionKey, salt: encryptionSalt, mode: encryptionMode
-        )
-    }
-
+fileprivate extension AgoraManager {
     // In a production environment, you retrieve the key and salt from
     // an authentication server. For this code example you generate locally.
 
@@ -39,7 +22,7 @@ class MediaEncryptionManager: AgoraManager {
         // Convert the salt string in the Base64 format into bytes
         let encryptedSalt = Data(
             base64Encoded: salt, options: .ignoreUnknownCharacters
-        )!
+        )
 
         // An object to specify encryption configuration.
         let config = AgoraEncryptionConfig()
@@ -64,21 +47,11 @@ class MediaEncryptionManager: AgoraManager {
  */
 struct MediaEncryptionView: View {
     /// The Agora SDK manager.
-    @ObservedObject var agoraManager: MediaEncryptionManager
+    @ObservedObject var agoraManager = AgoraManager(
+        appId: DocsAppConfig.shared.appId, role: .broadcaster
+    )
     /// The channel ID to join.
     public let channelId: String
-
-    /**
-     * Initializes a new `MediaEncryptionView`.
-     *
-     * - Parameter channelId: The channel ID to join.
-     */
-    public init(channelId: String, encryptionKey: String, encryptionSalt: String, encryptionMode: AgoraEncryptionMode) {
-        self.channelId = channelId
-        agoraManager = MediaEncryptionManager(
-            appId: AppKeys.agoraKey, role: .broadcaster, encryptionKey: encryptionKey, encryptionSalt: encryptionSalt, encryptionMode: encryptionMode
-        )
-    }
 
     var body: some View {
         ScrollView {
@@ -88,8 +61,32 @@ struct MediaEncryptionView: View {
                         .aspectRatio(contentMode: .fit).cornerRadius(10)
                 }
             }.padding(20)
-        }.onAppear { agoraManager.joinChannel(self.channelId)
+        }.onAppear {
+            agoraManager.enableEncryption(
+                key: self.encryptionKey, salt: self.encryptionSalt,
+                mode: self.encryptionMode
+            )
+            agoraManager.joinChannel(self.channelId)
         }.onDisappear { agoraManager.leaveChannel() }
+    }
+    let encryptionKey: String
+    let encryptionSalt: String
+    let encryptionMode: AgoraEncryptionMode
+
+    /**
+     * Initializes a new `MediaEncryptionView`.
+     *
+     * - Parameters:
+     *   - channelId: The channel ID to join.
+     *   - encryptionKey: A 32-byte string for encryption.
+     *   - encryptionSalt: A 32-byte string in Base64 format for encryption.
+     *   - encryptionMode: Mode of encryption for Agora's encryption settings.
+     */
+    public init(channelId: String, encryptionKey: String, encryptionSalt: String, encryptionMode: AgoraEncryptionMode) {
+        self.channelId = channelId
+        self.encryptionKey = encryptionKey
+        self.encryptionSalt = encryptionSalt
+        self.encryptionMode = encryptionMode
     }
 }
 

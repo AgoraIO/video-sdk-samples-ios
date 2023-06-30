@@ -48,14 +48,6 @@ public struct TokenResponse: Codable {
  * A view that authenticates the user with a token and joins them to a channel using Agora SDK.
  */
 struct TokenAuthenticationView: View {
-    /// The Agora SDK manager.
-    @ObservedObject var agoraManager = AgoraManager(appId: AppKeys.agoraKey, role: .broadcaster)
-    /// The channel ID to join.
-    public let channelId: String
-    /// The URL of the token server.
-    public let tokenUrl: String
-    /// A flag indicating whether the token has been successfully fetched.
-    @State public var tokenPassed: Bool?
 
     /**
      * Fetch a token from the token server, and then join the channel using Agora SDK
@@ -73,6 +65,16 @@ struct TokenAuthenticationView: View {
             return false
         }
     }
+
+    /// The Agora SDK manager.
+    @ObservedObject var agoraManager = AgoraManager(appId: DocsAppConfig.shared.appId, role: .broadcaster)
+    /// The channel ID to join.
+    public let channelId: String
+    /// The URL of the token server.
+    public let tokenUrl: String
+    /// A flag indicating whether the token has been successfully fetched.
+    @State public var tokenPassed: Bool?
+
     /**
      * Initializes a new `TokenAuthenticationView`.
      *

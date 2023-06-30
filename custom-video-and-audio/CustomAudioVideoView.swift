@@ -104,10 +104,8 @@ struct CustomAudioVideoView: View {
                 }
             }.padding(20)
         }.onAppear {
-            // Join the channel when the view appears
-            agoraManager.joinChannel(channelId, token: AppKeys.agoraToken)
+            agoraManager.joinChannel(channelId, token: DocsAppConfig.shared.rtcToken)
         }.onDisappear {
-            // Leave the channel when the view disappears
             agoraManager.leaveChannel()
         }
     }
@@ -119,6 +117,6 @@ struct CustomAudioVideoView: View {
     ///   - customCamera: The AVCaptureDevice to be used for custom camera capture.
     init(channelId: String, customCamera: AVCaptureDevice?) {
         self.channelId = channelId
-        self.agoraManager = CustomAudioVideoManager(appId: AppKeys.agoraKey, role: .broadcaster, captureDevice: customCamera)
+        self.agoraManager = CustomAudioVideoManager(appId: DocsAppConfig.shared.appId, role: .broadcaster, captureDevice: customCamera)
     }
 }

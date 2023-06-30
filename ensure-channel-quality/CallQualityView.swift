@@ -76,7 +76,9 @@ public class CallQualityManager: AgoraManager {
  */
 struct CallQualityView: View {
     /// The Agora SDK manager for call quality.
-    @ObservedObject var agoraManager = CallQualityManager(appId: AppKeys.agoraKey, role: .broadcaster)
+    @ObservedObject var agoraManager = CallQualityManager(
+        appId: DocsAppConfig.shared.appId, role: .broadcaster
+    )
     /// The channel ID to join.
     let channelId: String
 
@@ -92,7 +94,7 @@ struct CallQualityView: View {
                 }
             }.padding(20)
         }.onAppear {
-            agoraManager.joinChannel(channelId, token: AppKeys.agoraToken)
+            agoraManager.joinChannel(channelId, token: DocsAppConfig.shared.rtcToken)
         }.onDisappear {
             agoraManager.leaveChannel()
         }

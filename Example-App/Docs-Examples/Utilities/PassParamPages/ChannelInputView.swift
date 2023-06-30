@@ -26,7 +26,7 @@ extension ScreenShareAndVolumeView: HasChannelInput {}
  */
 struct ChannelInputView<Content: HasChannelInput>: View {
     /// The user inputted `channelId` string.
-    @State var channelId: String = ""
+    @State var channelId: String = DocsAppConfig.shared.channel
     /// The type of view to navigate to.
     var continueTo: Content.Type
 
@@ -36,7 +36,7 @@ struct ChannelInputView<Content: HasChannelInput>: View {
             NavigationLink(destination: continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces)
             ), label: {
-                Text("Join Channel").foregroundColor(.accentColor)
+                Text("Join Channel")
             }).disabled(channelId.isEmpty)
                 .buttonStyle(.borderedProminent)
         }

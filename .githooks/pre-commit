@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -eo pipefail
+
+# Get the path of the JSON file
+JSON_FILE_PATH="./AgoraManager/config.json"
+
+# Read the JSON file contents
+JSON_CONTENTS=$(cat "${JSON_FILE_PATH}")
+
+# Extract the value of the "appId" key from the JSON
+APP_ID_VALUE=$(echo "${JSON_CONTENTS}" | jq -r '.appId')
+
+# Check if the "appId" value is not zero
+if [ -n "${APP_ID_VALUE}" ]; then
+    echo "Error: The 'appId' value in the JSON file must be an empty string."
+    exit 1
+fi
+
+# Exit with a success status
+exit 0

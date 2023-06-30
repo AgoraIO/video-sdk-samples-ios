@@ -41,9 +41,11 @@ enum ProxyType: String, CaseIterable, Identifiable {
  */
 public struct ProxyInputView<Content: HasProxyServerInput>: View {
     /// The channel ID entered by the user.
-    @State private var channelId: String = ""
-    /// The token URL entered by the user.
-    @State private var proxyType: ProxyType = .none
+    @State private var channelId: String = DocsAppConfig.shared.channel
+    /// The proxy type chosen by the user.
+    @State private var proxyType: ProxyType = .init(
+        rawValue: DocsAppConfig.shared.proxyUrl
+    ) ?? .none
     /// The type of view to navigate to after the user inputs the channel ID and token URL.
     public var continueTo: Content.Type
     public var body: some View {
@@ -58,7 +60,7 @@ public struct ProxyInputView<Content: HasProxyServerInput>: View {
                 channelId: channelId.trimmingCharacters(in: .whitespaces),
                 proxyType: proxyType.agoraProxyType()
             ), label: {
-                Text("Join Channel").foregroundColor(.accentColor)
+                Text("Join Channel")
             }).disabled(channelId.isEmpty)
                 .buttonStyle(.borderedProminent)
             Spacer()

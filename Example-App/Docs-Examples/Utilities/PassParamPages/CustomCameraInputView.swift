@@ -27,7 +27,7 @@ extension CustomAudioVideoView: HasCustomVideoInput {}
  */
 public struct CustomCameraInputView<Content: HasCustomVideoInput>: View {
     /// The channel ID entered by the user.
-    @State private var channelId: String = ""
+    @State private var channelId: String = DocsAppConfig.shared.channel
     var availableCams = AVCaptureDevice.DiscoverySession(
         deviceTypes: [.builtInWideAngleCamera, .builtInUltraWideCamera, .builtInTelephotoCamera], mediaType: .video, position: .back
     ).devices
@@ -52,7 +52,7 @@ public struct CustomCameraInputView<Content: HasCustomVideoInput>: View {
                 channelId: channelId.trimmingCharacters(in: .whitespaces),
                 customCamera: availableCams.count > selectedCamera ? availableCams[selectedCamera] : nil
             ), label: {
-                Text("Join Channel").foregroundColor(.accentColor)
+                Text("Join Channel")
             }).disabled(channelId.isEmpty)
                 .buttonStyle(.borderedProminent)
         }

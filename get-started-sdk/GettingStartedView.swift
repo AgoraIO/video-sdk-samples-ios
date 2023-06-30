@@ -12,7 +12,7 @@ import AgoraRtcKit
  A view that displays the video feeds of all participants in a channel.
  */
 public struct GettingStartedView: View {
-    @ObservedObject public var agoraManager = AgoraManager(appId: AppKeys.agoraKey, role: .broadcaster)
+    @ObservedObject public var agoraManager = AgoraManager(appId: DocsAppConfig.shared.appId, role: .broadcaster)
     /// The channel ID to join.
     public let channelId: String
 
@@ -27,7 +27,7 @@ public struct GettingStartedView: View {
                 }
             }.padding(20)
         }.onAppear {
-            agoraManager.engine.joinChannel(byToken: AppKeys.agoraToken, channelId: channelId, info: nil, uid: 0)
+            agoraManager.engine.joinChannel(byToken: DocsAppConfig.shared.rtcToken, channelId: channelId, info: nil, uid: DocsAppConfig.shared.uid)
         }.onDisappear {
             agoraManager.leaveChannel()
         }

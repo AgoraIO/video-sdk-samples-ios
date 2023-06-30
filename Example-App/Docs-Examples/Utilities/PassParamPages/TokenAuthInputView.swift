@@ -29,9 +29,9 @@ extension TokenAuthenticationView: HasTokenServerInput {}
  */
 public struct TokenAuthInputView<Content: HasTokenServerInput>: View {
     /// The channel ID entered by the user.
-    @State public var channelId: String = ""
+    @State var channelId: String = DocsAppConfig.shared.channel
     /// The token URL entered by the user.
-    @State public var tokenUrl: String = ""
+    @State public var tokenUrl: String = DocsAppConfig.shared.tokenUrl
     /// The type of view to navigate to after the user inputs the channel ID and token URL.
     public var continueTo: Content.Type
     public var body: some View {
@@ -44,7 +44,7 @@ public struct TokenAuthInputView<Content: HasTokenServerInput>: View {
                 channelId: channelId.trimmingCharacters(in: .whitespaces),
                 tokenUrl: tokenUrl.trimmingCharacters(in: .whitespaces)
             ), label: {
-                Text("Join Channel").foregroundColor(.accentColor)
+                Text("Join Channel")
             }).disabled(channelId.isEmpty || tokenUrl.isEmpty)
                 .buttonStyle(.borderedProminent)
         }

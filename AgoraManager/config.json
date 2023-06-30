@@ -1,0 +1,14 @@
+{
+    "uid": 0,
+    "channel": "test",
+    "appId": "",
+    "rtcToken": "",
+    "tokenUrl": "",
+    "signalingToken": "",
+    "encryptionMode": 7,
+    "salt": "",
+    "cipherKey": "",
+    "proxyUrl": "",
+    "proxyType": "none",
+    "screenShareId": 10001
+}

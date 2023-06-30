@@ -28,24 +28,6 @@ class CloudProxyManager: AgoraManager {
     }
 }
 
-extension AgoraProxyType {
-    var humanReadableString: String {
-        switch self {
-        case .localProxyType:
-            return "Local Proxy Connected"
-        case .tcpProxyType:
-            return "TCP Proxy Connected"
-        case .udpProxyType:
-            return "UDP Proxy Connected"
-        case .tcpProxyAutoFallbackType:
-            return "TCP Fallback Proxy Connected"
-        case .noneProxyType:
-            return "No Proxy Connected"
-        @unknown default:
-            return "Unknown Proxy State"
-        }
-    }
-}
 /**
  * A view that authenticates the user with a token and joins them to a channel using Agora SDK.
  */
@@ -65,8 +47,8 @@ struct CloudProxyView: View {
     public init(channelId: String, proxyType: AgoraCloudProxyType) {
         self.channelId = channelId
         self.agoraManager = CloudProxyManager(
-            appId: AppKeys.agoraKey, role: .broadcaster,
-            proxyType: proxyType
+            appId: DocsAppConfig.shared.appId,
+            role: .broadcaster, proxyType: proxyType
         )
     }
 
@@ -96,5 +78,24 @@ struct CloudProxyView: View {
 struct CloudProxyView_Previews: PreviewProvider {
     static var previews: some View {
         CloudProxyView(channelId: "test", proxyType: .noneProxy)
+    }
+}
+
+extension AgoraProxyType {
+    var humanReadableString: String {
+        switch self {
+        case .localProxyType:
+            return "Local Proxy Connected"
+        case .tcpProxyType:
+            return "TCP Proxy Connected"
+        case .udpProxyType:
+            return "UDP Proxy Connected"
+        case .tcpProxyAutoFallbackType:
+            return "TCP Fallback Proxy Connected"
+        case .noneProxyType:
+            return "No Proxy Connected"
+        @unknown default:
+            return "Unknown Proxy State"
+        }
     }
 }
