@@ -19,11 +19,11 @@ extension GettingStartedView: HasChannelInput {}
 extension CallQualityView: HasChannelInput {}
 extension ScreenShareAndVolumeView: HasChannelInput {}
 
-/**
- A view that takes a user inputted `channelId` string and navigates to a view that conforms to the `HasChannelInput` protocol.
-
- The generic parameter `Content` specifies the type of view to navigate to, and must conform to the `HasChannelInput` protocol.
- */
+/// A view that takes a user inputted `channelId` string and navigates to a view
+/// which conforms to the `HasChannelInput` protocol.
+///
+/// The generic parameter `Content` specifies the type of view to navigate to,
+/// and must conform to the `HasChannelInput` protocol.
 struct ChannelInputView<Content: HasChannelInput>: View {
     /// The user inputted `channelId` string.
     @State var channelId: String = DocsAppConfig.shared.channel

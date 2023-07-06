@@ -27,7 +27,7 @@ public class CallQualityManager: AgoraManager {
         // The expected downlink bitrate (bps). The value range is [100000,5000000].
         config.expectedDownlinkBitrate = 100000
 
-        engine.startLastmileProbeTest(config)
+        agoraEngine.startLastmileProbeTest(config)
     }
 
     public func rtcEngine(_ engine: AgoraRtcEngineKit, lastmileProbeTest result: AgoraLastmileProbeResult) {
@@ -61,7 +61,10 @@ public class CallQualityManager: AgoraManager {
      *   - stats: The local video statistics.
      *   - sourceType: The type of video source.
      */
-    public func rtcEngine(_ engine: AgoraRtcEngineKit, localVideoStats stats: AgoraRtcLocalVideoStats, sourceType: AgoraVideoSourceType) {
+    public func rtcEngine(
+        _ engine: AgoraRtcEngineKit, localVideoStats stats: AgoraRtcLocalVideoStats,
+        sourceType: AgoraVideoSourceType
+    ) {
         self.callQualities[self.localUserId] = """
         Captured Frame = \(stats.captureFrameWidth)x\(stats.captureFrameHeight), \(stats.captureFrameRate)fps
         Encoded Frame = \(stats.encodedFrameWidth)x\(stats.encodedFrameHeight), \(stats.encoderOutputFrameRate)fps
@@ -94,7 +97,7 @@ struct CallQualityView: View {
                 }
             }.padding(20)
         }.onAppear {
-            agoraManager.joinChannel(channelId, token: DocsAppConfig.shared.rtcToken)
+            await agoraManager.joinChannel(channelId)
         }.onDisappear {
             agoraManager.leaveChannel()
         }

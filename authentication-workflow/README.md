@@ -10,11 +10,11 @@ This page shows you how to quickly set up an authentication token server, retrie
 
 With your token server set up using the example found [here](https://github.com/AgoraIO-Community/agora-token-service), you'll need to take note of your token server to pass into a network request.
 
-There's a network request in swift written out in [TokenAuthenitcationView](TokenAuthenitcationView.swift#L24), in a function that returns the token as a String.
+There's a network request in swift written out in [TokenAuthenitcationView](TokenAuthenitcationView.swift#L25), in a function that returns the token as a String.
 
 ### Agora Logic
 
-Once you have your token, join the channel using the Agora SDK, passing the token, as can be seen [here](TokenAuthenitcationView.swift#L91).
+Once you have your token, join the channel using the Agora SDK, passing the token, as can be seen [here](TokenAuthenitcationView.swift#L100).
 
 ## Full Documentation
 

@@ -11,10 +11,12 @@ import ReplayKit
 struct RPSystemBroadcastPickerWrapper: UIViewRepresentable {
 
     var preferredExtension: String?
+    var showsMicrophone: Bool = false
 
     func makeUIView(context: Context) -> RPSystemBroadcastPickerView {
         let broadcastPicker = RPSystemBroadcastPickerView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-        broadcastPicker.preferredExtension = preferredExtension
+        broadcastPicker.preferredExtension = self.preferredExtension
+        broadcastPicker.showsMicrophoneButton = self.showsMicrophone
         return broadcastPicker
     }
 

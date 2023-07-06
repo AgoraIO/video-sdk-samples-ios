@@ -26,7 +26,7 @@ class CustomAudioVideoManager: AgoraManager, AgoraCameraSourcePushDelegate {
         videoFrame.rotation = Int32(rotation)
 
         // Push the video frame to the Agora SDK
-        let framePushed = self.engine.pushExternalVideoFrame(videoFrame)
+        let framePushed = self.agoraEngine.pushExternalVideoFrame(videoFrame)
         if !framePushed {
             print("Frame could not be pushed.")
         }
@@ -51,7 +51,7 @@ class CustomAudioVideoManager: AgoraManager, AgoraCameraSourcePushDelegate {
         self.captureDevice = captureDevice
         super.init(appId: appId, role: role)
         if captureDevice != nil {
-            self.engine.setExternalVideoSource(
+            self.agoraEngine.setExternalVideoSource(
                 true, useTexture: true, sourceType: .videoFrame
             )
             self.pushSource = AgoraCameraSourcePush(delegate: self)
@@ -67,15 +67,19 @@ class CustomAudioVideoManager: AgoraManager, AgoraCameraSourcePushDelegate {
     ///   - info: Additional information (optional).
     /// - Returns: The join channel result.
     @discardableResult
-    override func joinChannel(_ channel: String, token: String? = nil, uid: UInt = 0, info: String? = nil) -> Int32 {
-        let jc = super.joinChannel(channel, token: token, uid: uid, info: info)
+    override func joinChannel(
+        _ channel: String, token: String? = nil, uid: UInt = 0, info: String? = nil
+    ) -> Int32 {
+        let joinErrCode = super.joinChannel(channel, token: token, uid: uid, info: info)
         if let captureDevice {
             pushSource?.startCapture(ofDevice: captureDevice)
         }
-        return jc
+        return joinErrCode
     }
 
-    override func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int) {
+    override func rtcEngine(
+        _ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int
+    ) {
         self.localUserId = uid
         if captureDevice == nil {
             self.allUsers.insert(uid)
@@ -104,7 +108,7 @@ struct CustomAudioVideoView: View {
                 }
             }.padding(20)
         }.onAppear {
-            agoraManager.joinChannel(channelId, token: DocsAppConfig.shared.rtcToken)
+            await agoraManager.joinChannel(channelId)
         }.onDisappear {
             agoraManager.leaveChannel()
         }
@@ -117,6 +121,8 @@ struct CustomAudioVideoView: View {
     ///   - customCamera: The AVCaptureDevice to be used for custom camera capture.
     init(channelId: String, customCamera: AVCaptureDevice?) {
         self.channelId = channelId
-        self.agoraManager = CustomAudioVideoManager(appId: DocsAppConfig.shared.appId, role: .broadcaster, captureDevice: customCamera)
+        self.agoraManager = CustomAudioVideoManager(
+            appId: DocsAppConfig.shared.appId, role: .broadcaster, captureDevice: customCamera
+        )
     }
 }

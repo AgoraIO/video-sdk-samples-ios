@@ -14,6 +14,8 @@ public struct DocsAppConfig: Codable {
               let jsonData  = try? Data(contentsOf: fileUrl) else { fatalError() }
 
         let decoder = JSONDecoder()
+        // For this sample code we can assume the json is a valid format.
+        // swiftlint:disable:next force_try
         var obj = try! decoder.decode(DocsAppConfig.self, from: jsonData)
         if (obj.rtcToken ?? "").isEmpty {
             obj.rtcToken = nil

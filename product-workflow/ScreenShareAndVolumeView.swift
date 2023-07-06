@@ -9,6 +9,38 @@ import SwiftUI
 import ReplayKit
 import AgoraRtcKit
 
+class ScreenShareVolumeManager: AgoraManager {
+    @discardableResult
+    /// Set the remote playback or local recording volume.
+    /// - Parameters:
+    ///   - id: ID for the user volume to change.
+    ///   - volume: Playback or local recording volume.
+    /// - Returns: Error code, 0 = success, &lt; 0 = failure.
+    func setVolume(for id: UInt, to volume: Int) -> Int32 {
+        if id == self.localUserId {
+            return self.agoraEngine.adjustRecordingSignalVolume(volume)
+        } else {
+            return self.agoraEngine.adjustUserPlaybackSignalVolume(id, volume: Int32(volume))
+        }
+    }
+
+    /// joinChannel override to set the userdefaults channel name
+    /// - Parameters:
+    ///   - channel: Channel to join
+    /// - Returns: Join channel error code. 0 = Success, &lt;0 = Failure
+    @discardableResult
+    override func joinChannel(_ channel: String) async -> Int32 {
+        let rtnCode = await super.joinChannel(channel)
+
+        // suiteName is the App Group assigned to the main app and the broadcast extension.
+        // This sets the channel name so the broadcast extension can join the same channel.
+        let userDefaults = UserDefaults(suiteName: "group.uk.rocketar.Docs-Examples")
+        userDefaults?.set(channel, forKey: "channel")
+
+        return rtnCode
+    }
+}
+
 /**
  * A view that displays the video feeds of all participants in a channel, along with sliders for volume control.
  * This view displays a ``RPSystemBroadcastPickerWrapper`` at the bottom, which is a light wrapper
@@ -18,7 +50,9 @@ struct ScreenShareAndVolumeView: View {
     @State var volumeSetting: [UInt: Double] = [:]
 
     /// The Agora SDK manager for call quality.
-    @ObservedObject var agoraManager = AgoraManager(appId: DocsAppConfig.shared.appId, role: .broadcaster)
+    @ObservedObject var agoraManager = ScreenShareVolumeManager(
+        appId: DocsAppConfig.shared.appId, role: .broadcaster
+    )
     /// The channel ID to join.
     let channelId: String
 
@@ -37,13 +71,7 @@ struct ScreenShareAndVolumeView: View {
                             }
                     }
                 }.padding(20)
-            }.onAppear {
-                agoraManager.joinChannel(channelId, token: DocsAppConfig.shared.rtcToken)
-
-                // suiteName is the App Group assigned to the main app and the broadcast extension.
-                // This sets the channel name so the broadcast extension can join the same channel.
-                let userDefaults = UserDefaults(suiteName: "group.uk.rocketar.Docs-Examples")
-                userDefaults?.set(self.channelId, forKey: "channel")
+            }.onAppear { await agoraManager.joinChannel(channelId)
             }.onDisappear { agoraManager.leaveChannel() }
             // screenSharer is the name of the broadcast extension in this app's case.
             // If we can find the extension, display the broadcast picker.
@@ -61,11 +89,7 @@ struct ScreenShareAndVolumeView: View {
             get: { self.volumeSetting[key] ?? 100.0 },
             set: { newValue in
                 self.volumeSetting[key] = newValue
-                if key == agoraManager.localUserId {
-                    self.agoraManager.engine.adjustRecordingSignalVolume(Int(newValue))
-                } else {
-                    self.agoraManager.engine.adjustUserPlaybackSignalVolume(key, volume: Int32(newValue))
-                }
+                agoraManager.setVolume(for: key, to: Int(newValue))
             }
         )
     }

@@ -20,20 +20,19 @@ public protocol HasCustomVideoInput: View {
 
 extension CustomAudioVideoView: HasCustomVideoInput {}
 
-/**
- A view that allows the user to choose a specific camera. It then navigates to a view that accepts these inputs and connects to a channel with the appropriate camera device enabled.
-
- The `CustomCameraInputView` takes a generic parameter `Content` that conforms to the `HasCustomVideoInput` protocol.
- */
+/// A view that allows the user to choose a specific camera. It then navigates to a view that
+/// accepts these inputs and connects to a channel with the appropriate camera device enabled.
+///
+/// The `CustomCameraInputView` takes a generic parameter `Content` that conforms to the `HasCustomVideoInput` protocol.
 public struct CustomCameraInputView<Content: HasCustomVideoInput>: View {
     /// The channel ID entered by the user.
     @State private var channelId: String = DocsAppConfig.shared.channel
     var availableCams = AVCaptureDevice.DiscoverySession(
-        deviceTypes: [.builtInWideAngleCamera, .builtInUltraWideCamera, .builtInTelephotoCamera], mediaType: .video, position: .back
+        deviceTypes: [.builtInWideAngleCamera, .builtInUltraWideCamera, .builtInTelephotoCamera],
+        mediaType: .video, position: .back
     ).devices
 
     @State var selectedCamera: Int = 0
-
 
     /// The type of view to navigate to after the user inputs the channel ID and token URL.
     public var continueTo: Content.Type
@@ -58,7 +57,6 @@ public struct CustomCameraInputView<Content: HasCustomVideoInput>: View {
         }
     }
 }
-
 
 struct CustomCameraInputView_Previews: PreviewProvider {
     static var previews: some View {

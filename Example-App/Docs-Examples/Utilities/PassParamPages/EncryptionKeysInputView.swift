@@ -19,11 +19,12 @@ public protocol HasEncryptionInput: View {
 
 extension MediaEncryptionView: HasEncryptionInput {}
 
-/**
- A view that allows the user to input a channel ID encyprtion key, salt and encryption mode. It then navigates to a view that accepts these inputs and connects to a channel with the appropriate encryption enabled.
-
- The `EncryptionKeysInputView` takes a generic parameter `Content` that conforms to the `HasEncryptionInput` protocol.
- */
+/// A view that allows the user to input a channel ID encyprtion key, salt and encryption mode.
+///
+/// The view then navigates to a view that accepts these inputs and
+/// connects to a channel with the appropriate encryption enabled.
+/// The `EncryptionKeysInputView` takes a generic parameter `Content`
+/// which conforms to the `HasEncryptionInput` protocol.
 public struct EncryptionKeysInputView<Content: HasEncryptionInput>: View {
     /// The channel ID entered by the user.
     @State private var channelId: String = DocsAppConfig.shared.channel
@@ -32,7 +33,9 @@ public struct EncryptionKeysInputView<Content: HasEncryptionInput>: View {
     /// A 32-byte string in Base64 format for encryption.
     @State private var encryptionSalt: String = DocsAppConfig.shared.salt
     /// Type of encryption to enable
-    @State private var encryptionType: AgoraEncryptionMode = .init(rawValue: DocsAppConfig.shared.encryptionMode) ?? .AES128GCM2
+    @State private var encryptionType: AgoraEncryptionMode = .init(
+        rawValue: DocsAppConfig.shared.encryptionMode
+    ) ?? .AES128GCM2
 
     /// The type of view to navigate to after the user inputs the channel ID and token URL.
     public var continueTo: Content.Type
@@ -58,7 +61,8 @@ public struct EncryptionKeysInputView<Content: HasEncryptionInput>: View {
                 )
             } label: {
                 Text("Join Channel")
-            }.buttonStyle(.borderedProminent).disabled(channelId.isEmpty || encryptionKey.isEmpty || encryptionSalt.isEmpty)
+            }.buttonStyle(.borderedProminent)
+                .disabled(channelId.isEmpty || encryptionKey.isEmpty || encryptionSalt.isEmpty)
         }
     }
 }
@@ -80,33 +84,24 @@ extension AgoraEncryptionMode: Identifiable, CaseIterable {
         /** 128-bit AES encryption, GCM mode, with KDF salt */
         .AES128GCM2,
         /** 256-bit AES encryption, GCM mode, with KDF salt */
-        .AES256GCM2,
+        .AES256GCM2
     ]
-    var description: String  {
+    var description: String {
         switch self {
-            case .AES128XTS:
-                return "128-bit AES encryption, XTS mode."
-            case .AES128ECB:
-                return "128-bit AES encryption, ECB mode."
-            case .AES256XTS:
-                return "256-bit AES encryption, XTS mode."
-            case .SM4128ECB:
-                return "128-bit SM4 encryption, ECB mode."
-            case .AES128GCM:
-                return "128-bit AES encryption, GCM mode."
-            case .AES256GCM:
-                return "256-bit AES encryption, GCM mode."
-            case .AES128GCM2:
-                return "128-bit AES encryption, GCM mode, with KDF salt"
-            case .AES256GCM2:
-                return "256-bit AES encryption, GCM mode, with KDF salt"
-            default: return "Unknown"
+        case .AES128XTS: return "128-bit AES encryption, XTS mode."
+        case .AES128ECB: return "128-bit AES encryption, ECB mode."
+        case .AES256XTS: return "256-bit AES encryption, XTS mode."
+        case .SM4128ECB: return "128-bit SM4 encryption, ECB mode."
+        case .AES128GCM: return "128-bit AES encryption, GCM mode."
+        case .AES256GCM: return "256-bit AES encryption, GCM mode."
+        case .AES128GCM2: return "128-bit AES encryption, GCM mode, with KDF salt"
+        case .AES256GCM2: return "256-bit AES encryption, GCM mode, with KDF salt"
+        default: return "Unknown"
         }
     }
     public var id: Int { rawValue }
 
 }
-
 
 struct EncryptionKeysInputView_Previews: PreviewProvider {
     static var previews: some View {

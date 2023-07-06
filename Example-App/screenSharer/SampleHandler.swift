@@ -42,7 +42,7 @@ class SampleHandler: RPBroadcastSampleHandler, AgoraRtcEngineDelegate {
         return boundingSize
     }()
 
-    override func broadcastStarted(withSetupInfo setupInfo: [String : NSObject]?) {
+    override func broadcastStarted(withSetupInfo setupInfo: [String: NSObject]?) {
         guard let channel = UserDefaults(suiteName: "group.uk.rocketar.Docs-Examples")?.string(forKey: "channel") else {
             // Failed to get channel
             self.broadcastFinished()
@@ -63,20 +63,20 @@ class SampleHandler: RPBroadcastSampleHandler, AgoraRtcEngineDelegate {
             mediaOptions: channelMediaOptions
         )
     }
-    
+
     override func broadcastPaused() {
         // User has requested to pause the broadcast. Samples will stop being delivered.
     }
-    
+
     override func broadcastResumed() {
         // User has requested to resume the broadcast. Samples delivery will resume.
     }
-    
+
     override func broadcastFinished() {
         engine.leaveChannel()
         AgoraRtcEngineKit.destroy()
     }
-    
+
     override func processSampleBuffer(_ sampleBuffer: CMSampleBuffer, with sampleBufferType: RPSampleBufferType) {
         switch sampleBufferType {
         case RPSampleBufferType.video:
