@@ -8,9 +8,7 @@
 import SwiftUI
 import AgoraRtcKit
 
-/**
- A protocol for views that require an encryption key, salt and mode.
- */
+/// A protocol for views that require an encryption key, salt and mode.
 public protocol HasEncryptionInput: View {
     /// The channel ID to join.
     var channelId: String { get }
@@ -69,21 +67,21 @@ public struct EncryptionKeysInputView<Content: HasEncryptionInput>: View {
 
 extension AgoraEncryptionMode: Identifiable, CaseIterable {
     public static var allCases: [AgoraEncryptionMode] = [
-        /** 128-bit AES encryption, XTS mode. */
+        /// 128-bit AES encryption, XTS mode.
         .AES128XTS,
-        /** 128-bit AES encryption, ECB mode. */
+        /// 128-bit AES encryption, ECB mode.
         .AES128ECB,
-        /** 256-bit AES encryption, XTS mode. */
+        /// 256-bit AES encryption, XTS mode.
         .AES256XTS,
-        /** 128-bit SM4 encryption, ECB mode. */
+        /// 128-bit SM4 encryption, ECB mode.
         .SM4128ECB,
-        /** 128-bit AES encryption, GCM mode. */
+        /// 128-bit AES encryption, GCM mode.
         .AES128GCM,
-        /** 256-bit AES encryption, GCM mode. */
+        /// 256-bit AES encryption, GCM mode.
         .AES256GCM,
-        /** 128-bit AES encryption, GCM mode, with KDF salt */
+        /// 128-bit AES encryption, GCM mode, with KDF salt
         .AES128GCM2,
-        /** 256-bit AES encryption, GCM mode, with KDF salt */
+        /// 256-bit AES encryption, GCM mode, with KDF salt
         .AES256GCM2
     ]
     var description: String {

@@ -87,10 +87,8 @@ struct TokenAuthenticationView: View {
         }.onDisappear { agoraManager.leaveChannel() }
     }
 
-    /**
-     * Fetch a token from the token server, and then join the channel using Agora SDK
-     * - Returns: A boolean, for whether or not the token fetching was successful.
-     */
+    /// Fetch a token from the token server, and then join the channel using Agora SDK
+    /// - Returns: A boolean, for whether or not the token fetching was successful.
     func fetchTokenThenJoin() async -> Bool {
         if !channelId.isEmpty,
            let token = try? await self.agoraManager.fetchToken(

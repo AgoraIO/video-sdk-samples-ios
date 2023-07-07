@@ -9,9 +9,7 @@ import SwiftUI
 import AgoraRtcKit
 import AVKit
 
-/**
- A protocol for views that require a custom camera capture device.
- */
+/// A protocol for views that require a custom camera capture device.
 public protocol HasCustomVideoInput: View {
     /// The channel ID to join.
     var channelId: String { get }

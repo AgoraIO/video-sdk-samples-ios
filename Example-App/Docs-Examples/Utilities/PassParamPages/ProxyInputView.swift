@@ -8,9 +8,7 @@
 import SwiftUI
 import AgoraRtcKit
 
-/**
- A protocol for views that require a proxy type for cloud proxy.
- */
+/// A protocol for views that require a proxy type for cloud proxy.
 public protocol HasProxyServerInput: View {
     /// The channel ID to join.
     var channelId: String { get }
@@ -47,7 +45,7 @@ public struct ProxyInputView<Content: HasProxyServerInput>: View {
     @State private var channelId: String = DocsAppConfig.shared.channel
     /// The proxy type chosen by the user.
     @State private var proxyType: ProxyType = .init(
-        rawValue: DocsAppConfig.shared.proxyUrl
+        rawValue: DocsAppConfig.shared.proxyType
     ) ?? .none
     /// The type of view to navigate to after the user inputs the channel ID and token URL.
     public var continueTo: Content.Type

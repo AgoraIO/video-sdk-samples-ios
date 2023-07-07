@@ -28,9 +28,7 @@ class CloudProxyManager: AgoraManager {
     }
 }
 
-/**
- * A view that authenticates the user with a token and joins them to a channel using Agora SDK.
- */
+/// A view that authenticates the user with a token and joins them to a channel using Agora SDK.
 struct CloudProxyView: View {
     /// The Agora SDK manager.
     @ObservedObject var agoraManager: CloudProxyManager
@@ -38,12 +36,11 @@ struct CloudProxyView: View {
     /// The channel ID to join.
     public let channelId: String
 
-    /**
-     * Initializes a new `TokenAuthenticationView`.
-     *
-     * - Parameter channelId: The channel ID to join.
-     * - Parameter tokenUrl: The URL of the token server.
-     */
+    /// Initializes a new ``CloudProxyView``.
+    ///
+    /// - Parameters:
+    ///   - channelId: The channel ID to join.
+    ///   - proxyType: Type of proxy to be used.
     public init(channelId: String, proxyType: AgoraCloudProxyType) {
         self.channelId = channelId
         self.agoraManager = CloudProxyManager(
@@ -94,6 +91,10 @@ extension AgoraProxyType {
             return "TCP Fallback Proxy Connected"
         case .noneProxyType:
             return "No Proxy Connected"
+        case .httpProxyType:
+            return "HTTP Proxy Connected"
+        case .httpsProxyType:
+            return "HTTPS Proxy Connected"
         @unknown default:
             return "Unknown Proxy State"
         }

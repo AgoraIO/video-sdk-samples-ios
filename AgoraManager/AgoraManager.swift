@@ -80,7 +80,7 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
     /// Leaves the channel and stops the preview for the session.
     ///
     /// - Parameter leaveChannelBlock: An optional closure that will be called when the client leaves the channel.
-    ///      The closure takes an * `AgoraChannelStats` object as its parameter.
+    ///      The closure takes an `AgoraChannelStats` object as its parameter.
     ///
     ///
     /// This method also empties all entries in ``allUsers``,

@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-/**
- A protocol for views that require a `channelId` string as input.
- */
+/// A protocol for views that require a `channelId` string as input.
 protocol HasChannelInput: View {
     var channelId: String { get }
     init(channelId: String)
