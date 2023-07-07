@@ -8,7 +8,6 @@
 import SwiftUI
 import AgoraRtcKit
 
-
 fileprivate extension AgoraManager {
     // In a production environment, you retrieve the key and salt from
     // an authentication server. For this code example you generate locally.
@@ -34,17 +33,14 @@ fileprivate extension AgoraManager {
         // Specify an encryption mode.
         config.encryptionMode = mode
 
-
         // Call the method to enable media encryption.
-        if engine.enableEncryption(true, encryptionConfig: config) == 0 {
+        if agoraEngine.enableEncryption(true, encryptionConfig: config) == 0 {
             print("Media encryption enabled.")
         }
     }
 }
 
-/**
- * A view that encrypts your channel connection through Agora.
- */
+/// A view that encrypts your channel connection through Agora.
 struct MediaEncryptionView: View {
     /// The Agora SDK manager.
     @ObservedObject var agoraManager = AgoraManager(
@@ -66,22 +62,20 @@ struct MediaEncryptionView: View {
                 key: self.encryptionKey, salt: self.encryptionSalt,
                 mode: self.encryptionMode
             )
-            agoraManager.joinChannel(self.channelId)
+            await agoraManager.joinChannel(self.channelId)
         }.onDisappear { agoraManager.leaveChannel() }
     }
     let encryptionKey: String
     let encryptionSalt: String
     let encryptionMode: AgoraEncryptionMode
 
-    /**
-     * Initializes a new `MediaEncryptionView`.
-     *
-     * - Parameters:
-     *   - channelId: The channel ID to join.
-     *   - encryptionKey: A 32-byte string for encryption.
-     *   - encryptionSalt: A 32-byte string in Base64 format for encryption.
-     *   - encryptionMode: Mode of encryption for Agora's encryption settings.
-     */
+    /// Initializes a new `MediaEncryptionView`.
+    ///
+    /// - Parameters:
+    ///   - channelId: The channel ID to join.
+    ///   - encryptionKey: A 32-byte string for encryption.
+    ///   - encryptionSalt: A 32-byte string in Base64 format for encryption.
+    ///   - encryptionMode: Mode of encryption for Agora's encryption settings.
     public init(channelId: String, encryptionKey: String, encryptionSalt: String, encryptionMode: AgoraEncryptionMode) {
         self.channelId = channelId
         self.encryptionKey = encryptionKey

@@ -1,0 +1,18 @@
+name: swiftlint
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+    - "*"
+
+jobs:
+  swiftlint:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout 🛎
+      uses: actions/checkout@v3 
+    - name: Swift Lint 🧹
+      run: swiftlint --strict

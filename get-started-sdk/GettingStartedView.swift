@@ -27,7 +27,10 @@ public struct GettingStartedView: View {
                 }
             }.padding(20)
         }.onAppear {
-            agoraManager.engine.joinChannel(byToken: DocsAppConfig.shared.rtcToken, channelId: channelId, info: nil, uid: DocsAppConfig.shared.uid)
+            agoraManager.agoraEngine.joinChannel(
+                byToken: DocsAppConfig.shared.rtcToken, channelId: channelId,
+                info: nil, uid: DocsAppConfig.shared.uid
+            )
         }.onDisappear {
             agoraManager.leaveChannel()
         }

@@ -8,7 +8,6 @@
 import SwiftUI
 import AgoraRtcKit
 
-
 class CloudProxyManager: AgoraManager {
 
     @Published var proxyState: AgoraProxyType?
@@ -16,10 +15,11 @@ class CloudProxyManager: AgoraManager {
 
     init(appId: String, role: AgoraClientRole = .audience, proxyType: AgoraCloudProxyType) {
         super.init(appId: appId, role: role)
-        proxyResponse = self.engine.setCloudProxy(proxyType)
+        proxyResponse = self.agoraEngine.setCloudProxy(proxyType)
         if proxyType == .noneProxy { proxyState = .noneProxyType }
     }
 
+    // swiftlint:disable:next function_parameter_count
     func rtcEngine(
         _ engine: AgoraRtcEngineKit, didProxyConnected channel: String,
         withUid uid: UInt, proxyType: AgoraProxyType, localProxyIp: String, elapsed: Int
@@ -70,7 +70,7 @@ struct CloudProxyView: View {
                 ).padding().background(.tertiary).cornerRadius(25).padding()
                 Spacer()
             }.padding()
-        }.onAppear { agoraManager.joinChannel(self.channelId)
+        }.onAppear { await agoraManager.joinChannel(self.channelId)
         }.onDisappear { agoraManager.leaveChannel() }
     }
 }
