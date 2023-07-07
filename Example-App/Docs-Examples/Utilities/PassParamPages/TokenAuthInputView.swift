@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-/**
- A protocol for views that require a token server to fetch a token.
- */
+/// A protocol for views that require a token server to fetch a token.
 public protocol HasTokenServerInput: View {
     /// The channel ID to join.
     var channelId: String { get }

@@ -8,9 +8,7 @@
 import SwiftUI
 import AgoraRtcKit
 
-/**
- A custom Agora SDK manager for call quality.
- */
+/// A custom Agora SDK manager for call quality.
 public class CallQualityManager: AgoraManager {
     /// A dictionary mapping user IDs to call quality statistics.
     @Published public var callQualities: [UInt: String] = [:]
@@ -37,13 +35,12 @@ public class CallQualityManager: AgoraManager {
         print("downlink jitter: \(result.downlinkReport.jitter)")
     }
 
-    /**
-     * Updates the call quality statistics for a remote user.
-     *;
-     * - Parameters:
-     *   - engine: The Agora SDK engine.
-     *   - stats: The remote video statistics.
-     */
+    /// Updates the call quality statistics for a remote user.
+    ///
+    /// - Parameters:
+    ///   - engine: The Agora SDK engine.
+    ///   - stats: The remote video statistics.
+    ///
     public func rtcEngine(_ engine: AgoraRtcEngineKit, remoteVideoStats stats: AgoraRtcRemoteVideoStats) {
         self.callQualities[stats.uid] = """
         Received Bitrate = \(stats.receivedBitrate)
@@ -53,14 +50,12 @@ public class CallQualityManager: AgoraManager {
         """
     }
 
-    /**
-     * Updates the call quality statistics for the local user.
-     *
-     * - Parameters:
-     *   - engine: The Agora SDK engine.
-     *   - stats: The local video statistics.
-     *   - sourceType: The type of video source.
-     */
+    /// Updates the call quality statistics for the local user.
+    ///
+    /// - Parameters:
+    ///   - engine: The Agora SDK engine.
+    ///   - stats: The local video statistics.
+    ///   - sourceType: The type of video source.
     public func rtcEngine(
         _ engine: AgoraRtcEngineKit, localVideoStats stats: AgoraRtcLocalVideoStats,
         sourceType: AgoraVideoSourceType
@@ -74,9 +69,7 @@ public class CallQualityManager: AgoraManager {
     }
 }
 
-/**
- A view that displays the video feeds of all participants in a channel, along with their call quality statistics.
- */
+/// A view that displays the video feeds of all participants in a channel, along with their call quality statistics.
 struct CallQualityView: View {
     /// The Agora SDK manager for call quality.
     @ObservedObject var agoraManager = CallQualityManager(

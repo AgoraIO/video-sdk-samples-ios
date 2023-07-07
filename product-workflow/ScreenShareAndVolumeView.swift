@@ -40,6 +40,7 @@ class ScreenShareVolumeManager: AgoraManager {
         return rtnCode
     }
 
+    #if os(iOS)
     var broadcastPicker: RPSystemBroadcastPickerWrapper {
         // screenSharer is the name of the broadcast extension in this app's case.
         // If we can find the extension, apply the broadcast picker preferred extension
@@ -50,13 +51,12 @@ class ScreenShareVolumeManager: AgoraManager {
         }
         return RPSystemBroadcastPickerWrapper(preferredExtension: bundleIdentifier)
     }
+    #endif
 }
 
-/**
- * A view that displays the video feeds of all participants in a channel, along with sliders for volume control.
- * This view displays a ``RPSystemBroadcastPickerWrapper`` at the bottom, which is a light wrapper
- * of the broadcast picker from ReplayKit.
- */
+/// A view that displays the video feeds of all participants in a channel, along with sliders for volume control.
+/// This view displays a ``RPSystemBroadcastPickerWrapper`` at the bottom,
+/// which is a light wrapper of the broadcast picker from ReplayKit.
 struct ScreenShareAndVolumeView: View {
     @State var volumeSetting: [UInt: Double] = [:]
 
@@ -84,8 +84,10 @@ struct ScreenShareAndVolumeView: View {
                 }.padding(20)
             }.onAppear { await agoraManager.joinChannel(channelId)
             }.onDisappear { agoraManager.leaveChannel() }
+            #if os(iOS)
             Group { agoraManager.broadcastPicker }
                 .frame(height: 44).padding().background(.tertiary)
+            #endif
         }
     }
 

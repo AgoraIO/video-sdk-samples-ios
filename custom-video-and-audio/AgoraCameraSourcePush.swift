@@ -5,7 +5,9 @@
 //  Created by Max Cobb on 23/06/2023.
 //
 
+#if canImport(UIKit)
 import UIKit
+#endif
 import AVFoundation
 import AgoraRtcKit
 
@@ -163,6 +165,7 @@ extension AgoraCameraSourcePush: AVCaptureVideoDataOutputSampleBufferDelegate {
     }
 }
 
+#if canImport(UIKit)
 /// An extension of UIDeviceOrientation that provides utility methods for capturing video orientation.
 internal extension UIDeviceOrientation {
     /// Converts the UIDeviceOrientation to AVCaptureVideoOrientation.
@@ -191,3 +194,4 @@ internal extension UIDeviceOrientation {
         }
     }
 }
+#endif

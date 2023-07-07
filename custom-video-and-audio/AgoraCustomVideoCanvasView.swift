@@ -17,26 +17,20 @@ public struct AgoraCustomVideoCanvasView: UIViewRepresentable {
     /// Preview layer where the camera frames come into
     var previewLayer: AVCaptureVideoPreviewLayer?
 
-    /**
-     * Creates and configures a `UIView` for the view. This UIView will be the view the video is rendered onto.
-     * - Parameter context: The `UIViewRepresentable` context.
-     * - Returns: A `UIView` for displaying the custom local video stream.
-     */
+    /// Creates and configures a `UIView` for the view. This UIView will be the view the video is rendered onto.
+    /// - Parameter context: The `UIViewRepresentable` context.
+    /// - Returns: A `UIView` for displaying the custom local video stream.
     public func makeUIView(context: Context) -> UIView { setupCanvasView() }
     func setupCanvasView() -> UIView { canvas }
 
-    /**
-     * Updates the `AgoraRtcVideoCanvas` object for the view with new values, if necessary.
-     */
+    /// Updates the `AgoraRtcVideoCanvas` object for the view with new values, if necessary.
     func updateCanvasValues() {
         if self.previewLayer != canvas.previewLayer, let previewLayer {
             canvas.insertCaptureVideoPreviewLayer(previewLayer: previewLayer)
         }
     }
 
-    /**
-     * Updates the Canvas view.
-     */
+    /// Updates the Canvas view.
     public func updateUIView(_ uiView: UIView, context: Context) {
         self.updateCanvasValues()
     }

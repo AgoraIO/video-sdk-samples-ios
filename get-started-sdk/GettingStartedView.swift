@@ -8,9 +8,7 @@
 import SwiftUI
 import AgoraRtcKit
 
-/**
- A view that displays the video feeds of all participants in a channel.
- */
+/// A view that displays the video feeds of all participants in a channel.
 public struct GettingStartedView: View {
     @ObservedObject public var agoraManager = AgoraManager(appId: DocsAppConfig.shared.appId, role: .broadcaster)
     /// The channel ID to join.

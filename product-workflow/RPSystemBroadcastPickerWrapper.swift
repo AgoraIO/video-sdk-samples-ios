@@ -8,6 +8,7 @@
 import SwiftUI
 import ReplayKit
 
+#if os(iOS)
 struct RPSystemBroadcastPickerWrapper: UIViewRepresentable {
 
     var preferredExtension: String?
@@ -22,3 +23,4 @@ struct RPSystemBroadcastPickerWrapper: UIViewRepresentable {
 
     func updateUIView(_ uiView: RPSystemBroadcastPickerView, context: Context) {}
 }
+#endif
