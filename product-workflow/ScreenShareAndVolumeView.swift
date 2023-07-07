@@ -39,6 +39,17 @@ class ScreenShareVolumeManager: AgoraManager {
 
         return rtnCode
     }
+
+    var broadcastPicker: RPSystemBroadcastPickerWrapper {
+        // screenSharer is the name of the broadcast extension in this app's case.
+        // If we can find the extension, apply the broadcast picker preferred extension
+        var bundleIdentifier: String?
+        if let url = Bundle.main.url(forResource: "screenSharer", withExtension: "appex", subdirectory: "PlugIns"),
+           let bundle = Bundle(url: url) {
+            bundleIdentifier = bundle.bundleIdentifier
+        }
+        return RPSystemBroadcastPickerWrapper(preferredExtension: bundleIdentifier)
+    }
 }
 
 /**
@@ -73,14 +84,8 @@ struct ScreenShareAndVolumeView: View {
                 }.padding(20)
             }.onAppear { await agoraManager.joinChannel(channelId)
             }.onDisappear { agoraManager.leaveChannel() }
-            // screenSharer is the name of the broadcast extension in this app's case.
-            // If we can find the extension, display the broadcast picker.
-            if let url = Bundle.main.url(forResource: "screenSharer", withExtension: "appex", subdirectory: "PlugIns"),
-               let bundle = Bundle(url: url) {
-                Group {
-                    RPSystemBroadcastPickerWrapper(preferredExtension: bundle.bundleIdentifier)
-                }.frame(height: 44).padding().background(.tertiary)
-            }
+            Group { agoraManager.broadcastPicker }
+                .frame(height: 44).padding().background(.tertiary)
         }
     }
 

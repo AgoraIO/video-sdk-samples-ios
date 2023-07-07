@@ -11,10 +11,22 @@ import AgoraRtcKit
 
 /// A manager class that handles custom audio and video operations using Agora SDK.
 class CustomAudioVideoManager: AgoraManager, AgoraCameraSourcePushDelegate {
+
+    /// The capture device being used, for example, the ultra-wide back camera.
+    var captureDevice: AVCaptureDevice
+
+    /// The AVCaptureVideoPreviewLayer that is updated by pushSource whenever a new frame is captured.
+    ///
+    /// This object is used to populate the local camera frames.
+    @Published var previewLayer: AVCaptureVideoPreviewLayer?
+
+    /// The AgoraCameraSourcePush object responsible for capturing video frames
+    /// from the capture device and sending it to the delegate, ``CustomAudioVideoManager``.
+    public var pushSource: AgoraCameraSourcePush?
+
     /// Callback method called when a video frame is captured.
     ///
     /// - Parameters:
-    ///   - capture: The AgoraCameraSourcePush instance that captured the frame.
     ///   - pixelBuffer: The pixel buffer of the captured video frame.
     ///   - rotation: The rotation angle of the captured video frame.
     ///   - timeStamp: The time stamp of the captured video frame.
@@ -32,30 +44,18 @@ class CustomAudioVideoManager: AgoraManager, AgoraCameraSourcePushDelegate {
         }
     }
 
-    /// The capture device being used, for example, the ultra-wide back camera.
-    var captureDevice: AVCaptureDevice?
-
-    /// The AVCaptureVideoPreviewLayer that is updated by pushSource whenever a new frame is captured.
-    ///
-    /// This object is used to populate the local camera frames.
-    @Published var previewLayer: AVCaptureVideoPreviewLayer?
-    var pushSource: AgoraCameraSourcePush?
-
     /// Initializes a new instance of the CustomAudioVideoManager.
     ///
     /// - Parameters:
     ///   - appId: The Agora application ID.
     ///   - role: The client role.
     ///   - captureDevice: The AVCaptureDevice to be used for capturing video.
-    init(appId: String, role: AgoraClientRole = .audience, captureDevice: AVCaptureDevice?) {
+    init(appId: String, role: AgoraClientRole = .audience, captureDevice: AVCaptureDevice) {
         self.captureDevice = captureDevice
         super.init(appId: appId, role: role)
-        if captureDevice != nil {
-            self.agoraEngine.setExternalVideoSource(
-                true, useTexture: true, sourceType: .videoFrame
-            )
-            self.pushSource = AgoraCameraSourcePush(delegate: self)
-        }
+
+        self.agoraEngine.setExternalVideoSource(true, useTexture: true, sourceType: .videoFrame)
+        self.pushSource = AgoraCameraSourcePush(delegate: self)
     }
 
     /// Joins the channel and starts capturing the video from the specified device.
@@ -70,20 +70,19 @@ class CustomAudioVideoManager: AgoraManager, AgoraCameraSourcePushDelegate {
     override func joinChannel(
         _ channel: String, token: String? = nil, uid: UInt = 0, info: String? = nil
     ) -> Int32 {
-        let joinErrCode = super.joinChannel(channel, token: token, uid: uid, info: info)
-        if let captureDevice {
-            pushSource?.startCapture(ofDevice: captureDevice)
-        }
-        return joinErrCode
+        defer { pushSource?.startCapture(ofDevice: captureDevice) }
+
+        return super.joinChannel(channel, token: token, uid: uid, info: info)
     }
 
     override func rtcEngine(
         _ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int
     ) {
+        // Do not add local user to allUsers, because the camera
+        // will be shown differently.
+//        self.allUsers.insert(uid)
+
         self.localUserId = uid
-        if captureDevice == nil {
-            self.allUsers.insert(uid)
-        }
     }
 }
 
@@ -119,7 +118,7 @@ struct CustomAudioVideoView: View {
     /// - Parameters:
     ///   - channelId: The channel ID to join.
     ///   - customCamera: The AVCaptureDevice to be used for custom camera capture.
-    init(channelId: String, customCamera: AVCaptureDevice?) {
+    init(channelId: String, customCamera: AVCaptureDevice) {
         self.channelId = channelId
         self.agoraManager = CustomAudioVideoManager(
             appId: DocsAppConfig.shared.appId, role: .broadcaster, captureDevice: customCamera

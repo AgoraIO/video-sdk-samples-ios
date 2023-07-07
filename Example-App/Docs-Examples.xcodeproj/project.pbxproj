@@ -175,6 +175,7 @@
 		F33A889729E839DE0029499C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				F3F5F18F2A58252700A909DE /* SwiftUI+Extensions */,
 				F3CA2CE229CB00C900561441 /* AgoraManager */,
 				F3CA2CCC29C96B1600561441 /* PassParamPages */,
 			);
@@ -279,7 +280,6 @@
 				F348B3962A4D7BDC00AF6B9B /* config.json */,
 				F3D7BD4629DB30680014DEC0 /* AgoraManager.swift */,
 				F3C06BB42A4D861200F59BC2 /* DocsAppConfig.swift */,
-				F3E59CBA2A57257300EC2B2E /* View+Extensions.swift */,
 				F3CA2CE329CB00F400561441 /* AgoraVideoCanvasView.swift */,
 			);
 			path = AgoraManager;
@@ -301,6 +301,14 @@
 				F3E8E6F72A42EAD100E6B774 /* CloudProxyView.swift */,
 			);
 			path = "cloud-proxy";
+			sourceTree = "<group>";
+		};
+		F3F5F18F2A58252700A909DE /* SwiftUI+Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F3E59CBA2A57257300EC2B2E /* View+Extensions.swift */,
+			);
+			path = "SwiftUI+Extensions";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
