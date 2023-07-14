@@ -16,6 +16,8 @@
 		F344ED9E2A494CE700B3C313 /* CustomCameraInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344ED9D2A494CE700B3C313 /* CustomCameraInputView.swift */; };
 		F344EDA02A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344ED9F2A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift */; };
 		F348B3972A4D7BDC00AF6B9B /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = F348B3962A4D7BDC00AF6B9B /* config.json */; };
+		F35967182A5C35FE005CEE79 /* RtcBasic in Frameworks */ = {isa = PBXBuildFile; productRef = F35967172A5C35FE005CEE79 /* RtcBasic */; };
+		F35967322A5C3A66005CEE79 /* ReplayKit in Frameworks */ = {isa = PBXBuildFile; productRef = F35967312A5C3A66005CEE79 /* ReplayKit */; };
 		F3A88CCE2A1DE629000B2292 /* GettingStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CCC2A1DE629000B2292 /* GettingStartedView.swift */; };
 		F3A88CD42A1DE645000B2292 /* CallQualityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CD22A1DE645000B2292 /* CallQualityView.swift */; };
 		F3A88CD92A1DE663000B2292 /* TokenAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CD72A1DE663000B2292 /* TokenAuthenticationView.swift */; };
@@ -23,7 +25,6 @@
 		F3A88CEB2A1E0405000B2292 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A88CEA2A1E0405000B2292 /* ReplayKit.framework */; };
 		F3A88CEE2A1E0405000B2292 /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CED2A1E0405000B2292 /* SampleHandler.swift */; };
 		F3A88CF32A1E0405000B2292 /* screenSharer.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F3A88CE82A1E0405000B2292 /* screenSharer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		F3A88CFB2A1E0AF1000B2292 /* RtcBasic in Frameworks */ = {isa = PBXBuildFile; productRef = F3A88CFA2A1E0AF1000B2292 /* RtcBasic */; };
 		F3A88CFD2A1E17E0000B2292 /* RPSystemBroadcastPickerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CFC2A1E17E0000B2292 /* RPSystemBroadcastPickerWrapper.swift */; };
 		F3C06BB32A4D85FC00F59BC2 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = F348B3962A4D7BDC00AF6B9B /* config.json */; };
 		F3C06BB52A4D861200F59BC2 /* DocsAppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C06BB42A4D861200F59BC2 /* DocsAppConfig.swift */; };
@@ -122,7 +123,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3A88CEB2A1E0405000B2292 /* ReplayKit.framework in Frameworks */,
-				F3A88CFB2A1E0AF1000B2292 /* RtcBasic in Frameworks */,
+				F35967182A5C35FE005CEE79 /* RtcBasic in Frameworks */,
+				F35967322A5C3A66005CEE79 /* ReplayKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,7 +353,8 @@
 			);
 			name = screenSharer;
 			packageProductDependencies = (
-				F3A88CFA2A1E0AF1000B2292 /* RtcBasic */,
+				F35967172A5C35FE005CEE79 /* RtcBasic */,
+				F35967312A5C3A66005CEE79 /* ReplayKit */,
 			);
 			productName = screenSharer;
 			productReference = F3A88CE82A1E0405000B2292 /* screenSharer.appex */;
@@ -435,8 +438,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n# Get the path of the JSON file\nJSON_FILE_PATH=\"${SRCROOT}/../AgoraManager/config.json\"\n\n# Check if the JSON file exists\nif [ -f \"${JSON_FILE_PATH}\" ]; then\n\n    # Read the JSON file contents\n    JSON_CONTENTS=$(cat \"${JSON_FILE_PATH}\")\n    \n    if ! $(echo $JSON_CONTENTS | jq -e . >/dev/null 2<&1); then\n        echo \"error: config.json is broken, please validate the JSON file\"\n        exit 1\n    fi\n\n    # Extract the value of the \"appId\" key from the JSON\n    APP_ID_VALUE=$(echo \"${JSON_CONTENTS}\" | jq -r '.appId')\n\n    # Check if any key has an empty string value\n    if [ \"${APP_ID_VALUE}\" = \"\" ]; then\n        echo \"warning: The 'appId' key should have a valid Agora App ID. See config.json and https://console.agora.io\"\n    fi\nfi\n";
+			shellPath = /bin/zsh;
+			shellScript = "# Get the path of the JSON file\nJSON_FILE_PATH=\"${SRCROOT}/../AgoraManager/config.json\"\n\n# Check if jq is installed\nif ! [ -x \"$(command -v jq)\" ]; then\n  echo \"warning: jq is not installed. json validation skipped.\" >&2\nelse\n\n  # Check if the JSON file exists\n  if [ -f \"${JSON_FILE_PATH}\" ]; then\n\n    # Read the JSON file contents\n    JSON_CONTENTS=$(cat \"${JSON_FILE_PATH}\")\n\n    # Validate the JSON \n    if ! (echo \"$JSON_CONTENTS\" | jq -e . >/dev/null 2>&1); then\n      echo \"error: config.json is invalid JSON\"\n      exit 1 \n    fi\n\n    # Extract the appId value\n    APP_ID_VALUE=$(echo \"${JSON_CONTENTS}\" | jq -r '.appId')\n\n    # Check if appId is empty\n    if [ \"${APP_ID_VALUE}\" = \"\" ]; then\n      echo \"warning: The 'appId' key should have a valid Agora App ID. See config.json and https://console.agora.io\"\n    fi\n\n  fi\n\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -763,17 +766,22 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AgoraIO/AgoraRtcEngine_iOS";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				kind = upToNextMinorVersion;
+				minimumVersion = 4.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F3A88CFA2A1E0AF1000B2292 /* RtcBasic */ = {
+		F35967172A5C35FE005CEE79 /* RtcBasic */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F3C571C029C8E50E0002B322 /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
 			productName = RtcBasic;
+		};
+		F35967312A5C3A66005CEE79 /* ReplayKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3C571C029C8E50E0002B322 /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
+			productName = ReplayKit;
 		};
 		F3C571C129C8E50E0002B322 /* RtcBasic */ = {
 			isa = XCSwiftPackageProductDependency;
