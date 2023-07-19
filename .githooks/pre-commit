@@ -3,7 +3,7 @@
 set -eo pipefail
 
 # Get the path of the JSON file
-JSON_FILE_PATH="./AgoraManager/config.json"
+JSON_FILE_PATH="./agora-manager/config.json"
 
 # Read the JSON file contents
 JSON_CONTENTS=$(git show :${JSON_FILE_PATH})
