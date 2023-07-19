@@ -57,7 +57,8 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
     }
 
     @discardableResult
-    /// This method is used by this app specifically. If there is a tokenURL, it will attempt to retrieve a token from there.
+    /// This method is used by this app specifically. If there is a tokenURL,
+    /// it will attempt to retrieve a token from there.
     /// Otherwise it will simply apply the provided token in config.json or nil.
     ///
     /// - Parameters:
