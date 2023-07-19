@@ -7,7 +7,10 @@
 
 import ReplayKit
 import AgoraRtcKit
+import AgoraReplayKitExtension
 
+class SampleHandler: AgoraReplayKitHandler {}
+/*
 class SampleHandler: RPBroadcastSampleHandler, AgoraRtcEngineDelegate {
     /// Engine instance required for sharing the screen.
     var engine: AgoraRtcEngineKit {
@@ -122,3 +125,4 @@ class SampleHandler: RPBroadcastSampleHandler, AgoraRtcEngineDelegate {
         self.engine.pushExternalVideoFrame(frame)
     }
 }
+*/

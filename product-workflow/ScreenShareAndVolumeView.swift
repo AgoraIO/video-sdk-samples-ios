@@ -10,6 +10,11 @@ import ReplayKit
 import AgoraRtcKit
 
 class ScreenShareVolumeManager: AgoraManager {
+    /// Regular IDs, used for normal camera captures.
+    var regularId = UInt.random(in: 1500...100_000)
+    /// Limited IDs reserved for screen sharing. This way we know what's a screen share, and what's a regular camera.
+    var screenShareID = Int.random(in: 1000...1200)
+    var channel: String?
     @discardableResult
     /// Set the remote playback or local recording volume.
     /// - Parameters:
@@ -29,18 +34,20 @@ class ScreenShareVolumeManager: AgoraManager {
     ///   - channel: Channel to join
     /// - Returns: Join channel error code. 0 = Success, &lt;0 = Failure
     @discardableResult
-    override func joinChannel(_ channel: String) async -> Int32 {
-        let rtnCode = await super.joinChannel(channel)
-
-        // suiteName is the App Group assigned to the main app and the broadcast extension.
-        // This sets the channel name so the broadcast extension can join the same channel.
-        let userDefaults = UserDefaults(suiteName: "group.uk.rocketar.Docs-Examples")
-        userDefaults?.set(channel, forKey: "channel")
-
-        return rtnCode
+    func joinChannel(_ channel: String) async -> Int32 {
+        self.channel = channel
+        return await super.joinChannel(channel, uid: self.regularId)
     }
 
     #if os(iOS)
+    /// This starts the socket that listens for the screen share frames coming from the app's broadcast extension.
+    func setupScreenSharing() {
+        let capParams = AgoraScreenCaptureParameters2()
+        capParams.captureAudio = false
+        capParams.captureVideo = true
+        agoraEngine.startScreenCapture(capParams)
+    }
+    /// Broadcast picker to start and stop screen sharing.
     var broadcastPicker: RPSystemBroadcastPickerWrapper {
         // screenSharer is the name of the broadcast extension in this app's case.
         // If we can find the extension, apply the broadcast picker preferred extension
@@ -50,6 +57,42 @@ class ScreenShareVolumeManager: AgoraManager {
             bundleIdentifier = bundle.bundleIdentifier
         }
         return RPSystemBroadcastPickerWrapper(preferredExtension: bundleIdentifier)
+    }
+
+    func rtcEngine(
+        _ engine: AgoraRtcEngineKit, localVideoStateChangedOf state: AgoraVideoLocalState,
+        error: AgoraLocalVideoStreamError, sourceType: AgoraVideoSourceType
+    ) {
+        switch sourceType {
+        case .screen:
+            guard let channel else { return }
+            let connection = AgoraRtcConnection(channelId: channel, localUid: screenShareID)
+            switch state {
+            case .capturing:
+                // The broadcast extension has started capturing frames
+                let mediaOptions = AgoraRtcChannelMediaOptions()
+                mediaOptions.publishCameraTrack = false
+                mediaOptions.publishMicrophoneTrack = false
+                mediaOptions.publishScreenCaptureAudio = false
+                mediaOptions.publishScreenCaptureVideo = true
+                mediaOptions.clientRoleType = .broadcaster
+                mediaOptions.autoSubscribeAudio = false
+
+                agoraEngine.joinChannelEx(byToken: nil, connection: connection, delegate: nil, mediaOptions: mediaOptions)
+            case .encoding: break
+            case .stopped, .failed:
+                // The broadcast extension has finished capturing frames
+                agoraEngine.leaveChannelEx(connection)
+            @unknown default: break
+            }
+        default: break
+        }
+    }
+    override func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
+        if uid != screenShareID {
+            // don't want to display our own screen share
+            super.rtcEngine(engine, didJoinedOfUid: uid, elapsed: elapsed)
+        }
     }
     #endif
 }
@@ -66,6 +109,7 @@ struct ScreenShareAndVolumeView: View {
     )
     /// The channel ID to join.
     let channelId: String
+    @State private var showBroadcastActivity = false
 
     var body: some View {
         VStack {
@@ -83,6 +127,7 @@ struct ScreenShareAndVolumeView: View {
                     }
                 }.padding(20)
             }.onAppear { await agoraManager.joinChannel(channelId)
+                agoraManager.setupScreenSharing()
             }.onDisappear { agoraManager.leaveChannel() }
             #if os(iOS)
             Group { agoraManager.broadcastPicker }
