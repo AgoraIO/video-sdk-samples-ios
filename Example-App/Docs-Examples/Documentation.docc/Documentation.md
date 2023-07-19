@@ -11,6 +11,8 @@ Take a look through each class to see how to implement all the features with Ago
 ### Getting Started
 
 - ``GettingStartedView``
+- ``AgoraManager``
+- ``AgoraVideoCanvasView``
 
 ### Develop
 
@@ -28,3 +30,10 @@ Take a look through each class to see how to implement all the features with Ago
 - ``EncryptionKeysInputView``
 - ``CustomCameraInputView``
 - ``ProxyInputView``
+
+### AgoraManager Subclasses
+
+- ``CallQualityManager``
+- ``CloudProxyManager``
+- ``ScreenShareVolumeManager``
+- ``CustomAudioVideoManager``

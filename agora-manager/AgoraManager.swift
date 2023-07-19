@@ -57,7 +57,14 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
     }
 
     @discardableResult
-    open func joinChannel(_ channel: String, uid: UInt? = nil) async -> Int32 {
+    /// This method is used by this app specifically. If there is a tokenURL, it will attempt to retrieve a token from there.
+    /// Otherwise it will simply apply the provided token in config.json or nil.
+    ///
+    /// - Parameters:
+    ///   - channel: Name of the channel to join.
+    ///   - uid: User ID of the local user. This can be 0 to allow the engine to automatically assign an ID.
+    /// - Returns: Error code, 0 = success, &lt; 0 = failure.
+    internal func joinChannel(_ channel: String, uid: UInt? = nil) async -> Int32 {
         let userId = uid ?? DocsAppConfig.shared.uid
         var token = DocsAppConfig.shared.rtcToken
         if !DocsAppConfig.shared.tokenUrl.isEmpty {

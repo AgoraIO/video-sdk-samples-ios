@@ -98,8 +98,9 @@ struct CustomAudioVideoView: View {
         ScrollView {
             VStack {
                 // The local custom camera view
-                AgoraCustomVideoCanvasView(canvas: customPreview, previewLayer: agoraManager.previewLayer)
-                    .aspectRatio(contentMode: .fit).cornerRadius(10)
+                AgoraCustomVideoCanvasView(
+                    canvas: customPreview, previewLayer: agoraManager.previewLayer
+                ).aspectRatio(contentMode: .fit).cornerRadius(10)
                 // All remote camera views
                 ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
                     AgoraVideoCanvasView(manager: agoraManager, uid: uid)

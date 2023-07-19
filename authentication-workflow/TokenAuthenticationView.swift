@@ -36,9 +36,18 @@ public extension AgoraManager {
         return tokenResponse.rtcToken
     }
 
+    /// A Codable struct representing the token server response.
+    struct TokenResponse: Codable {
+        /// Value of the RTC Token.
+        public let rtcToken: String
+    }
+
     /// Fetch a token from the token server, and then join the channel using Agora SDK.
     /// - Returns: A boolean, for whether or not the token fetching was successful.
-    func fetchTokenThenJoin(tokenUrl: String, channel: String) async -> Bool {
+    /// - Parameters:
+    ///   - tokenUrl: The URL of the token server.
+    ///   - channel: The name of the channel for which the token will be used.
+    fileprivate func fetchTokenThenJoin(tokenUrl: String, channel: String) async -> Bool {
         if let token = try? await self.fetchToken(
             from: tokenUrl, channel: channel,
             role: role, userId: 0
@@ -47,12 +56,6 @@ public extension AgoraManager {
             return true
         } else { return false }
     }
-}
-
-/// A Codable struct representing the token server response.
-public struct TokenResponse: Codable {
-    /// Value of the RTC Token.
-    public let rtcToken: String
 }
 
 /// A view that authenticates the user with a token and joins them to a channel using Agora SDK.
