@@ -57,24 +57,20 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
     }
 
     @discardableResult
-    open func joinChannel(_ channel: String) async -> Int32 {
-        if let rtcToken = DocsAppConfig.shared.rtcToken, !rtcToken.isEmpty {
-            return self.joinChannel(
-                channel, token: DocsAppConfig.shared.rtcToken,
-                uid: DocsAppConfig.shared.uid, info: nil
-            )
-        }
-        var token: String?
+    open func joinChannel(_ channel: String, uid: UInt? = nil) async -> Int32 {
+        let userId = uid ?? DocsAppConfig.shared.uid
+        var token = DocsAppConfig.shared.rtcToken
         if !DocsAppConfig.shared.tokenUrl.isEmpty {
             do {
                 token = try await self.fetchToken(
-                    from: DocsAppConfig.shared.tokenUrl, channel: channel, role: self.role
+                    from: DocsAppConfig.shared.tokenUrl, channel: channel,
+                    role: self.role, userId: userId
                 )
             } catch {
                 print("token server fetch failed: \(error.localizedDescription)")
             }
         }
-        return self.joinChannel(channel, token: token, uid: DocsAppConfig.shared.uid, info: nil)
+        return self.joinChannel(channel, token: token, uid: userId, info: nil)
     }
 
     /// Leaves the channel and stops the preview for the session.

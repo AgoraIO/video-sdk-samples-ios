@@ -6,7 +6,7 @@ set -eo pipefail
 JSON_FILE_PATH="./AgoraManager/config.json"
 
 # Read the JSON file contents
-JSON_CONTENTS=$(cat "${JSON_FILE_PATH}")
+JSON_CONTENTS=$(git show :${JSON_FILE_PATH})
 
 # Extract the value of the "appId" key from the JSON
 APP_ID_VALUE=$(echo "${JSON_CONTENTS}" | jq -r '.appId')

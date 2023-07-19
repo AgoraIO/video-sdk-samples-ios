@@ -35,6 +35,18 @@ public extension AgoraManager {
 
         return tokenResponse.rtcToken
     }
+
+    /// Fetch a token from the token server, and then join the channel using Agora SDK.
+    /// - Returns: A boolean, for whether or not the token fetching was successful.
+    func fetchTokenThenJoin(tokenUrl: String, channel: String) async -> Bool {
+        if let token = try? await self.fetchToken(
+            from: tokenUrl, channel: channel,
+            role: role, userId: 0
+        ) {
+            agoraEngine.joinChannel(byToken: token, channelId: channel, info: nil, uid: 0)
+            return true
+        } else { return false }
+    }
 }
 
 /// A Codable struct representing the token server response.
@@ -45,7 +57,6 @@ public struct TokenResponse: Codable {
 
 /// A view that authenticates the user with a token and joins them to a channel using Agora SDK.
 struct TokenAuthenticationView: View {
-
     /// The Agora SDK manager.
     @ObservedObject var agoraManager = AgoraManager(appId: DocsAppConfig.shared.appId, role: .broadcaster)
     /// The channel ID to join.
@@ -82,22 +93,13 @@ struct TokenAuthenticationView: View {
                 Text("Error fetching token.")
             }
         }.onAppear {
-            /// On joining, call ``TokenAuthenticationView/fetchTokenThenJoin()``.
-            Task { tokenPassed = await fetchTokenThenJoin() }
+            Task {
+                /// On joining, call ``AgoraManager/fetchTokenThenJoin(tokenUrl:channel:)``.
+                tokenPassed = await agoraManager.fetchTokenThenJoin(
+                    tokenUrl: tokenUrl, channel: channelId
+                )
+            }
         }.onDisappear { agoraManager.leaveChannel() }
-    }
-
-    /// Fetch a token from the token server, and then join the channel using Agora SDK
-    /// - Returns: A boolean, for whether or not the token fetching was successful.
-    func fetchTokenThenJoin() async -> Bool {
-        if !channelId.isEmpty,
-           let token = try? await self.agoraManager.fetchToken(
-            from: self.tokenUrl, channel: self.channelId,
-            role: self.agoraManager.role, userId: 0
-        ) {
-            self.agoraManager.joinChannel(channelId, token: token)
-            return true
-        } else { return false }
     }
 }
 

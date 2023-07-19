@@ -16,8 +16,15 @@ Take a look through each class to see how to implement all the features with Ago
 
 - ``TokenAuthenticationView``
 - ``CallQualityView``
+- ``CloudProxyView``
+- ``MediaEncryptionView``
+- ``ScreenShareAndVolumeView``
+- ``CustomAudioVideoView``
 
 ### Passing Parameters
 
 - ``ChannelInputView``
 - ``TokenAuthInputView``
+- ``EncryptionKeysInputView``
+- ``CustomCameraInputView``
+- ``ProxyInputView``

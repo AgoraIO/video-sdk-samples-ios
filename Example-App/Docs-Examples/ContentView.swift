@@ -36,10 +36,10 @@ struct ContentView: View {
                         CustomCameraInputView(continueTo: CustomAudioVideoView.self)
                     }
                     NavigationLink("Audio and voice effects") {
-                        EmptyView()
+                        Text("Not yet implemented.")
                     }
                 }
-            }
+            }.navigationTitle("Video SDK Samples")
         }
     }
 }
