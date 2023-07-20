@@ -18,6 +18,7 @@
 		F348B3972A4D7BDC00AF6B9B /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = F348B3962A4D7BDC00AF6B9B /* config.json */; };
 		F35967182A5C35FE005CEE79 /* RtcBasic in Frameworks */ = {isa = PBXBuildFile; productRef = F35967172A5C35FE005CEE79 /* RtcBasic */; };
 		F35967322A5C3A66005CEE79 /* ReplayKit in Frameworks */ = {isa = PBXBuildFile; productRef = F35967312A5C3A66005CEE79 /* ReplayKit */; };
+		F35A42802A6973F300FF93D5 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A427F2A6973F300FF93D5 /* NavigationLazyView.swift */; };
 		F3A88CCE2A1DE629000B2292 /* GettingStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CCC2A1DE629000B2292 /* GettingStartedView.swift */; };
 		F3A88CD42A1DE645000B2292 /* CallQualityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CD22A1DE645000B2292 /* CallQualityView.swift */; };
 		F3A88CD92A1DE663000B2292 /* TokenAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CD72A1DE663000B2292 /* TokenAuthenticationView.swift */; };
@@ -77,7 +78,8 @@
 		F344ED9C2A45943400B3C313 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../custom-video-and-audio/README.md"; sourceTree = "<group>"; };
 		F344ED9D2A494CE700B3C313 /* CustomCameraInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCameraInputView.swift; sourceTree = "<group>"; };
 		F344ED9F2A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AgoraCustomVideoCanvasView.swift; path = "../../../../custom-video-and-audio/AgoraCustomVideoCanvasView.swift"; sourceTree = "<group>"; };
-		F348B3962A4D7BDC00AF6B9B /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../agora-manager/config.json; sourceTree = SOURCE_ROOT; };
+		F348B3962A4D7BDC00AF6B9B /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = "../agora-manager/config.json"; sourceTree = SOURCE_ROOT; };
+		F35A427F2A6973F300FF93D5 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		F372069829C8EE420029EEC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F3A88CCC2A1DE629000B2292 /* GettingStartedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GettingStartedView.swift; path = "../../../../get-started-sdk/GettingStartedView.swift"; sourceTree = "<group>"; };
 		F3A88CCD2A1DE629000B2292 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../get-started-sdk/README.md"; sourceTree = "<group>"; };
@@ -94,10 +96,10 @@
 		F3A88CF82A1E05F1000B2292 /* Docs-Examples.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Docs-Examples.entitlements"; sourceTree = "<group>"; };
 		F3A88CF92A1E0627000B2292 /* screenSharer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = screenSharer.entitlements; sourceTree = "<group>"; };
 		F3A88CFC2A1E17E0000B2292 /* RPSystemBroadcastPickerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RPSystemBroadcastPickerWrapper.swift; path = "../../../../product-workflow/RPSystemBroadcastPickerWrapper.swift"; sourceTree = "<group>"; };
-		F3C06BB42A4D861200F59BC2 /* DocsAppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocsAppConfig.swift; path = ../../../../agora-manager/DocsAppConfig.swift; sourceTree = "<group>"; };
+		F3C06BB42A4D861200F59BC2 /* DocsAppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocsAppConfig.swift; path = "../../../../agora-manager/DocsAppConfig.swift"; sourceTree = "<group>"; };
 		F3CA2CDA29C97AF400561441 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
-		F3CA2CE329CB00F400561441 /* AgoraVideoCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AgoraVideoCanvasView.swift; path = ../../../../agora-manager/AgoraVideoCanvasView.swift; sourceTree = "<group>"; };
-		F3D7BD4629DB30680014DEC0 /* AgoraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AgoraManager.swift; path = ../../../../agora-manager/AgoraManager.swift; sourceTree = "<group>"; };
+		F3CA2CE329CB00F400561441 /* AgoraVideoCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AgoraVideoCanvasView.swift; path = "../../../../agora-manager/AgoraVideoCanvasView.swift"; sourceTree = "<group>"; };
+		F3D7BD4629DB30680014DEC0 /* AgoraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AgoraManager.swift; path = "../../../../agora-manager/AgoraManager.swift"; sourceTree = "<group>"; };
 		F3D7BD4E29DB42D00014DEC0 /* ChannelInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelInputView.swift; sourceTree = "<group>"; };
 		F3D7BD5029DB46BB0014DEC0 /* TokenAuthInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAuthInputView.swift; sourceTree = "<group>"; };
 		F3E59CBA2A57257300EC2B2E /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				F3E59CBA2A57257300EC2B2E /* View+Extensions.swift */,
+				F35A427F2A6973F300FF93D5 /* NavigationLazyView.swift */,
 			);
 			path = "SwiftUI+Extensions";
 			sourceTree = "<group>";
@@ -459,6 +462,7 @@
 				F3D7BD4729DB30680014DEC0 /* AgoraManager.swift in Sources */,
 				F344EDA02A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift in Sources */,
 				F3A88CCE2A1DE629000B2292 /* GettingStartedView.swift in Sources */,
+				F35A42802A6973F300FF93D5 /* NavigationLazyView.swift in Sources */,
 				F3CA2CDB29C97AF400561441 /* Documentation.docc in Sources */,
 				F3A88CFD2A1E17E0000B2292 /* RPSystemBroadcastPickerWrapper.swift in Sources */,
 				F3E8E6FD2A43E8AD00E6B774 /* EncryptionKeysInputView.swift in Sources */,

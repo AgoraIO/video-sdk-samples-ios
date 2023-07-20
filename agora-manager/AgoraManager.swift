@@ -53,7 +53,9 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
     open func joinChannel(
         _ channel: String, token: String? = nil, uid: UInt = 0, info: String? = nil
     ) -> Int32 {
-        self.agoraEngine.joinChannel(byToken: token, channelId: channel, info: info, uid: uid)
+        self.agoraEngine.joinChannel(
+            byToken: token, channelId: channel, info: info, uid: uid
+        )
     }
 
     @discardableResult

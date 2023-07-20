@@ -10,8 +10,6 @@ import AgoraRtcKit
 
 /// A protocol for views that require an encryption key, salt and mode.
 public protocol HasEncryptionInput: View {
-    /// The channel ID to join.
-    var channelId: String { get }
     init(channelId: String, encryptionKey: String, encryptionSalt: String, encryptionMode: AgoraEncryptionMode)
 }
 
@@ -51,12 +49,12 @@ public struct EncryptionKeysInputView<Content: HasEncryptionInput>: View {
                 }
             }.pickerStyle(MenuPickerStyle()).textFieldStyle(.roundedBorder).padding()
             NavigationLink {
-                continueTo.init(
+                NavigationLazyView(continueTo.init(
                     channelId: channelId.trimmingCharacters(in: .whitespaces),
                     encryptionKey: encryptionKey.trimmingCharacters(in: .whitespaces),
                     encryptionSalt: encryptionSalt.trimmingCharacters(in: .whitespaces),
                     encryptionMode: self.encryptionType
-                )
+                ))
             } label: {
                 Text("Join Channel")
             }.buttonStyle(.borderedProminent)

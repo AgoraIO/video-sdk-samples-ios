@@ -46,8 +46,6 @@ struct MediaEncryptionView: View {
     @ObservedObject var agoraManager = AgoraManager(
         appId: DocsAppConfig.shared.appId, role: .broadcaster
     )
-    /// The channel ID to join.
-    public let channelId: String
 
     var body: some View {
         ScrollView {
@@ -62,7 +60,7 @@ struct MediaEncryptionView: View {
                 key: self.encryptionKey, salt: self.encryptionSalt,
                 mode: self.encryptionMode
             )
-            await agoraManager.joinChannel(self.channelId)
+            await agoraManager.joinChannel(DocsAppConfig.shared.channel)
         }.onDisappear { agoraManager.leaveChannel() }
     }
     let encryptionKey: String
@@ -76,8 +74,11 @@ struct MediaEncryptionView: View {
     ///   - encryptionKey: A 32-byte string for encryption.
     ///   - encryptionSalt: A 32-byte string in Base64 format for encryption.
     ///   - encryptionMode: Mode of encryption for Agora's encryption settings.
-    public init(channelId: String, encryptionKey: String, encryptionSalt: String, encryptionMode: AgoraEncryptionMode) {
-        self.channelId = channelId
+    public init(
+        channelId: String, encryptionKey: String,
+        encryptionSalt: String, encryptionMode: AgoraEncryptionMode
+    ) {
+        DocsAppConfig.shared.channel = channelId
         self.encryptionKey = encryptionKey
         self.encryptionSalt = encryptionSalt
         self.encryptionMode = encryptionMode

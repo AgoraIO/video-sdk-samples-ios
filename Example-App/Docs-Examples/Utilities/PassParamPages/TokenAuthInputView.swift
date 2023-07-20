@@ -9,10 +9,10 @@ import SwiftUI
 
 /// A protocol for views that require a token server to fetch a token.
 public protocol HasTokenServerInput: View {
-    /// The channel ID to join.
-    var channelId: String { get }
-    /// The channel ID to join.
-    var tokenUrl: String { get }
+    /// Initialiser for a new view that complies to ``HasTokenServerInput``
+    /// - Parameters:
+    ///   - channelId: The channel ID to join.
+    ///   - tokenUrl: The URL for the token server
     init(channelId: String, tokenUrl: String)
 }
 
@@ -41,10 +41,10 @@ public struct TokenAuthInputView<Content: HasTokenServerInput>: View {
                 .textFieldStyle(.roundedBorder).padding([.horizontal, .top])
             TextField("Enter token URL", text: $tokenUrl).keyboardType(.URL)
                 .textFieldStyle(.roundedBorder).padding([.horizontal, .bottom])
-            NavigationLink(destination: continueTo.init(
+            NavigationLink(destination: NavigationLazyView(continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces),
                 tokenUrl: tokenUrl.trimmingCharacters(in: .whitespaces)
-            ), label: {
+            )), label: {
                 Text("Join Channel")
             }).disabled(channelId.isEmpty || tokenUrl.isEmpty)
                 .buttonStyle(.borderedProminent)

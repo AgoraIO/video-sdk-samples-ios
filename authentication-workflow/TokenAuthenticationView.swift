@@ -56,16 +56,26 @@ public extension AgoraManager {
             return true
         } else { return false }
     }
+
+    func rtcEngine(
+        _ engine: AgoraRtcEngineKit, tokenPrivilegeWillExpire token: String
+    ) {
+        Task {
+            if let token = try? await fetchToken(
+                from: DocsAppConfig.shared.tokenUrl,
+                channel: DocsAppConfig.shared.channel,
+                role: .broadcaster
+            ) { self.agoraEngine.renewToken(token) }
+        }
+    }
 }
 
 /// A view that authenticates the user with a token and joins them to a channel using Agora SDK.
 struct TokenAuthenticationView: View {
     /// The Agora SDK manager.
-    @ObservedObject var agoraManager = AgoraManager(appId: DocsAppConfig.shared.appId, role: .broadcaster)
-    /// The channel ID to join.
-    public let channelId: String
-    /// The URL of the token server.
-    public let tokenUrl: String
+    @ObservedObject var agoraManager = AgoraManager(
+        appId: DocsAppConfig.shared.appId, role: .broadcaster
+    )
     /// A flag indicating whether the token has been successfully fetched.
     @State public var tokenPassed: Bool?
 
@@ -75,8 +85,8 @@ struct TokenAuthenticationView: View {
     ///   - channelId: The channel ID to join.
     ///   - tokenUrl: The URL of the token server.
     public init(channelId: String, tokenUrl: String) {
-        self.channelId = channelId
-        self.tokenUrl = tokenUrl
+        DocsAppConfig.shared.channel = channelId
+        DocsAppConfig.shared.tokenUrl = tokenUrl
     }
 
     var body: some View {
@@ -99,7 +109,8 @@ struct TokenAuthenticationView: View {
             Task {
                 /// On joining, call ``AgoraManager/fetchTokenThenJoin(tokenUrl:channel:)``.
                 tokenPassed = await agoraManager.fetchTokenThenJoin(
-                    tokenUrl: tokenUrl, channel: channelId
+                    tokenUrl: DocsAppConfig.shared.tokenUrl,
+                    channel: DocsAppConfig.shared.channel
                 )
             }
         }.onDisappear { agoraManager.leaveChannel() }

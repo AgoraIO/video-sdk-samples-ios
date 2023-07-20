@@ -9,7 +9,6 @@ import SwiftUI
 
 /// A protocol for views that require a `channelId` string as input.
 protocol HasChannelInput: View {
-    var channelId: String { get }
     init(channelId: String)
 }
 
@@ -31,12 +30,14 @@ struct ChannelInputView<Content: HasChannelInput>: View {
     var body: some View {
         VStack {
             TextField("Enter channel id", text: $channelId).textFieldStyle(.roundedBorder).padding()
-            NavigationLink(destination: continueTo.init(
+            NavigationLink(destination: NavigationLazyView(continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces)
-            ), label: {
+            )), label: {
                 Text("Join Channel")
             }).disabled(channelId.isEmpty)
                 .buttonStyle(.borderedProminent)
+        }.onAppear {
+            channelId = DocsAppConfig.shared.channel
         }
     }
 }

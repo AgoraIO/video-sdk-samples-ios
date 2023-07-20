@@ -75,8 +75,6 @@ struct CallQualityView: View {
     @ObservedObject var agoraManager = CallQualityManager(
         appId: DocsAppConfig.shared.appId, role: .broadcaster
     )
-    /// The channel ID to join.
-    let channelId: String
 
     var body: some View {
         ScrollView {
@@ -85,20 +83,30 @@ struct CallQualityView: View {
                     AgoraVideoCanvasView(manager: agoraManager, uid: uid)
                         .aspectRatio(contentMode: .fit).cornerRadius(10)
                         .overlay(alignment: .topLeading) {
-                            Text(agoraManager.callQualities[uid] ?? "no data").padding()
+                            Text(agoraManager.callQualities[uid] ?? "no data").padding(4)
+                                .background {
+                                    VisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+                                        .cornerRadius(10).blur(radius: 1).opacity(0.75)
+                                }.padding(4)
                         }
                 }
             }.padding(20)
         }.onAppear {
-            await agoraManager.joinChannel(channelId)
+            await agoraManager.joinChannel(DocsAppConfig.shared.channel)
         }.onDisappear {
             agoraManager.leaveChannel()
         }
     }
 
     init(channelId: String) {
-        self.channelId = channelId
+        DocsAppConfig.shared.channel = channelId
     }
+}
+
+struct VisualEffectView: UIViewRepresentable {
+    var effect: UIVisualEffect?
+    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView { UIVisualEffectView() }
+    func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) { uiView.effect = effect }
 }
 
 struct CallQualityView_Previews: PreviewProvider {
