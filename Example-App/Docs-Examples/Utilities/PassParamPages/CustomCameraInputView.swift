@@ -51,6 +51,8 @@ public struct CustomCameraInputView<Content: HasCustomVideoInput>: View {
                     Text("Join Channel")
                 }).disabled(channelId.isEmpty)
                     .buttonStyle(.borderedProminent)
+            }.onAppear {
+                channelId = DocsAppConfig.shared.channel
             }
         } else {
             Text("No cameras available.")

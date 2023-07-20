@@ -59,6 +59,8 @@ public struct EncryptionKeysInputView<Content: HasEncryptionInput>: View {
                 Text("Join Channel")
             }.buttonStyle(.borderedProminent)
                 .disabled(channelId.isEmpty || encryptionKey.isEmpty || encryptionSalt.isEmpty)
+        }.onAppear {
+            channelId = DocsAppConfig.shared.channel
         }
     }
 }

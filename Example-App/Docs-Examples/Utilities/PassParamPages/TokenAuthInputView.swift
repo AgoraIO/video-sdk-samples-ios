@@ -48,6 +48,8 @@ public struct TokenAuthInputView<Content: HasTokenServerInput>: View {
                 Text("Join Channel")
             }).disabled(channelId.isEmpty || tokenUrl.isEmpty)
                 .buttonStyle(.borderedProminent)
+        }.onAppear {
+            channelId = DocsAppConfig.shared.channel
         }
     }
 }

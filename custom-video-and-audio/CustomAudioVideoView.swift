@@ -75,6 +75,14 @@ class CustomAudioVideoManager: AgoraManager, AgoraCameraSourcePushDelegate {
         return super.joinChannel(channel, token: token, uid: uid, info: info)
     }
 
+    @discardableResult
+    override func leaveChannel(leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil) -> Int32 {
+        // Need to stop the capture on exit
+        pushSource?.stopCapture()
+        pushSource = nil
+        return super.leaveChannel(leaveChannelBlock: leaveChannelBlock)
+    }
+
     override func rtcEngine(
         _ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int
     ) {
