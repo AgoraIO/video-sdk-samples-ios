@@ -1,13 +1,17 @@
-# Video SDK for iOS code examples
+# Video SDK reference app (iOS)
 
-Use the contents in this repo to compare the following ways of presenting runnable code examples in an open source 
-repository. In all examples, the code corresponds to a page in the Agora developer documentation. 
+> This repository is a work-in-progress.
 
-Each folder contains the runnable code explained in the documentation. 
+This app demonstrates using Agora's Video SDK for real-time communication in a SwiftUI app.
 
-Advantages are that we supply runnable code where the UI is abstracted so we concentrate more clearly on Agora
-    SDK. This means the docs become much shorter and simpler. Possible disadvantage is that we have to write the
-    code for the project. TBH, we already have the code, we are just putting it in a better format for learning.
+To understand the contents better, you can go to [Agora's Documentation](https://docs.agora.io), which explains each example in more detail.
+
+Included Examples:
+
 - [SDK quickstart](get-started-sdk)
-- [Call quality](ensure-channel-quality)
 - [Secure authentication with tokens](authentication-workflow)
+- [Connect through restricted networks with Cloud Proxy](cloud-proxy)
+- [Secure channel encryption](media-stream-encryption)
+- [Call quality best practice](ensure-channel-quality)
+- [Screen share, volume control and mute](product-workflow)
+- [Custom video and audio sources](custom-video-and-audio)
