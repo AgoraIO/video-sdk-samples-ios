@@ -16,4 +16,3 @@ internal struct NavigationLazyView<Content: View>: View {
         build()
     }
 }
-

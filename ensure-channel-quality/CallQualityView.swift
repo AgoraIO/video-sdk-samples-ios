@@ -85,8 +85,10 @@ struct CallQualityView: View {
                         .overlay(alignment: .topLeading) {
                             Text(agoraManager.callQualities[uid] ?? "no data").padding(4)
                                 .background {
+                                    #if os(iOS)
                                     VisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
                                         .cornerRadius(10).blur(radius: 1).opacity(0.75)
+                                    #endif
                                 }.padding(4)
                         }
                 }
@@ -101,12 +103,6 @@ struct CallQualityView: View {
     init(channelId: String) {
         DocsAppConfig.shared.channel = channelId
     }
-}
-
-struct VisualEffectView: UIViewRepresentable {
-    var effect: UIVisualEffect?
-    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView { UIVisualEffectView() }
-    func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) { uiView.effect = effect }
 }
 
 struct CallQualityView_Previews: PreviewProvider {
