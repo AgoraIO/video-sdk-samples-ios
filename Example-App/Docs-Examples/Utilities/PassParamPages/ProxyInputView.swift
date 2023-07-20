@@ -10,8 +10,6 @@ import AgoraRtcKit
 
 /// A protocol for views that require a proxy type for cloud proxy.
 public protocol HasProxyServerInput: View {
-    /// The channel ID to join.
-    var channelId: String { get }
     init(channelId: String, proxyType: AgoraCloudProxyType)
 }
 
@@ -57,10 +55,10 @@ public struct ProxyInputView<Content: HasProxyServerInput>: View {
             Picker("Choose Proxy Type", selection: $proxyType) {
                 ForEach(ProxyType.allCases) { Text($0.rawValue).tag($0) }
             }.pickerStyle(SegmentedPickerStyle()).padding()
-            NavigationLink(destination: continueTo.init(
+            NavigationLink(destination: NavigationLazyView(continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces),
                 proxyType: proxyType.agoraProxyType()
-            ), label: {
+            )), label: {
                 Text("Join Channel")
             }).disabled(channelId.isEmpty)
                 .buttonStyle(.borderedProminent)

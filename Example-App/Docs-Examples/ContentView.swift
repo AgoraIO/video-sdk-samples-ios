@@ -12,34 +12,43 @@ struct ContentView: View {
         NavigationStack {
             List {
                 Section("Get Started") {
-                    NavigationLink("Basic Implementation") {
-                        ChannelInputView(continueTo: GettingStartedView.self) // <- SwiftUI Example
+                    NavigationLink("SDK quickstart") {
+                        ChannelInputView(continueTo: GettingStartedView.self)
+                    }
+                    NavigationLink("Secure authentication with tokens") {
+                        TokenAuthInputView(continueTo: TokenAuthenticationView.self)
                     }
                 }
-                Section("Develop") {
-                    NavigationLink("Secure Authentication") {
-                        TokenAuthInputView(continueTo: TokenAuthenticationView.self) // <- SwiftUI Example
+                Section("Core functionality") {
+                    NavigationLink("Connect through restricted networks with Cloud Proxy") {
+                        ProxyInputView(continueTo: CloudProxyView.self)
                     }
-                    NavigationLink("Call Quality") {
-                        ChannelInputView(continueTo: CallQualityView.self) // <- SwiftUI Example
+                    NavigationLink("Stream media to a channel") {}.disabled(true)
+                    NavigationLink("Secure channel encryption") {
+                        EncryptionKeysInputView(continueTo: MediaEncryptionView.self)
+                    }
+                    NavigationLink("Call quality best practice") {
+                        ChannelInputView(continueTo: CallQualityView.self)
                     }
                     NavigationLink("Screen share, volume control and mute") {
                         ChannelInputView(continueTo: ScreenShareAndVolumeView.self)
                     }
-                    NavigationLink("Cloud Proxy") {
-                        ProxyInputView(continueTo: CloudProxyView.self)
-                    }
-                    NavigationLink("Stream Encryption") {
-                        EncryptionKeysInputView(continueTo: MediaEncryptionView.self)
-                    }
+                    NavigationLink("Receive notifications about channel events") {}
+                        .disabled(true)
                     NavigationLink("Custom video and audio sources") {
                         CustomCameraInputView(continueTo: CustomAudioVideoView.self)
                     }
-                    NavigationLink("Audio and voice effects") {
-                        Text("Not yet implemented.")
-                    }
+                    NavigationLink("Raw video and audio processing") {}.disabled(true)
+                    NavigationLink("Integrate an extension") {}.disabled(true)
                 }
-            }.navigationTitle("Video SDK Samples")
+                Section("Integrate Features") {
+                    NavigationLink("Audio and voice effects") {}.disabled(true)
+                    NavigationLink("3D Spatial Audio") {}.disabled(true)
+                    NavigationLink("AI Noise Suppression") {}.disabled(true)
+                    NavigationLink("Geofencing") {}.disabled(true)
+                    NavigationLink("Virtual Background") {}.disabled(true)
+                }
+            }.navigationTitle("Video SDK reference app").navigationBarTitleDisplayMode(.inline)
         }
     }
 }

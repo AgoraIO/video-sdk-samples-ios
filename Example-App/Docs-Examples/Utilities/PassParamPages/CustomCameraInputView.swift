@@ -11,8 +11,6 @@ import AVKit
 
 /// A protocol for views that require a custom camera capture device.
 public protocol HasCustomVideoInput: View {
-    /// The channel ID to join.
-    var channelId: String { get }
     init(channelId: String, customCamera: AVCaptureDevice)
 }
 
@@ -46,10 +44,10 @@ public struct CustomCameraInputView<Content: HasCustomVideoInput>: View {
                         }
                     }.pickerStyle(MenuPickerStyle()).padding()
                 }
-                NavigationLink(destination: continueTo.init(
+                NavigationLink(destination: NavigationLazyView(continueTo.init(
                     channelId: channelId.trimmingCharacters(in: .whitespaces),
                     customCamera: availableCams[selectedCamera]
-                ), label: {
+                )), label: {
                     Text("Join Channel")
                 }).disabled(channelId.isEmpty)
                     .buttonStyle(.borderedProminent)

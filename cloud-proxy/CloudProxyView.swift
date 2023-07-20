@@ -33,16 +33,13 @@ struct CloudProxyView: View {
     /// The Agora SDK manager.
     @ObservedObject var agoraManager: CloudProxyManager
 
-    /// The channel ID to join.
-    public let channelId: String
-
     /// Initializes a new ``CloudProxyView``.
     ///
     /// - Parameters:
     ///   - channelId: The channel ID to join.
     ///   - proxyType: Type of proxy to be used.
     public init(channelId: String, proxyType: AgoraCloudProxyType) {
-        self.channelId = channelId
+        DocsAppConfig.shared.channel = channelId
         self.agoraManager = CloudProxyManager(
             appId: DocsAppConfig.shared.appId,
             role: .broadcaster, proxyType: proxyType
@@ -67,7 +64,7 @@ struct CloudProxyView: View {
                 ).padding().background(.tertiary).cornerRadius(25).padding()
                 Spacer()
             }.padding()
-        }.onAppear { await agoraManager.joinChannel(self.channelId)
+        }.onAppear { await agoraManager.joinChannel(DocsAppConfig.shared.channel)
         }.onDisappear { agoraManager.leaveChannel() }
     }
 }

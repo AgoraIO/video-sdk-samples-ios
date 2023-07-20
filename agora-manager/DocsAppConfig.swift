@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 public struct DocsAppConfig: Codable {
-    static var shared: DocsAppConfig {
+    static var shared: DocsAppConfig = {
         guard let fileUrl = Bundle.main.url(forResource: "config", withExtension: "json"),
               let jsonData  = try? Data(contentsOf: fileUrl) else { fatalError() }
 
@@ -21,7 +21,7 @@ public struct DocsAppConfig: Codable {
             obj.rtcToken = nil
         }
         return obj
-    }
+    }()
 
     var uid: UInt
     // APP ID from https://console.agora.io

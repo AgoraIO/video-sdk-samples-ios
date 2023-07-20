@@ -29,8 +29,8 @@ class ScreenShareVolumeManager: AgoraManager {
     ///   - channel: Channel to join
     /// - Returns: Join channel error code. 0 = Success, &lt;0 = Failure
     @discardableResult
-    override func joinChannel(_ channel: String) async -> Int32 {
-        let rtnCode = await super.joinChannel(channel)
+    override func joinChannel(_ channel: String, uid: UInt? = nil) async -> Int32 {
+        let rtnCode = await super.joinChannel(channel, uid: uid)
 
         // suiteName is the App Group assigned to the main app and the broadcast extension.
         // This sets the channel name so the broadcast extension can join the same channel.
@@ -64,8 +64,6 @@ struct ScreenShareAndVolumeView: View {
     @ObservedObject var agoraManager = ScreenShareVolumeManager(
         appId: DocsAppConfig.shared.appId, role: .broadcaster
     )
-    /// The channel ID to join.
-    let channelId: String
 
     var body: some View {
         VStack {
@@ -82,7 +80,7 @@ struct ScreenShareAndVolumeView: View {
                             }
                     }
                 }.padding(20)
-            }.onAppear { await agoraManager.joinChannel(channelId)
+            }.onAppear { await agoraManager.joinChannel(DocsAppConfig.shared.channel)
             }.onDisappear { agoraManager.leaveChannel() }
             #if os(iOS)
             Group { agoraManager.broadcastPicker }
@@ -101,6 +99,6 @@ struct ScreenShareAndVolumeView: View {
         )
     }
     init(channelId: String) {
-        self.channelId = channelId
+        DocsAppConfig.shared.channel = channelId
     }
 }

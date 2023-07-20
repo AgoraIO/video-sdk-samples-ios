@@ -11,8 +11,6 @@ import AgoraRtcKit
 /// A view that displays the video feeds of all participants in a channel.
 public struct GettingStartedView: View {
     @ObservedObject public var agoraManager = AgoraManager(appId: DocsAppConfig.shared.appId, role: .broadcaster)
-    /// The channel ID to join.
-    public let channelId: String
 
     public var body: some View {
         // Show a scrollable view of video feeds for all participants.
@@ -26,7 +24,8 @@ public struct GettingStartedView: View {
             }.padding(20)
         }.onAppear {
             agoraManager.agoraEngine.joinChannel(
-                byToken: DocsAppConfig.shared.rtcToken, channelId: channelId,
+                byToken: DocsAppConfig.shared.rtcToken,
+                channelId: DocsAppConfig.shared.channel,
                 info: nil, uid: DocsAppConfig.shared.uid
             )
         }.onDisappear {
@@ -35,7 +34,7 @@ public struct GettingStartedView: View {
     }
 
     init(channelId: String) {
-        self.channelId = channelId
+        DocsAppConfig.shared.channel = channelId
     }
 }
 

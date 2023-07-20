@@ -90,8 +90,6 @@ class CustomAudioVideoManager: AgoraManager, AgoraCameraSourcePushDelegate {
 struct CustomAudioVideoView: View {
     /// The Agora SDK manager for handling custom audio and video operations.
     @ObservedObject var agoraManager: CustomAudioVideoManager
-    /// The channel ID to join.
-    let channelId: String
     var customPreview = CustomVideoSourcePreview()
 
     var body: some View {
@@ -108,7 +106,7 @@ struct CustomAudioVideoView: View {
                 }
             }.padding(20)
         }.onAppear {
-            await agoraManager.joinChannel(channelId)
+            await agoraManager.joinChannel(DocsAppConfig.shared.channel)
         }.onDisappear {
             agoraManager.leaveChannel()
         }
@@ -120,7 +118,7 @@ struct CustomAudioVideoView: View {
     ///   - channelId: The channel ID to join.
     ///   - customCamera: The AVCaptureDevice to be used for custom camera capture.
     init(channelId: String, customCamera: AVCaptureDevice) {
-        self.channelId = channelId
+        DocsAppConfig.shared.channel = channelId
         self.agoraManager = CustomAudioVideoManager(
             appId: DocsAppConfig.shared.appId, role: .broadcaster, captureDevice: customCamera
         )
