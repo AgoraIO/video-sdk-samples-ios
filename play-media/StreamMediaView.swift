@@ -9,6 +9,7 @@ import SwiftUI
 import AgoraRtcKit
 
 public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
+
     var mediaPlayer: AgoraRtcMediaPlayerProtocol?
     /// Starts streaming a video from a URL
     /// - Parameter url: Source URL of the media file. Could be local or remote.
@@ -25,20 +26,24 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
     /// Update the AgoraRtcChannelMediaOptions to control the media player publishing behavior.
     ///
     /// - Parameter publishMediaPlayer: A boolean value indicating whether the media player should be published or not.
-    func updateChannelPublishOptions(_ publishMediaPlayer: Bool) {
-        let channelOptions: AgoraRtcChannelMediaOptions = AgoraRtcChannelMediaOptions()
+    @discardableResult
+    func updateChannelPublishOptions(publishingMedia: Bool) -> Int32 {
+        defer { self.mediaPlaying = publishingMedia }
+
+        let channelOptions = AgoraRtcChannelMediaOptions()
 
         // Set the options based on the `publishMediaPlayer` flag
-        channelOptions.publishMediaPlayerAudioTrack = publishMediaPlayer
-        channelOptions.publishMediaPlayerVideoTrack = publishMediaPlayer
-        channelOptions.publishMicrophoneTrack = true
-        channelOptions.publishCameraTrack = !publishMediaPlayer
-
+        channelOptions.publishMediaPlayerAudioTrack = publishingMedia
+        channelOptions.publishMediaPlayerVideoTrack = publishingMedia
         // If publishing media player, set the media player ID
-        if publishMediaPlayer { channelOptions.publishMediaPlayerId = Int(mediaPlayer!.getMediaPlayerId()) }
+        if publishingMedia { channelOptions.publishMediaPlayerId = Int(mediaPlayer!.getMediaPlayerId()) }
+
+        // Set the regular camera to false if publishing media track
+        channelOptions.publishMicrophoneTrack = true
+        channelOptions.publishCameraTrack = !publishingMedia
 
         // Update the AgoraRtcChannel with the new media options
-        agoraEngine.updateChannel(with: channelOptions)
+        return agoraEngine.updateChannel(with: channelOptions)
     }
 
     // swiftlint:disable identifier_name
@@ -57,19 +62,19 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
             // Media file opened successfully
             // Update the UI, and start playing
             DispatchQueue.main.async {[weak self] in
-                guard let self else { return }
-                self.mediaDuration = self.mediaPlayer!.getDuration()
-                self.updateChannelPublishOptions(true)
-                self.label = "Playback started"
-                self.mediaPlayer?.play()
-                mediaPlaying = true
+                guard let weakself = self else { return }
+                weakself.label = "Playback started"
+                weakself.mediaDuration = weakself.mediaPlayer!.getDuration()
+
+                weakself.updateChannelPublishOptions(publishingMedia: true)
+                weakself.mediaPlayer?.play()
             }
         case .playBackAllLoopsCompleted:
             // Media file finished playing
             DispatchQueue.main.async {[weak self] in
-                self?.mediaPlaying = false
                 self?.label = "Playback finished"
-                self?.updateChannelPublishOptions(false)
+
+                self?.updateChannelPublishOptions(publishingMedia: false)
             }
             // Clean up
             agoraEngine.destroyMediaPlayer(mediaPlayer)
@@ -99,6 +104,8 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
     @Published var playerButtonText = "Open Media File"
 }
 
+// MARK: - UI
+
 /// A view that displays the video feeds of all participants in a channel.
 public struct StreamMediaView: View {
     @ObservedObject public var agoraManager = StreamMediaManager(appId: DocsAppConfig.shared.appId, role: .broadcaster)
@@ -110,9 +117,8 @@ public struct StreamMediaView: View {
                 VStack {
                     if agoraManager.mediaPlaying, let mediaPlayer = agoraManager.mediaPlayer {
                         AgoraVideoCanvasView(
-                            manager: agoraManager, canvasIdType: .mediaSource(
-                                .mediaPlayer, mediaPlayerId: mediaPlayer.getMediaPlayerId()
-                            )
+                            manager: agoraManager,
+                            canvasIdType: .mediaSource(.mediaPlayer, mediaPlayerId: mediaPlayer.getMediaPlayerId())
                         ).aspectRatio(contentMode: .fit).cornerRadius(10)
                     }
                     // Show the video feeds for each participant.
@@ -138,9 +144,7 @@ public struct StreamMediaView: View {
         }.onAppear {
             await agoraManager.joinChannel(DocsAppConfig.shared.channel)
             agoraManager.startStreaming(from: streamURL)
-        }.onDisappear {
-            agoraManager.leaveChannel()
-        }
+        }.onDisappear { agoraManager.leaveChannel() }
     }
 
     var streamURL: URL
