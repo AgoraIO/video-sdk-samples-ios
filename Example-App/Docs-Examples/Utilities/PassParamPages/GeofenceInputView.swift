@@ -86,7 +86,7 @@ struct GeofenceInputView<Content: HasGeoInput>: View {
                             }
                         }))
                     }
-                    let textTitle = "\(selectedRegionIndex == 1 ? "In" : "Ex")clusive Regions:"
+                    let textTitle = (selectedRegionIndex == 1 ? "Global, excluding" : "Only permitting") + ": "
                     Text("\(textTitle) \(regionsList)")
                 default: Text("Unknown Error")
                 }
