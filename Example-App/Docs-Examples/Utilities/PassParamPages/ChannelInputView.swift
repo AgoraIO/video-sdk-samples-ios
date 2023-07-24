@@ -15,6 +15,7 @@ protocol HasChannelInput: View {
 extension GettingStartedView: HasChannelInput {}
 extension CallQualityView: HasChannelInput {}
 extension ScreenShareAndVolumeView: HasChannelInput {}
+extension RawMediaProcessingView: HasChannelInput {}
 
 /// A view that takes a user inputted `channelId` string and navigates to a view
 /// which conforms to the `HasChannelInput` protocol.

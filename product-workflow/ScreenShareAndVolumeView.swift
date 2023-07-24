@@ -1,5 +1,5 @@
 //
-//  CallQualityView.swift
+//  ScreenShareAndVolumeView.swift
 //  Docs-Examples
 //
 //  Created by Max Cobb on 03/04/2023.

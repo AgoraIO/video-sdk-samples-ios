@@ -21,8 +21,15 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
     }
     /// Integer ID of the local user.
     @Published public var localUserId: UInt = 0
+
+    private var engine: AgoraRtcEngineKit?
     /// The Agora RTC Engine Kit for the session.
     public var agoraEngine: AgoraRtcEngineKit {
+        if let engine { return engine }
+        return setupEngine()
+    }
+
+    open func setupEngine() -> AgoraRtcEngineKit {
         let eng = AgoraRtcEngineKit.sharedEngine(withAppId: appId, delegate: self)
         eng.enableVideo()
         eng.setClientRole(role)

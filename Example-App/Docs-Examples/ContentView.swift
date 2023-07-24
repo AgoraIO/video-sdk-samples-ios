@@ -23,7 +23,9 @@ struct ContentView: View {
                     NavigationLink("Connect through restricted networks with Cloud Proxy") {
                         ProxyInputView(continueTo: CloudProxyView.self)
                     }
-                    NavigationLink("Stream media to a channel") {}.disabled(true)
+                    NavigationLink("Stream media to a channel") {
+                        MediaStreamInputView(continueTo: StreamMediaView.self)
+                    }
                     NavigationLink("Secure channel encryption") {
                         EncryptionKeysInputView(continueTo: MediaEncryptionView.self)
                     }
@@ -38,14 +40,19 @@ struct ContentView: View {
                     NavigationLink("Custom video and audio sources") {
                         CustomCameraInputView(continueTo: CustomAudioVideoView.self)
                     }
-                    NavigationLink("Raw video and audio processing") {}.disabled(true)
+                    NavigationLink("Raw video and audio processing") {
+                        ChannelInputView(continueTo: RawMediaProcessingView
+                            .self)
+                    }
                     NavigationLink("Integrate an extension") {}.disabled(true)
                 }
                 Section("Integrate Features") {
                     NavigationLink("Audio and voice effects") {}.disabled(true)
                     NavigationLink("3D Spatial Audio") {}.disabled(true)
                     NavigationLink("AI Noise Suppression") {}.disabled(true)
-                    NavigationLink("Geofencing") {}.disabled(true)
+                    NavigationLink("Geofencing") {
+                        GeofenceInputView(continueTo: GeofencingView.self)
+                    }
                     NavigationLink("Virtual Background") {}.disabled(true)
                 }
             }.navigationTitle("Video SDK reference app").navigationBarTitleDisplayMode(.inline)

@@ -1,5 +1,5 @@
 //
-//  TokenAuthenticationView.swift
+//  MediaEncryptionView.swift
 //  Docs-Examples
 //
 //  Created by Max Cobb on 21/06/2023.

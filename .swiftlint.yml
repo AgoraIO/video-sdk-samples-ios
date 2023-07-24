@@ -1,0 +1,6 @@
+identifier_name:
+  excluded:
+    - i
+    - id
+    - y
+    - AgoraRtcMediaPlayer(_:didChangedTo:error:)
