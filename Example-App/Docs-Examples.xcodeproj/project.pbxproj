@@ -17,6 +17,8 @@
 		F31BF87D2A6E4C91002E7AC2 /* StreamMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31BF87C2A6E4C91002E7AC2 /* StreamMediaView.swift */; };
 		F31BF87F2A6E8DEF002E7AC2 /* ReplayKit in Frameworks */ = {isa = PBXBuildFile; productRef = F31BF87E2A6E8DEF002E7AC2 /* ReplayKit */; };
 		F31BF8812A6E9105002E7AC2 /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31BF8802A6E9105002E7AC2 /* MediaPicker.swift */; };
+		F31BF8862A6EC37F002E7AC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F31BF8892A6EC37F002E7AC2 /* Localizable.strings */; };
+		F31BF8872A6EC37F002E7AC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F31BF8892A6EC37F002E7AC2 /* Localizable.strings */; };
 		F34266592A6AD2960086B920 /* RawMediaProcessingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34266582A6AD2960086B920 /* RawMediaProcessingView.swift */; };
 		F342665B2A6AD2A30086B920 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F342665A2A6AD2A30086B920 /* README.md */; };
 		F342665D2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F342665C2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift */; };
@@ -89,6 +91,7 @@
 		F31BF8792A6E4A09002E7AC2 /* MediaStreamInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaStreamInputView.swift; sourceTree = "<group>"; };
 		F31BF87C2A6E4C91002E7AC2 /* StreamMediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamMediaView.swift; path = "../../../../play-media/StreamMediaView.swift"; sourceTree = "<group>"; };
 		F31BF8802A6E9105002E7AC2 /* MediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
+		F31BF8882A6EC37F002E7AC2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F34266582A6AD2960086B920 /* RawMediaProcessingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RawMediaProcessingView.swift; path = "../../../../stream-raw-audio-and-video/RawMediaProcessingView.swift"; sourceTree = "<group>"; };
 		F342665A2A6AD2A30086B920 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../stream-raw-audio-and-video/README.md"; sourceTree = "<group>"; };
 		F342665C2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModifyVideoFrameDelegate.swift; path = "../../../../stream-raw-audio-and-video/ModifyVideoFrameDelegate.swift"; sourceTree = "<group>"; };
@@ -214,9 +217,18 @@
 			path = "play-media";
 			sourceTree = "<group>";
 		};
+		F31BF8822A6EC318002E7AC2 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				F31BF8892A6EC37F002E7AC2 /* Localizable.strings */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
 		F33A889729E839DE0029499C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				F31BF8822A6EC318002E7AC2 /* Strings */,
 				F3F5F18F2A58252700A909DE /* SwiftUI+Extensions */,
 				F3CA2CE229CB00C900561441 /* AgoraManager */,
 				F3CA2CCC29C96B1600561441 /* PassParamPages */,
@@ -465,6 +477,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F31BF8862A6EC37F002E7AC2 /* Localizable.strings in Resources */,
 				F310F63F29C8D031006DB727 /* Preview Assets.xcassets in Resources */,
 				F310F63C29C8D031006DB727 /* Assets.xcassets in Resources */,
 				F342665B2A6AD2A30086B920 /* README.md in Resources */,
@@ -477,6 +490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3C06BB32A4D85FC00F59BC2 /* config.json in Resources */,
+				F31BF8872A6EC37F002E7AC2 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +576,17 @@
 			targetProxy = F3A88CF02A1E0405000B2292 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F31BF8892A6EC37F002E7AC2 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F31BF8882A6EC37F002E7AC2 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F310F64029C8D031006DB727 /* Debug */ = {

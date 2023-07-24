@@ -21,6 +21,7 @@ class GeofencingManager: AgoraManager {
     }
     override func setupEngine() -> AgoraRtcEngineKit {
         let engineConfig = AgoraRtcEngineConfig()
+        engineConfig.appId = DocsAppConfig.shared.appId
         var combinedAreaCode: AgoraAreaCodeType!
         switch geoRegions {
         case .absolute(let region):
@@ -71,6 +72,8 @@ struct GeofencingView: View {
         }.onAppear { await agoraManager.joinChannel(DocsAppConfig.shared.channel)
         }.onDisappear { agoraManager.leaveChannel() }
     }
+    static let docPath = getFolderName(from: #file)
+    static let docTitle = LocalizedStringKey("geofencing-title")
 }
 
 struct GeofencingView_Previews: PreviewProvider {

@@ -10,7 +10,7 @@ import AgoraRtcKit
 import AVKit
 
 /// A protocol for views that require a custom camera capture device.
-public protocol HasCustomVideoInput: View {
+protocol HasCustomVideoInput: View, HasDocPath {
     init(channelId: String, customCamera: AVCaptureDevice)
 }
 
@@ -20,7 +20,7 @@ extension CustomAudioVideoView: HasCustomVideoInput {}
 /// accepts these inputs and connects to a channel with the appropriate camera device enabled.
 ///
 /// The `CustomCameraInputView` takes a generic parameter `Content` that conforms to the `HasCustomVideoInput` protocol.
-public struct CustomCameraInputView<Content: HasCustomVideoInput>: View {
+struct CustomCameraInputView<Content: HasCustomVideoInput>: View {
     /// The channel ID entered by the user.
     @State private var channelId: String = DocsAppConfig.shared.channel
     var availableCams = AVCaptureDevice.DiscoverySession(
@@ -47,13 +47,14 @@ public struct CustomCameraInputView<Content: HasCustomVideoInput>: View {
                 NavigationLink(destination: NavigationLazyView(continueTo.init(
                     channelId: channelId.trimmingCharacters(in: .whitespaces),
                     customCamera: availableCams[selectedCamera]
-                )), label: {
+                ).navigationTitle(continueTo.docTitle)), label: {
                     Text("Join Channel")
                 }).disabled(channelId.isEmpty)
                     .buttonStyle(.borderedProminent)
             }.onAppear {
                 channelId = DocsAppConfig.shared.channel
             }
+            .navigationTitle("Custom Camera Input")
         } else {
             Text("No cameras available.")
         }

@@ -83,6 +83,8 @@ struct MediaEncryptionView: View {
         self.encryptionSalt = encryptionSalt
         self.encryptionMode = encryptionMode
     }
+    static let docPath = getFolderName(from: #file)
+    static let docTitle = LocalizedStringKey("media-stream-encryption-title")
 }
 
 struct MediaEncryptionView_Previews: PreviewProvider {

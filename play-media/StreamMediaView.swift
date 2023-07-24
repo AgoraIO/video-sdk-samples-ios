@@ -152,6 +152,8 @@ public struct StreamMediaView: View {
         DocsAppConfig.shared.channel = channelId
         streamURL = url
     }
+    static let docPath = getFolderName(from: #file)
+    static let docTitle = LocalizedStringKey("play-media-title")
 }
 
 struct StreamMediaView_Previews: PreviewProvider {

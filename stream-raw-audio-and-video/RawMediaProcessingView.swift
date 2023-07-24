@@ -101,6 +101,8 @@ public struct RawMediaProcessingView: View {
     init(channelId: String) {
         DocsAppConfig.shared.channel = channelId
     }
+    public static let docPath = getFolderName(from: #file)
+    public static let docTitle = LocalizedStringKey("stream-raw-audio-and-video-title")
 }
 
 struct RawMediaProcessingView_Previews: PreviewProvider {

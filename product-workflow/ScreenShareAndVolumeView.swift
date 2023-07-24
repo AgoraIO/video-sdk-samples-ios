@@ -101,4 +101,6 @@ struct ScreenShareAndVolumeView: View {
     init(channelId: String) {
         DocsAppConfig.shared.channel = channelId
     }
+    static let docPath = getFolderName(from: #file)
+    static let docTitle = LocalizedStringKey("product-workflow-title")
 }

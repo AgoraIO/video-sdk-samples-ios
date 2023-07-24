@@ -9,7 +9,7 @@ import SwiftUI
 import AgoraRtcKit
 
 /// A protocol for views that require a `channelId` string as input.
-protocol HasGeoInput: View {
+protocol HasGeoInput: View, HasDocPath {
     init(channelId: String, regions: GeofencingManager.RegionsType)
 }
 
@@ -86,7 +86,7 @@ struct GeofenceInputView<Content: HasGeoInput>: View {
                             }
                         }))
                     }
-                    let textTitle = (selectedRegionIndex == 1 ? "Global, excluding" : "Only permitting") + ": "
+                    let textTitle = (selectedRegionIndex == 1 ? "Only permitting" : "Global, excluding") + ": "
                     Text("\(textTitle) \(regionsList)")
                 default: Text("Unknown Error")
                 }
@@ -95,13 +95,13 @@ struct GeofenceInputView<Content: HasGeoInput>: View {
             NavigationLink(destination: NavigationLazyView(continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces),
                 regions: .absolute(.global)
-            )), label: {
+            ).navigationTitle(continueTo.docTitle)), label: {
                 Text("Join Channel")
             }).disabled(channelId.isEmpty || !regionSelected())
                 .buttonStyle(.borderedProminent)
         }.onAppear {
             channelId = DocsAppConfig.shared.channel
-        }.padding()
+        }.padding().navigationTitle("Geofence Input")
     }
     var regionsList: String {
         selectedRegions.map { $0.humanReadable }.joined(separator: ", ")

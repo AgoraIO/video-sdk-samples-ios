@@ -9,7 +9,7 @@ import SwiftUI
 import AgoraRtcKit
 
 /// A protocol for views that require a proxy type for cloud proxy.
-public protocol HasProxyServerInput: View {
+protocol HasProxyServerInput: HasDocPath {
     init(channelId: String, proxyType: AgoraCloudProxyType)
 }
 
@@ -38,7 +38,7 @@ enum ProxyType: String, CaseIterable, Identifiable {
 /// It shows two input fields for entering the channel ID and type of proxy server, respectively,
 /// and a navigation link that navigates to `Content` when the "Join Channel" button is pressed.
 /// The navigation link is disabled if the channel name is empty.
-public struct ProxyInputView<Content: HasProxyServerInput>: View {
+struct ProxyInputView<Content: HasProxyServerInput>: View {
     /// The channel ID entered by the user.
     @State private var channelId: String = DocsAppConfig.shared.channel
     /// The proxy type chosen by the user.
@@ -58,7 +58,7 @@ public struct ProxyInputView<Content: HasProxyServerInput>: View {
             NavigationLink(destination: NavigationLazyView(continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces),
                 proxyType: proxyType.agoraProxyType()
-            )), label: {
+            ).navigationTitle(continueTo.docTitle)), label: {
                 Text("Join Channel")
             }).disabled(channelId.isEmpty)
                 .buttonStyle(.borderedProminent)
@@ -67,7 +67,7 @@ public struct ProxyInputView<Content: HasProxyServerInput>: View {
                 .font(.callout).foregroundColor(.accentColor).multilineTextAlignment(.center)
         }.onAppear {
             channelId = DocsAppConfig.shared.channel
-        }
+        }.navigationTitle("Proxy Input")
     }
 }
 

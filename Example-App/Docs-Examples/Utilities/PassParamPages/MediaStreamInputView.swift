@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 import AVFoundation
 
-protocol HasMediaInput: View {
+protocol HasMediaInput: HasDocPath {
     init(channelId: String, url: URL)
 }
 
@@ -62,10 +62,11 @@ struct MediaStreamInputView<Content: HasMediaInput>: View {
             NavigationLink(destination: NavigationLazyView(continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces),
                 url: videoURL!
-            )), label: {
+            ).navigationTitle(continueTo.docTitle)), label: {
                 Text("Join Channel")
             }).disabled(channelId.isEmpty || videoURL == nil)
                 .buttonStyle(.borderedProminent)
+                .navigationTitle("Media Stream Input")
         }.onAppear {
             channelId = DocsAppConfig.shared.channel
         }.sheet(isPresented: $isImagePickerPresented, content: {

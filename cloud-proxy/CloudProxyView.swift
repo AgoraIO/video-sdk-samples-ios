@@ -67,6 +67,8 @@ struct CloudProxyView: View {
         }.onAppear { await agoraManager.joinChannel(DocsAppConfig.shared.channel)
         }.onDisappear { agoraManager.leaveChannel() }
     }
+    static let docPath = getFolderName(from: #file)
+    static let docTitle = LocalizedStringKey("cloud-proxy-title")
 }
 
 struct CloudProxyView_Previews: PreviewProvider {

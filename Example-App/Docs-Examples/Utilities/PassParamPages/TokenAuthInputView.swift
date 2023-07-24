@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// A protocol for views that require a token server to fetch a token.
-public protocol HasTokenServerInput: View {
+protocol HasTokenServerInput: View, HasDocPath {
     /// Initialiser for a new view that complies to ``HasTokenServerInput``
     /// - Parameters:
     ///   - channelId: The channel ID to join.
@@ -28,7 +28,7 @@ extension TokenAuthenticationView: HasTokenServerInput {}
 /// The navigation link is disabled if either field is empty.
 ///
 /// After `TokenAuthInputView` is dismissed, the navigation stack returns to the previous view.
-public struct TokenAuthInputView<Content: HasTokenServerInput>: View {
+struct TokenAuthInputView<Content: HasTokenServerInput>: View {
     /// The channel ID entered by the user.
     @State var channelId: String = DocsAppConfig.shared.channel
     /// The token URL entered by the user.
@@ -44,10 +44,11 @@ public struct TokenAuthInputView<Content: HasTokenServerInput>: View {
             NavigationLink(destination: NavigationLazyView(continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces),
                 tokenUrl: tokenUrl.trimmingCharacters(in: .whitespaces)
-            )), label: {
+            ).navigationTitle(continueTo.docTitle)), label: {
                 Text("Join Channel")
             }).disabled(channelId.isEmpty || tokenUrl.isEmpty)
                 .buttonStyle(.borderedProminent)
+                .navigationTitle("Token Authentication Input")
         }.onAppear {
             channelId = DocsAppConfig.shared.channel
         }

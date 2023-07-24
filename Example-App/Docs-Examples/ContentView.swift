@@ -12,35 +12,35 @@ struct ContentView: View {
         NavigationStack {
             List {
                 Section("Get Started") {
-                    NavigationLink("SDK quickstart") {
+                    NavigationLink(GettingStartedView.docTitle) {
                         ChannelInputView(continueTo: GettingStartedView.self)
                     }
-                    NavigationLink("Secure authentication with tokens") {
+                    NavigationLink(TokenAuthenticationView.docTitle) {
                         TokenAuthInputView(continueTo: TokenAuthenticationView.self)
                     }
                 }
                 Section("Core functionality") {
-                    NavigationLink("Connect through restricted networks with Cloud Proxy") {
+                    NavigationLink(CloudProxyView.docTitle) {
                         ProxyInputView(continueTo: CloudProxyView.self)
                     }
-                    NavigationLink("Stream media to a channel") {
+                    NavigationLink(StreamMediaView.docTitle) {
                         MediaStreamInputView(continueTo: StreamMediaView.self)
                     }
-                    NavigationLink("Secure channel encryption") {
+                    NavigationLink(MediaEncryptionView.docTitle) {
                         EncryptionKeysInputView(continueTo: MediaEncryptionView.self)
                     }
-                    NavigationLink("Call quality best practice") {
+                    NavigationLink(CallQualityView.docTitle) {
                         ChannelInputView(continueTo: CallQualityView.self)
                     }
-                    NavigationLink("Screen share, volume control and mute") {
+                    NavigationLink(ScreenShareAndVolumeView.docTitle) {
                         ChannelInputView(continueTo: ScreenShareAndVolumeView.self)
                     }
                     NavigationLink("Receive notifications about channel events") {}
                         .disabled(true)
-                    NavigationLink("Custom video and audio sources") {
+                    NavigationLink(CustomAudioVideoView.docTitle) {
                         CustomCameraInputView(continueTo: CustomAudioVideoView.self)
                     }
-                    NavigationLink("Raw video and audio processing") {
+                    NavigationLink(RawMediaProcessingView.docTitle) {
                         ChannelInputView(continueTo: RawMediaProcessingView
                             .self)
                     }
@@ -50,12 +50,12 @@ struct ContentView: View {
                     NavigationLink("Audio and voice effects") {}.disabled(true)
                     NavigationLink("3D Spatial Audio") {}.disabled(true)
                     NavigationLink("AI Noise Suppression") {}.disabled(true)
-                    NavigationLink("Geofencing") {
+                    NavigationLink(GeofencingView.docTitle) {
                         GeofenceInputView(continueTo: GeofencingView.self)
                     }
                     NavigationLink("Virtual Background") {}.disabled(true)
                 }
-            }.navigationTitle("Video SDK reference app").navigationBarTitleDisplayMode(.inline)
+            }.navigationTitle(LocalizedStringKey("app_title")).navigationBarTitleDisplayMode(.inline)
         }
     }
 }
