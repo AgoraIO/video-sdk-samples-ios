@@ -62,7 +62,11 @@ struct MediaStreamInputView<Content: HasMediaInput>: View {
             NavigationLink(destination: NavigationLazyView(continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces),
                 url: videoURL!
-            ).navigationTitle(continueTo.docTitle)), label: {
+            ).navigationTitle(continueTo.docTitle).toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    GitHubButtonView(continueTo.docPath)
+                }
+            }), label: {
                 Text("Join Channel")
             }).disabled(channelId.isEmpty || videoURL == nil)
                 .buttonStyle(.borderedProminent)
@@ -70,7 +74,7 @@ struct MediaStreamInputView<Content: HasMediaInput>: View {
         }.onAppear {
             channelId = DocsAppConfig.shared.channel
         }.sheet(isPresented: $isImagePickerPresented, content: {
-            #if os(iOS)
+            #if os(iOS) && !targetEnvironment(simulator)
             MediaPicker(videoURL: $videoURL, videoThumbnail: $videoThumbnail)
             #endif
         })

@@ -118,7 +118,10 @@ public struct StreamMediaView: View {
                     if agoraManager.mediaPlaying, let mediaPlayer = agoraManager.mediaPlayer {
                         AgoraVideoCanvasView(
                             manager: agoraManager,
-                            canvasIdType: .mediaSource(.mediaPlayer, mediaPlayerId: mediaPlayer.getMediaPlayerId())
+                            canvasIdType: .mediaSource(
+                                .mediaPlayer,
+                                mediaPlayerId: mediaPlayer.getMediaPlayerId()
+                            )
                         ).aspectRatio(contentMode: .fit).cornerRadius(10)
                     }
                     // Show the video feeds for each participant.

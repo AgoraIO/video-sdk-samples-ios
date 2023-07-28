@@ -37,10 +37,9 @@ public struct AgoraVideoCanvasView: UIViewRepresentable {
     /// Reference to a protocol ``CanvasViewHelper`` that helps with fetching the engine instance,
     /// as well as the local user's ID. ``AgoraManager`` conforms to this protocol.
     public weak var manager: CanvasViewHelper?
-    /// The user ID of the remote user whose video to display, or `0` to display the local user's video.
-    public var uid: UInt?
 
     public var canvasIdType: CanvasIdType
+
     /// The render mode for the view.
     public var renderMode: AgoraVideoRenderMode = .hidden
 

@@ -48,16 +48,18 @@ struct EncryptionKeysInputView<Content: HasEncryptionInput>: View {
                     Text(option.description).tag(option)
                 }
             }.pickerStyle(MenuPickerStyle()).textFieldStyle(.roundedBorder).padding()
-            NavigationLink {
-                NavigationLazyView(continueTo.init(
-                    channelId: channelId.trimmingCharacters(in: .whitespaces),
-                    encryptionKey: encryptionKey.trimmingCharacters(in: .whitespaces),
-                    encryptionSalt: encryptionSalt.trimmingCharacters(in: .whitespaces),
-                    encryptionMode: self.encryptionType
-                ).navigationTitle(continueTo.docTitle))
-            } label: {
+            NavigationLink(destination: NavigationLazyView(continueTo.init(
+                channelId: channelId.trimmingCharacters(in: .whitespaces),
+                encryptionKey: encryptionKey.trimmingCharacters(in: .whitespaces),
+                encryptionSalt: encryptionSalt.trimmingCharacters(in: .whitespaces),
+                encryptionMode: self.encryptionType
+            ).navigationTitle(continueTo.docTitle).toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    GitHubButtonView(continueTo.docPath)
+                }
+            }), label: {
                 Text("Join Channel")
-            }.buttonStyle(.borderedProminent)
+            }).buttonStyle(.borderedProminent)
                 .disabled(channelId.isEmpty || encryptionKey.isEmpty || encryptionSalt.isEmpty)
                 .navigationTitle("Encryption Key Input")
         }.onAppear {

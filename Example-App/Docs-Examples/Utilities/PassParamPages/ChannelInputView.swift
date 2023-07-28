@@ -38,7 +38,11 @@ struct ChannelInputView<Content: HasChannelInput>: View {
             TextField("Enter channel id", text: $channelId).textFieldStyle(.roundedBorder).padding()
             NavigationLink(destination: NavigationLazyView(continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces)
-            ).navigationTitle(continueTo.docTitle)), label: {
+            ).navigationTitle(continueTo.docTitle).toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    GitHubButtonView(continueTo.docPath)
+                }
+            }), label: {
                 Text("Join Channel")
             }).disabled(channelId.isEmpty)
                 .buttonStyle(.borderedProminent)
