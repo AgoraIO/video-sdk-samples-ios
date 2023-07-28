@@ -115,6 +115,8 @@ struct TokenAuthenticationView: View {
             }
         }.onDisappear { agoraManager.leaveChannel() }
     }
+    static let docPath = getFolderName(from: #file)
+    static let docTitle = LocalizedStringKey("authentication-workflow-title")
 }
 
 struct TokenAuthenticationView_Previews: PreviewProvider {

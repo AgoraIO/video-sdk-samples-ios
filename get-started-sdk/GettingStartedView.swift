@@ -36,6 +36,9 @@ public struct GettingStartedView: View {
     init(channelId: String) {
         DocsAppConfig.shared.channel = channelId
     }
+
+    public static let docPath = getFolderName(from: #file)
+    public static let docTitle = LocalizedStringKey("get-started-sdk-title")
 }
 
 struct GettingStartedView_Previews: PreviewProvider {

@@ -7,14 +7,20 @@
 
 import SwiftUI
 
+protocol HasDocPath: View {
+    static var docPath: String { get }
+    static var docTitle: LocalizedStringKey { get }
+}
+
 /// A protocol for views that require a `channelId` string as input.
-protocol HasChannelInput: View {
+protocol HasChannelInput: HasDocPath {
     init(channelId: String)
 }
 
 extension GettingStartedView: HasChannelInput {}
 extension CallQualityView: HasChannelInput {}
 extension ScreenShareAndVolumeView: HasChannelInput {}
+extension RawMediaProcessingView: HasChannelInput {}
 
 /// A view that takes a user inputted `channelId` string and navigates to a view
 /// which conforms to the `HasChannelInput` protocol.
@@ -32,10 +38,15 @@ struct ChannelInputView<Content: HasChannelInput>: View {
             TextField("Enter channel id", text: $channelId).textFieldStyle(.roundedBorder).padding()
             NavigationLink(destination: NavigationLazyView(continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces)
-            )), label: {
+            ).navigationTitle(continueTo.docTitle).toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    GitHubButtonView(continueTo.docPath)
+                }
+            }), label: {
                 Text("Join Channel")
             }).disabled(channelId.isEmpty)
                 .buttonStyle(.borderedProminent)
+                .navigationTitle("Channel Input")
         }.onAppear {
             channelId = DocsAppConfig.shared.channel
         }

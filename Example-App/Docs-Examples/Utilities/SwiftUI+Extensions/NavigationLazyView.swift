@@ -16,3 +16,8 @@ internal struct NavigationLazyView<Content: View>: View {
         build()
     }
 }
+
+internal func getFolderName(from path: String) -> String {
+    let fileURL = URL(fileURLWithPath: path)
+    return fileURL.deletingLastPathComponent().lastPathComponent
+}

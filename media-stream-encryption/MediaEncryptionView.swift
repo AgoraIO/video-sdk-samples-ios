@@ -1,5 +1,5 @@
 //
-//  TokenAuthenticationView.swift
+//  MediaEncryptionView.swift
 //  Docs-Examples
 //
 //  Created by Max Cobb on 21/06/2023.
@@ -83,6 +83,8 @@ struct MediaEncryptionView: View {
         self.encryptionSalt = encryptionSalt
         self.encryptionMode = encryptionMode
     }
+    static let docPath = getFolderName(from: #file)
+    static let docTitle = LocalizedStringKey("media-stream-encryption-title")
 }
 
 struct MediaEncryptionView_Previews: PreviewProvider {

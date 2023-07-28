@@ -103,6 +103,8 @@ struct CallQualityView: View {
     init(channelId: String) {
         DocsAppConfig.shared.channel = channelId
     }
+    static let docPath = getFolderName(from: #file)
+    static let docTitle = LocalizedStringKey("ensure-channel-quality-title")
 }
 
 struct CallQualityView_Previews: PreviewProvider {

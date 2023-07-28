@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  Docs-Examples
+
+  Created by Max Cobb on 24/07/2023.
+  
+*/
+
+"app_title" = "Video SDK reference app";
+"get-started-sdk-title" = "SDK quickstart";
+"authentication-workflow-title" = "Secure authentication with tokens";
+"cloud-proxy-title" = "Connect through restricted networks with Cloud Proxy";
+"play-media-title" = "Stream media to a channel";
+"media-stream-encryption-title" = "Secure channel encryption";
+"ensure-channel-quality-title" = "Call quality best practice";
+"product-workflow-title" = "Screen share, volume control and mute";
+"custom-video-and-audio-title" = "Custom video and audio sources";
+"stream-raw-audio-and-video-title" = "Raw video and audio processing";
+"geofencing-title" = "Geofencing";

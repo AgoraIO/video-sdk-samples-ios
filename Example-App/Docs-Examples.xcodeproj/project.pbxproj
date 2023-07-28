@@ -11,6 +11,16 @@
 		F310F63A29C8D02E006DB727 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F310F63929C8D02E006DB727 /* ContentView.swift */; };
 		F310F63C29C8D031006DB727 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F310F63B29C8D031006DB727 /* Assets.xcassets */; };
 		F310F63F29C8D031006DB727 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F310F63E29C8D031006DB727 /* Preview Assets.xcassets */; };
+		F31BF8712A6BB69A002E7AC2 /* GeofencingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31BF86F2A6BB69A002E7AC2 /* GeofencingView.swift */; };
+		F31BF8762A6C3E56002E7AC2 /* GeofenceInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31BF8752A6C3E56002E7AC2 /* GeofenceInputView.swift */; };
+		F31BF87A2A6E4A09002E7AC2 /* MediaStreamInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31BF8792A6E4A09002E7AC2 /* MediaStreamInputView.swift */; };
+		F31BF87D2A6E4C91002E7AC2 /* StreamMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31BF87C2A6E4C91002E7AC2 /* StreamMediaView.swift */; };
+		F31BF87F2A6E8DEF002E7AC2 /* ReplayKit in Frameworks */ = {isa = PBXBuildFile; productRef = F31BF87E2A6E8DEF002E7AC2 /* ReplayKit */; };
+		F31BF8812A6E9105002E7AC2 /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31BF8802A6E9105002E7AC2 /* MediaPicker.swift */; };
+		F31BF8862A6EC37F002E7AC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F31BF8892A6EC37F002E7AC2 /* Localizable.strings */; };
+		F31BF8872A6EC37F002E7AC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F31BF8892A6EC37F002E7AC2 /* Localizable.strings */; };
+		F34266592A6AD2960086B920 /* RawMediaProcessingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34266582A6AD2960086B920 /* RawMediaProcessingView.swift */; };
+		F342665D2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F342665C2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift */; };
 		F344ED9A2A45942B00B3C313 /* AgoraCameraSourcePush.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344ED982A45942A00B3C313 /* AgoraCameraSourcePush.swift */; };
 		F344ED9B2A45942B00B3C313 /* CustomAudioVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344ED992A45942A00B3C313 /* CustomAudioVideoView.swift */; };
 		F344ED9E2A494CE700B3C313 /* CustomCameraInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344ED9D2A494CE700B3C313 /* CustomCameraInputView.swift */; };
@@ -42,6 +52,8 @@
 		F3E8E6F92A42EAD100E6B774 /* CloudProxyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8E6F72A42EAD100E6B774 /* CloudProxyView.swift */; };
 		F3E8E6FB2A42F60500E6B774 /* ProxyInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8E6FA2A42F60500E6B774 /* ProxyInputView.swift */; };
 		F3E8E6FD2A43E8AD00E6B774 /* EncryptionKeysInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8E6FC2A43E8AD00E6B774 /* EncryptionKeysInputView.swift */; };
+		F3F1046C2A73CFB200220C3A /* GitHubButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F1046B2A73CFB200220C3A /* GitHubButtonView.swift */; };
+		F3FBDEA32A6BA94A00DAB164 /* ModifyAudioFrameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FBDEA22A6BA94A00DAB164 /* ModifyAudioFrameDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,11 +86,20 @@
 		F310F63929C8D02E006DB727 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F310F63B29C8D031006DB727 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F310F63E29C8D031006DB727 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		F344ED982A45942A00B3C313 /* AgoraCameraSourcePush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AgoraCameraSourcePush.swift; path = "../../../../custom-video-and-audio/AgoraCameraSourcePush.swift"; sourceTree = "<group>"; };
-		F344ED992A45942A00B3C313 /* CustomAudioVideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomAudioVideoView.swift; path = "../../../../custom-video-and-audio/CustomAudioVideoView.swift"; sourceTree = "<group>"; };
+		F31BF86F2A6BB69A002E7AC2 /* GeofencingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeofencingView.swift; path = ../../../../geofencing/GeofencingView.swift; sourceTree = "<group>"; };
+		F31BF8752A6C3E56002E7AC2 /* GeofenceInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceInputView.swift; sourceTree = "<group>"; };
+		F31BF8792A6E4A09002E7AC2 /* MediaStreamInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaStreamInputView.swift; sourceTree = "<group>"; };
+		F31BF87C2A6E4C91002E7AC2 /* StreamMediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamMediaView.swift; path = "../../../../play-media/StreamMediaView.swift"; sourceTree = "<group>"; };
+		F31BF8802A6E9105002E7AC2 /* MediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
+		F31BF8882A6EC37F002E7AC2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F34266582A6AD2960086B920 /* RawMediaProcessingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RawMediaProcessingView.swift; path = "../../../../stream-raw-audio-and-video/RawMediaProcessingView.swift"; sourceTree = "<group>"; };
+		F342665A2A6AD2A30086B920 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../stream-raw-audio-and-video/README.md"; sourceTree = "<group>"; };
+		F342665C2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModifyVideoFrameDelegate.swift; path = "../../../../stream-raw-audio-and-video/ModifyVideoFrameDelegate.swift"; sourceTree = "<group>"; };
+		F344ED982A45942A00B3C313 /* AgoraCameraSourcePush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AgoraCameraSourcePush.swift; path = "../custom-video-and-audio/AgoraCameraSourcePush.swift"; sourceTree = SOURCE_ROOT; };
+		F344ED992A45942A00B3C313 /* CustomAudioVideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomAudioVideoView.swift; path = "../custom-video-and-audio/CustomAudioVideoView.swift"; sourceTree = SOURCE_ROOT; };
 		F344ED9C2A45943400B3C313 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../custom-video-and-audio/README.md"; sourceTree = "<group>"; };
 		F344ED9D2A494CE700B3C313 /* CustomCameraInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCameraInputView.swift; sourceTree = "<group>"; };
-		F344ED9F2A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AgoraCustomVideoCanvasView.swift; path = "../../../../custom-video-and-audio/AgoraCustomVideoCanvasView.swift"; sourceTree = "<group>"; };
+		F344ED9F2A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AgoraCustomVideoCanvasView.swift; path = "../custom-video-and-audio/AgoraCustomVideoCanvasView.swift"; sourceTree = SOURCE_ROOT; };
 		F348B3962A4D7BDC00AF6B9B /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = "../agora-manager/config.json"; sourceTree = SOURCE_ROOT; };
 		F35A427F2A6973F300FF93D5 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		F35A42812A69750300FF93D5 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
@@ -111,6 +132,10 @@
 		F3E8E6F72A42EAD100E6B774 /* CloudProxyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CloudProxyView.swift; path = "../../../../cloud-proxy/CloudProxyView.swift"; sourceTree = "<group>"; };
 		F3E8E6FA2A42F60500E6B774 /* ProxyInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProxyInputView.swift; sourceTree = "<group>"; };
 		F3E8E6FC2A43E8AD00E6B774 /* EncryptionKeysInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionKeysInputView.swift; sourceTree = "<group>"; };
+		F3F104662A73C1CC00220C3A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../../../geofencing/README.md; sourceTree = "<group>"; };
+		F3F104682A73C4CF00220C3A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../play-media/README.md"; sourceTree = "<group>"; };
+		F3F1046B2A73CFB200220C3A /* GitHubButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubButtonView.swift; sourceTree = "<group>"; };
+		F3FBDEA22A6BA94A00DAB164 /* ModifyAudioFrameDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModifyAudioFrameDelegate.swift; path = "../../../../stream-raw-audio-and-video/ModifyAudioFrameDelegate.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F31BF87F2A6E8DEF002E7AC2 /* ReplayKit in Frameworks */,
 				F3C571C229C8E50E0002B322 /* RtcBasic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,9 +204,37 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		F31BF86E2A6BB676002E7AC2 /* geofencing */ = {
+			isa = PBXGroup;
+			children = (
+				F3F104662A73C1CC00220C3A /* README.md */,
+				F31BF86F2A6BB69A002E7AC2 /* GeofencingView.swift */,
+			);
+			path = geofencing;
+			sourceTree = "<group>";
+		};
+		F31BF87B2A6E4C68002E7AC2 /* play-media */ = {
+			isa = PBXGroup;
+			children = (
+				F3F104682A73C4CF00220C3A /* README.md */,
+				F31BF87C2A6E4C91002E7AC2 /* StreamMediaView.swift */,
+			);
+			path = "play-media";
+			sourceTree = "<group>";
+		};
+		F31BF8822A6EC318002E7AC2 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				F31BF8892A6EC37F002E7AC2 /* Localizable.strings */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
 		F33A889729E839DE0029499C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				F31BF8822A6EC318002E7AC2 /* Strings */,
+				F3F1046A2A73C5AC00220C3A /* Misc+Views */,
 				F3F5F18F2A58252700A909DE /* SwiftUI+Extensions */,
 				F3CA2CE229CB00C900561441 /* AgoraManager */,
 				F3CA2CCC29C96B1600561441 /* PassParamPages */,
@@ -188,16 +242,30 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		F34266572A6AD2660086B920 /* stream-raw-audio-and-video */ = {
+			isa = PBXGroup;
+			children = (
+				F342665A2A6AD2A30086B920 /* README.md */,
+				F34266582A6AD2960086B920 /* RawMediaProcessingView.swift */,
+				F342665C2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift */,
+				F3FBDEA22A6BA94A00DAB164 /* ModifyAudioFrameDelegate.swift */,
+			);
+			path = "stream-raw-audio-and-video";
+			sourceTree = "<group>";
+		};
 		F3A88CCA2A1DE5FE000B2292 /* app-stories */ = {
 			isa = PBXGroup;
 			children = (
 				F3A88CCB2A1DE618000B2292 /* get-started-sdk */,
 				F3A88CD52A1DE650000B2292 /* authentication-workflow */,
-				F3A88CD02A1DE634000B2292 /* ensure-channel-quality */,
 				F3E8E6F52A42EABF00E6B774 /* cloud-proxy */,
+				F31BF87B2A6E4C68002E7AC2 /* play-media */,
 				F3E8E6F02A42E53F00E6B774 /* media-stream-encryption */,
+				F3A88CD02A1DE634000B2292 /* ensure-channel-quality */,
 				F3A88CDF2A1DF27F000B2292 /* product-workflow */,
 				F3A88CDA2A1DEEE0000B2292 /* custom-video-and-audio */,
+				F34266572A6AD2660086B920 /* stream-raw-audio-and-video */,
+				F31BF86E2A6BB676002E7AC2 /* geofencing */,
 			);
 			path = "app-stories";
 			sourceTree = "<group>";
@@ -272,6 +340,8 @@
 			isa = PBXGroup;
 			children = (
 				F3D7BD4E29DB42D00014DEC0 /* ChannelInputView.swift */,
+				F31BF8792A6E4A09002E7AC2 /* MediaStreamInputView.swift */,
+				F31BF8752A6C3E56002E7AC2 /* GeofenceInputView.swift */,
 				F3D7BD5029DB46BB0014DEC0 /* TokenAuthInputView.swift */,
 				F3E8E6FC2A43E8AD00E6B774 /* EncryptionKeysInputView.swift */,
 				F344ED9D2A494CE700B3C313 /* CustomCameraInputView.swift */,
@@ -309,12 +379,21 @@
 			path = "cloud-proxy";
 			sourceTree = "<group>";
 		};
+		F3F1046A2A73C5AC00220C3A /* Misc+Views */ = {
+			isa = PBXGroup;
+			children = (
+				F3F1046B2A73CFB200220C3A /* GitHubButtonView.swift */,
+			);
+			path = "Misc+Views";
+			sourceTree = "<group>";
+		};
 		F3F5F18F2A58252700A909DE /* SwiftUI+Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				F3E59CBA2A57257300EC2B2E /* View+Extensions.swift */,
 				F35A42812A69750300FF93D5 /* VisualEffectView.swift */,
 				F35A427F2A6973F300FF93D5 /* NavigationLazyView.swift */,
+				F31BF8802A6E9105002E7AC2 /* MediaPicker.swift */,
 			);
 			path = "SwiftUI+Extensions";
 			sourceTree = "<group>";
@@ -340,6 +419,7 @@
 			name = "Docs-Examples";
 			packageProductDependencies = (
 				F3C571C129C8E50E0002B322 /* RtcBasic */,
+				F31BF87E2A6E8DEF002E7AC2 /* ReplayKit */,
 			);
 			productName = "Docs-Examples";
 			productReference = F310F63429C8D02E006DB727 /* Docs-Examples.app */;
@@ -411,6 +491,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F31BF8862A6EC37F002E7AC2 /* Localizable.strings in Resources */,
 				F310F63F29C8D031006DB727 /* Preview Assets.xcassets in Resources */,
 				F310F63C29C8D031006DB727 /* Assets.xcassets in Resources */,
 				F348B3972A4D7BDC00AF6B9B /* config.json in Resources */,
@@ -422,6 +503,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3C06BB32A4D85FC00F59BC2 /* config.json in Resources */,
+				F31BF8872A6EC37F002E7AC2 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,13 +543,22 @@
 				F3D7BD5129DB46BB0014DEC0 /* TokenAuthInputView.swift in Sources */,
 				F35A42822A69750400FF93D5 /* VisualEffectView.swift in Sources */,
 				F3E8E6F42A42E56E00E6B774 /* MediaEncryptionView.swift in Sources */,
+				F31BF8762A6C3E56002E7AC2 /* GeofenceInputView.swift in Sources */,
 				F344ED9A2A45942B00B3C313 /* AgoraCameraSourcePush.swift in Sources */,
+				F31BF87D2A6E4C91002E7AC2 /* StreamMediaView.swift in Sources */,
+				F31BF8812A6E9105002E7AC2 /* MediaPicker.swift in Sources */,
+				F34266592A6AD2960086B920 /* RawMediaProcessingView.swift in Sources */,
 				F310F63A29C8D02E006DB727 /* ContentView.swift in Sources */,
+				F3FBDEA32A6BA94A00DAB164 /* ModifyAudioFrameDelegate.swift in Sources */,
+				F31BF8712A6BB69A002E7AC2 /* GeofencingView.swift in Sources */,
 				F3D7BD4729DB30680014DEC0 /* AgoraManager.swift in Sources */,
 				F344EDA02A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift in Sources */,
 				F3A88CCE2A1DE629000B2292 /* GettingStartedView.swift in Sources */,
+				F31BF87A2A6E4A09002E7AC2 /* MediaStreamInputView.swift in Sources */,
+				F342665D2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift in Sources */,
 				F35A42802A6973F300FF93D5 /* NavigationLazyView.swift in Sources */,
 				F3CA2CDB29C97AF400561441 /* Documentation.docc in Sources */,
+				F3F1046C2A73CFB200220C3A /* GitHubButtonView.swift in Sources */,
 				F3A88CFD2A1E17E0000B2292 /* RPSystemBroadcastPickerWrapper.swift in Sources */,
 				F3E8E6FD2A43E8AD00E6B774 /* EncryptionKeysInputView.swift in Sources */,
 				F3C06BB52A4D861200F59BC2 /* DocsAppConfig.swift in Sources */,
@@ -499,6 +590,17 @@
 			targetProxy = F3A88CF02A1E0405000B2292 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F31BF8892A6EC37F002E7AC2 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F31BF8882A6EC37F002E7AC2 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F310F64029C8D031006DB727 /* Debug */ = {
@@ -781,6 +883,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F31BF87E2A6E8DEF002E7AC2 /* ReplayKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3C571C029C8E50E0002B322 /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
+			productName = ReplayKit;
+		};
 		F35967172A5C35FE005CEE79 /* RtcBasic */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F3C571C029C8E50E0002B322 /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;

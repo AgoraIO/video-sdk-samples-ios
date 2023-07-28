@@ -131,4 +131,6 @@ struct CustomAudioVideoView: View {
             appId: DocsAppConfig.shared.appId, role: .broadcaster, captureDevice: customCamera
         )
     }
+    static let docPath = getFolderName(from: #file)
+    static let docTitle = LocalizedStringKey("custom-video-and-audio-title")
 }
