@@ -11,7 +11,7 @@ struct GitHubButtonView: View {
     let url: URL?
     static let repoBase = "https://github.com/AgoraIO/video-sdk-samples-ios/tree/main/"
 
-    init(_ path: String) { //, height: CGFloat? = nil, text: String = "") {
+    init(_ path: String) {
         self.url = URL(string: GitHubButtonView.repoBase + path)
         print("url: \(self.url?.absoluteString ?? "")")
     }
@@ -20,11 +20,11 @@ struct GitHubButtonView: View {
         if let url {
             Button(action: {
                 openURL(url)
-            }) {
+            }, label: {
                 Image(uiImage: UIImage(
                     named: "github-mark\(colorScheme == .dark ? "-white" : "")")!
                 ).resizable().frame(width: 24, height: 24)
-            }
+            })
         }
     }
 
