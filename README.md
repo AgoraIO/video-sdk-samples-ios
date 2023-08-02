@@ -53,16 +53,16 @@ To build and run the project, use the build button (Cmd+R) in Xcode. Select your
 
 You'll find numerous examples illustrating the functionality and features of this reference app in the root directory. Each example is self-contained in its own directory, providing an easy way to understand how to use the app. For more information about each example, see the README file within its directory.
 
-- [SDK quickstart](get-started-sdk-title)
-- [Secure authentication with tokens](authentication-workflow-title)
-- [Connect through restricted networks with Cloud Proxy](cloud-proxy-title)
-- [Stream media to a channel](play-media-title)
-- [Secure channel encryption](media-stream-encryption-title)
-- [Call quality best practice](ensure-channel-quality-title)
-- [Screen share, volume control and mute](product-workflow-title)
-- [Custom video and audio sources](custom-video-and-audio-title)
-- [Raw video and audio processing](stream-raw-audio-and-video-title)
-- [Geofencing](geofencing-title)
+- [SDK quickstart](get-started-sdk)
+- [Secure authentication with tokens](authentication-workflow)
+- [Connect through restricted networks with Cloud Proxy](cloud-proxy)
+- [Stream media to a channel](play-media)
+- [Secure channel encryption](media-stream-encryption)
+- [Call quality best practice](ensure-channel-quality)
+- [Screen share, volume control and mute](product-workflow)
+- [Custom video and audio sources](custom-video-and-audio)
+- [Raw video and audio processing](stream-raw-audio-and-video)
+- [Geofencing](geofencing)
 
 ## Screenshots
 
