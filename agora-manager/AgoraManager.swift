@@ -33,6 +33,7 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
         let eng = AgoraRtcEngineKit.sharedEngine(withAppId: appId, delegate: self)
         eng.enableVideo()
         eng.setClientRole(role)
+        self.engine = eng
         return eng
     }
 
