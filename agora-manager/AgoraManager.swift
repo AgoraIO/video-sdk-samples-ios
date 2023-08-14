@@ -12,7 +12,7 @@ import AgoraRtcKit
 ///
 /// Use AgoraManager to set up and manage Agora RTC sessions, manage the client's role,
 /// and control the client's connection to the Agora RTC server.
-open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
+open class AgoraManager: NSObject, ObservableObject {
     /// The Agora App ID for the session.
     public let appId: String
     /// The client's role in the session.
@@ -108,7 +108,9 @@ open class AgoraManager: NSObject, ObservableObject, AgoraRtcEngineDelegate {
         self.allUsers.removeAll()
         return leaveErr
     }
+}
 
+extension AgoraManager: AgoraRtcEngineDelegate {
     /// The delegate is telling us that the local user has successfully joined the channel.
     /// - Parameters:
     ///    - engine: The Agora RTC engine kit object.

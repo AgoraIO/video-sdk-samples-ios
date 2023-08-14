@@ -7,10 +7,31 @@
 
 import SwiftUI
 
+enum RtcProducts: Int, CaseIterable {
+    case rtc = 0
+    case ilr = 1
+    case voice = 2
+    var description: String {
+        switch self {
+        case .rtc: return "Video Calling"
+        case .ilr: return "Interactive Live Streaming"
+        case .voice: return "Voice Calling"
+        }
+    }
+}
+
 struct ContentView: View {
+    @State var productChoice: RtcProducts = .rtc
     var body: some View {
         NavigationStack {
             List {
+                // MARK: - Product Selection
+                Picker("Product", selection: $productChoice) {
+                    ForEach(RtcProducts.allCases, id: \.rawValue) { option in
+                        Text(option.description).tag(option)
+                    }
+                }.pickerStyle(MenuPickerStyle())
+                // MARK: - Get Started Guides
                 Section("Get Started") {
                     NavigationLink(GettingStartedView.docTitle) {
                         ChannelInputView(continueTo: GettingStartedView.self)
@@ -19,15 +40,23 @@ struct ContentView: View {
                         TokenAuthInputView(continueTo: TokenAuthenticationView.self)
                     }
                 }
+                // MARK: - Core Functionality
                 Section("Core functionality") {
                     NavigationLink(CloudProxyView.docTitle) {
                         ProxyInputView(continueTo: CloudProxyView.self)
                     }
-                    NavigationLink(StreamMediaView.docTitle) {
-                        MediaStreamInputView(continueTo: StreamMediaView.self)
+                    if productChoice != .voice {
+                        NavigationLink(StreamMediaView.docTitle) {
+                            MediaStreamInputView(continueTo: StreamMediaView.self)
+                        }
                     }
                     NavigationLink(MediaEncryptionView.docTitle) {
                         EncryptionKeysInputView(continueTo: MediaEncryptionView.self)
+                    }
+                    if productChoice == .ilr {
+                        NavigationLink(ChannelRelayView.docTitle) {
+                            MultiChannelInputView(continueTo: ChannelRelayView.self)
+                        }.disabled(true)
                     }
                     NavigationLink(CallQualityView.docTitle) {
                         ChannelInputView(continueTo: CallQualityView.self)
