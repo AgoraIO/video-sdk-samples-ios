@@ -19,6 +19,9 @@ open class AgoraManager: NSObject, ObservableObject {
     public var role: AgoraClientRole = .audience {
         didSet { agoraEngine.setClientRole(role) }
     }
+
+    @Published var label: String?
+
     /// Integer ID of the local user.
     @Published public var localUserId: UInt = 0
 
@@ -31,7 +34,9 @@ open class AgoraManager: NSObject, ObservableObject {
 
     open func setupEngine() -> AgoraRtcEngineKit {
         let eng = AgoraRtcEngineKit.sharedEngine(withAppId: appId, delegate: self)
-        eng.enableVideo()
+        if DocsAppConfig.shared.product != .voice {
+            eng.enableVideo()
+        } else { eng.enableAudio() }
         eng.setClientRole(role)
         self.engine = eng
         return eng

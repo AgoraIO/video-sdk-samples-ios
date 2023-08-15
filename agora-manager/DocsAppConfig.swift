@@ -46,4 +46,19 @@ public struct DocsAppConfig: Codable {
     var tokenUrl: String
     /// ID used for screen shares by default
     var screenShareId: UInt
+    /// Choose product type from "rtc", "ilr", "voice". See ``RtcProducts``.
+    var product: RtcProducts
+}
+
+enum RtcProducts: String, CaseIterable, Codable {
+    case rtc
+    case ils
+    case voice
+    var description: String {
+        switch self {
+        case .rtc: return "Video Calling"
+        case .ils: return "Interactive Live Streaming"
+        case .voice: return "Voice Calling"
+        }
+    }
 }

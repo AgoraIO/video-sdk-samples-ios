@@ -2,4 +2,4 @@
 
 ## Full Documentation
 
-[Agora's full Live streaming over multiple channels guide](https://docs.agora.io/en/interactive-live-streaming/develop/live-streaming-over-multiple-channels?platform=ios)
+[Live streaming over multiple channels guide](https://docs.agora.io/en/interactive-live-streaming/develop/live-streaming-over-multiple-channels?platform=ios)

@@ -7,19 +7,6 @@
 
 import SwiftUI
 
-enum RtcProducts: Int, CaseIterable {
-    case rtc = 0
-    case ilr = 1
-    case voice = 2
-    var description: String {
-        switch self {
-        case .rtc: return "Video Calling"
-        case .ilr: return "Interactive Live Streaming"
-        case .voice: return "Voice Calling"
-        }
-    }
-}
-
 struct ContentView: View {
     @State var productChoice: RtcProducts = .rtc
     var body: some View {
@@ -53,10 +40,10 @@ struct ContentView: View {
                     NavigationLink(MediaEncryptionView.docTitle) {
                         EncryptionKeysInputView(continueTo: MediaEncryptionView.self)
                     }
-                    if productChoice == .ilr {
+                    if productChoice == .ils {
                         NavigationLink(ChannelRelayView.docTitle) {
                             MultiChannelInputView(continueTo: ChannelRelayView.self)
-                        }.disabled(true)
+                        }
                     }
                     NavigationLink(CallQualityView.docTitle) {
                         ChannelInputView(continueTo: CallQualityView.self)
@@ -85,6 +72,10 @@ struct ContentView: View {
                     NavigationLink("Virtual Background") {}.disabled(true)
                 }
             }.navigationTitle(LocalizedStringKey("app_title")).navigationBarTitleDisplayMode(.inline)
+        }.onAppear {
+            self.productChoice = DocsAppConfig.shared.product
+        }.onChange(of: self.productChoice) { newValue in
+            DocsAppConfig.shared.product = newValue
         }
     }
 }

@@ -98,7 +98,6 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
     }
     // swiftlint:enable identifier_name
 
-    @Published var label: String?
     @Published var mediaPlaying: Bool = false
     @Published var mediaDuration: Int = 0
     @Published var playerButtonText = "Open Media File"
@@ -118,7 +117,7 @@ public struct StreamMediaView: View {
                     if agoraManager.mediaPlaying, let mediaPlayer = agoraManager.mediaPlayer {
                         AgoraVideoCanvasView(
                             manager: agoraManager,
-                            canvasIdType: .mediaSource(
+                            canvasId: .mediaSource(
                                 .mediaPlayer,
                                 mediaPlayerId: mediaPlayer.getMediaPlayerId()
                             )

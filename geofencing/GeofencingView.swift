@@ -35,7 +35,11 @@ class GeofencingManager: AgoraManager {
         }
         engineConfig.areaCode = combinedAreaCode
         let eng = AgoraRtcEngineKit.sharedEngine(with: engineConfig, delegate: self)
-        eng.enableVideo()
+        if DocsAppConfig.shared.product != .voice {
+            eng.enableVideo()
+        } else {
+            eng.enableAudio()
+        }
         eng.setClientRole(role)
         return eng
     }

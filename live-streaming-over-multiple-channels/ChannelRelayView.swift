@@ -10,54 +10,154 @@ import AgoraRtcKit
 
 public class RelayManager: AgoraManager {
     var mediaRelaying: Bool? = false
-    var sourceChannel: String
-    var destChannel: String
+    var primaryChannel: String
+    var secondaryChannel: String
+    var isRelay: Bool
     // Can be any number, the range is arbitrary
     var destUid: UInt = .random(in: 1000...5000)
-    init(sourceChannel: String, destChannel: String) {
-        self.sourceChannel = sourceChannel
-        self.destChannel = destChannel
+    var exDelegate: ExDelegate!
+    init(primaryChannel: String, secondaryChannel: String, isRelay: Bool) {
+        self.primaryChannel = primaryChannel
+        self.secondaryChannel = secondaryChannel
+        self.isRelay = isRelay
         super.init(appId: DocsAppConfig.shared.appId, role: .broadcaster)
+        self.exDelegate = ExDelegate(
+            secondChannelIds: secondChannelIdsBinding,
+            connection: AgoraRtcConnection(channelId: self.secondaryChannel, localUid: Int(self.destUid))
+        )
     }
     func channelRelayBtnClicked() async {
         guard let mediaRelaying else { return }
         self.mediaRelaying = nil
-        if mediaRelaying {
+        if isRelay {
+            await relayMediaToggle(!mediaRelaying)
+        } else {
+            await joinChannelEx(!mediaRelaying)
+        }
+    }
+    // MARK: - Join Channel Ex Example
+    @Published var secondChannelIds: [AgoraVideoCanvasView.CanvasIdType] = []
+
+    // Create a computed property that returns a Binding to secondChannelIds
+    var secondChannelIdsBinding: Binding<[AgoraVideoCanvasView.CanvasIdType]> {
+        Binding<[AgoraVideoCanvasView.CanvasIdType]>(
+            get: { self.secondChannelIds },
+            set: { self.secondChannelIds = $0 }
+        )
+    }
+
+    func joinChannelEx(_ enable: Bool) async {
+        let rtcSecondConnection = AgoraRtcConnection(channelId: self.secondaryChannel, localUid: Int(destUid))
+        if !enable {
+            /// This triggers ``ExDelegate-swift.class/rtcEngine(_:didLeaveChannelWith:)``
+            let result = agoraEngine.leaveChannelEx(rtcSecondConnection, leaveChannelBlock: nil)
+            DispatchQueue.main.async {
+                self.mediaRelaying = false
+                if result != 0 {
+                    self.label = "leave channel failure: \(result)"
+                } else {
+                    self.label = "leaveChannelEx Success"
+                }
+            }
+        } else {
+            let mediaOptions = AgoraRtcChannelMediaOptions()
+            mediaOptions.channelProfile = .liveBroadcasting
+            mediaOptions.clientRoleType = .audience
+            mediaOptions.autoSubscribeAudio = true
+            mediaOptions.autoSubscribeVideo = true
+
+            var destChannelToken: String?
+            if !DocsAppConfig.shared.tokenUrl.isEmpty {
+                destChannelToken = try? await self.fetchToken(
+                    from: DocsAppConfig.shared.tokenUrl, channel: secondaryChannel, role: .broadcaster
+                )
+            }
+
+            let result = agoraEngine.joinChannelEx(
+                byToken: destChannelToken, connection: rtcSecondConnection,
+                delegate: self.exDelegate, mediaOptions: mediaOptions
+            )
+            DispatchQueue.main.async {
+                self.mediaRelaying = result == 0
+                if result != 0 {
+                    self.label = "join channel failure: \(result)"
+                } else {
+                    self.label = "joinChannelEx Success"
+                }
+            }
+        }
+    }
+
+    /// A custom AgoraRtcEngineDelegate class for catching joinChannelEx events.
+    public class ExDelegate: NSObject, AgoraRtcEngineDelegate {
+        @Binding var secondChannelIds: [AgoraVideoCanvasView.CanvasIdType]
+        let connection: AgoraRtcConnection
+        /// Catch remote streams from the secondary channel
+        public func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
+            secondChannelIds.append(.userIdEx(uid, connection))
+        }
+        /// Catch when the local user leaves the remote channel
+        public func rtcEngine(_ engine: AgoraRtcEngineKit, didLeaveChannelWith stats: AgoraChannelStats) {
+            secondChannelIds.removeAll()
+        }
+        /// Catch remote streams ended/left from the secondary channel
+        public func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
+            self.secondChannelIds.removeAll { canvasId in
+                switch canvasId {
+                case .userIdEx(let uInt, _): return uInt == uid
+                default: break
+                }
+                return false
+            }
+        }
+        init(secondChannelIds: Binding<[AgoraVideoCanvasView.CanvasIdType]>, connection: AgoraRtcConnection) {
+            self._secondChannelIds = secondChannelIds
+            self.connection = connection
+            super.init()
+        }
+    }
+
+    // MARK: - Relay Media Example
+    func relayMediaToggle(_ enable: Bool) async {
+        if enable {
             agoraEngine.stopChannelMediaRelay()
         } else {
-            var sourceChannelToken: String? = nil
+            var sourceChannelToken: String?
             if !DocsAppConfig.shared.tokenUrl.isEmpty {
                 sourceChannelToken = try? await self.fetchToken(
-                    from: DocsAppConfig.shared.tokenUrl, channel: sourceChannel, role: .broadcaster
+                    from: DocsAppConfig.shared.tokenUrl, channel: primaryChannel, role: .broadcaster
                 )
             }
             // Configure the source channel information.
             let srcChannelInfo = AgoraChannelMediaRelayInfo(token: sourceChannelToken)
-            srcChannelInfo.channelName = sourceChannel
+            srcChannelInfo.channelName = primaryChannel
             srcChannelInfo.uid = 0
             let mediaRelayConfiguration = AgoraChannelMediaRelayConfiguration()
             mediaRelayConfiguration.sourceInfo = srcChannelInfo
 
-            var destChannelToken: String? = nil
+            var destChannelToken: String?
             if !DocsAppConfig.shared.tokenUrl.isEmpty {
                 destChannelToken = try? await self.fetchToken(
-                    from: DocsAppConfig.shared.tokenUrl, channel: destChannel, role: .broadcaster
+                    from: DocsAppConfig.shared.tokenUrl, channel: secondaryChannel, role: .broadcaster
                 )
             }
 
             // Configure the destination channel information.
             let destChannelInfo = AgoraChannelMediaRelayInfo(token: destChannelToken)
-            destChannelInfo.channelName = destChannel
+            destChannelInfo.channelName = secondaryChannel
             destChannelInfo.uid = destUid
-            mediaRelayConfiguration.setDestinationInfo(destChannelInfo, forChannelName: destChannel)
+            mediaRelayConfiguration.setDestinationInfo(destChannelInfo, forChannelName: secondaryChannel)
 
             // Start relaying media streams across channels
             agoraEngine.startOrUpdateChannelMediaRelay(mediaRelayConfiguration)
         }
     }
 
-    @Published var label: String?
-
+    /// Occurs when the state of the media stream relay changes.
+    /// - Parameters:
+    ///   - engine: One AgoraRtcEngineKit object.
+    ///   - state: The state code.
+    ///   - error: The error code of the channel media relay.
     func rtcEngine(
         _ engine: AgoraRtcEngineKit,
         channelMediaRelayStateDidChange state: AgoraChannelMediaRelayState,
@@ -82,6 +182,8 @@ public class RelayManager: AgoraManager {
     }
 }
 
+// MARK: - UI
+
 /// A view that displays the video feeds of all participants in a channel.
 public struct ChannelRelayView: View {
     @ObservedObject public var agoraManager: RelayManager
@@ -90,30 +192,49 @@ public struct ChannelRelayView: View {
         ZStack {
             ScrollView {
                 VStack {
-                    // Show the video feeds for each participant.
+                    // Red border for the secondary channel streams
+                    ForEach(Array(agoraManager.secondChannelIds), id: \.self) { idType in
+                        AgoraVideoCanvasView(manager: agoraManager, canvasId: idType)
+                            .aspectRatio(contentMode: .fit).cornerRadius(10).overlay(
+                                RoundedRectangle(cornerRadius: 10).strokeBorder(Color.red)
+                            )
+                    }
+                    // Green border for the primary channel streams
                     ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
                         AgoraVideoCanvasView(manager: agoraManager, uid: uid)
-                            .aspectRatio(contentMode: .fit).cornerRadius(10)
+                            .aspectRatio(contentMode: .fit).cornerRadius(10).overlay(
+                                RoundedRectangle(cornerRadius: 10).strokeBorder(Color.green)
+                            )
                     }
                 }.padding(20)
             }
-            HStack {
+            VStack {
                 Spacer()
+                if let label = agoraManager.label {
+                    Text(label).padding(5).background {
+                        #if os(iOS)
+                        VisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+                            .cornerRadius(5).blur(radius: 1).opacity(0.75)
+                        #else
+                        Color.secondary
+                            .cornerRadius(5).blur(radius: 1).opacity(0.75)
+                        #endif
+                    }.padding(4)
+                }
                 Button {
                     Task { await self.agoraManager.channelRelayBtnClicked() }
                 } label: {
                     if let mediaRelaying = agoraManager.mediaRelaying {
-                        Text("\(mediaRelaying ? "Start" : "Stop") Relaying")
+                        Text("\(mediaRelaying ? "Stop" : "Start") Relaying")
                     } else {
                         Text("Loading...").disabled(true)
                     }
                 }
-
             }
         }.onAppear {
             agoraManager.agoraEngine.joinChannel(
                 byToken: DocsAppConfig.shared.rtcToken,
-                channelId: agoraManager.sourceChannel,
+                channelId: agoraManager.primaryChannel,
                 info: nil, uid: DocsAppConfig.shared.uid
             )
         }.onDisappear {
@@ -121,8 +242,10 @@ public struct ChannelRelayView: View {
         }
     }
 
-    init(sourceChannel: String, destChannel: String) {
-        self.agoraManager = RelayManager(sourceChannel: sourceChannel, destChannel: destChannel)
+    init(primaryChannel: String, secondaryChannel: String, isRelay: Bool = false) {
+        self.agoraManager = RelayManager(
+            primaryChannel: primaryChannel, secondaryChannel: secondaryChannel, isRelay: isRelay
+        )
     }
 
     public static let docPath = getFolderName(from: #file)
@@ -131,6 +254,6 @@ public struct ChannelRelayView: View {
 
 struct ChannelRelayView_Previews: PreviewProvider {
     static var previews: some View {
-        ChannelRelayView(sourceChannel: "channel1", destChannel: "channel2")
+        ChannelRelayView(primaryChannel: "channel1", secondaryChannel: "channel2")
     }
 }

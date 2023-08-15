@@ -238,8 +238,8 @@
 		F32AF89D2A8A9CEE00A27ED1 /* live-streaming-over-multiple-channels */ = {
 			isa = PBXGroup;
 			children = (
-				F32AF89E2A8A9D1A00A27ED1 /* ChannelRelayView.swift */,
 				F32AF89F2A8A9D1A00A27ED1 /* README.md */,
+				F32AF89E2A8A9D1A00A27ED1 /* ChannelRelayView.swift */,
 			);
 			path = "live-streaming-over-multiple-channels";
 			sourceTree = "<group>";
@@ -355,8 +355,8 @@
 			isa = PBXGroup;
 			children = (
 				F3D7BD4E29DB42D00014DEC0 /* ChannelInputView.swift */,
-				F32AF8992A8A9A7B00A27ED1 /* MultiChannelInputView.swift */,
 				F31BF8792A6E4A09002E7AC2 /* MediaStreamInputView.swift */,
+				F32AF8992A8A9A7B00A27ED1 /* MultiChannelInputView.swift */,
 				F31BF8752A6C3E56002E7AC2 /* GeofenceInputView.swift */,
 				F3D7BD5029DB46BB0014DEC0 /* TokenAuthInputView.swift */,
 				F3E8E6FC2A43E8AD00E6B774 /* EncryptionKeysInputView.swift */,
