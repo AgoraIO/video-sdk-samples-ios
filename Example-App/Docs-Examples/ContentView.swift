@@ -69,7 +69,11 @@ struct ContentView: View {
                     NavigationLink(GeofencingView.docTitle) {
                         GeofenceInputView(continueTo: GeofencingView.self)
                     }
-                    NavigationLink("Virtual Background") {}.disabled(true)
+                    if productChoice != .voice {
+                        NavigationLink(VirtualBackgroundView.docTitle) {
+                            ChannelInputView(continueTo: VirtualBackgroundView.self)
+                        }
+                    }
                 }
             }.navigationTitle(LocalizedStringKey("app_title")).navigationBarTitleDisplayMode(.inline)
         }.onAppear {
