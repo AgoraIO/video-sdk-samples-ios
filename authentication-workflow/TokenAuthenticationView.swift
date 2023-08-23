@@ -52,8 +52,9 @@ public extension AgoraManager {
             from: tokenUrl, channel: channel,
             role: role, userId: 0
         ) {
-            agoraEngine.joinChannel(byToken: token, channelId: channel, info: nil, uid: 0)
-            return true
+            return await self.joinChannel(
+                channel, token: token, uid: 0
+            ) == 0
         } else { return false }
     }
 
@@ -90,21 +91,17 @@ struct TokenAuthenticationView: View {
     }
 
     var body: some View {
-        Group {
-            if tokenPassed == nil {
-                ProgressView()
-            } else if tokenPassed == true {
-                ScrollView {
-                    VStack {
-                        ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                            AgoraVideoCanvasView(manager: agoraManager, uid: uid)
-                                .aspectRatio(contentMode: .fit).cornerRadius(10)
-                        }
-                    }.padding(20)
+        ZStack {
+            Group {
+                if tokenPassed == nil {
+                    ProgressView()
+                } else if tokenPassed == true {
+                    self.basicScrollingVideos
+                } else {
+                    Text("Error fetching token.")
                 }
-            } else {
-                Text("Error fetching token.")
             }
+            ToastView(message: $agoraManager.label)
         }.onAppear {
             Task {
                 /// On joining, call ``AgoraManager/fetchTokenThenJoin(tokenUrl:channel:)``.

@@ -48,14 +48,7 @@ struct CloudProxyView: View {
 
     var body: some View {
         ZStack {
-            ScrollView {
-                VStack {
-                    ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                        AgoraVideoCanvasView(manager: agoraManager, uid: uid)
-                            .aspectRatio(contentMode: .fit).cornerRadius(10)
-                    }
-                }.padding(20)
-            }
+            self.basicScrollingVideos
             VStack {
                 let text = agoraManager.proxyResponse < 0 ?
                     "Connection Error \(agoraManager.proxyResponse)" :
@@ -64,6 +57,7 @@ struct CloudProxyView: View {
                 ).padding().background(.tertiary).cornerRadius(25).padding()
                 Spacer()
             }.padding()
+            ToastView(message: $agoraManager.label)
         }.onAppear { await agoraManager.joinChannel(DocsAppConfig.shared.channel)
         }.onDisappear { agoraManager.leaveChannel() }
     }

@@ -61,6 +61,14 @@ public struct VirtualBackgroundView: View {
         appId: DocsAppConfig.shared.appId, role: .broadcaster
     )
 
+    var pickerBody: some View {
+        Picker("Select Background Type", selection: $agoraManager.backgroundType) {
+            ForEach(VirtualBackgroundType.allCases) { option in
+                Text(option.rawValue).tag(option)
+            }
+        }.pickerStyle(SegmentedPickerStyle())
+    }
+
     public var body: some View {
         ScrollView {
             VStack {
@@ -69,17 +77,15 @@ public struct VirtualBackgroundView: View {
                         .aspectRatio(contentMode: .fit).cornerRadius(10)
                         .overlay(alignment: .bottom) {
                             if uid == agoraManager.localUserId {
-                                Picker("Select Background Type", selection: $agoraManager.backgroundType) {
-                                    ForEach(VirtualBackgroundType.allCases) { option in
-                                        Text(option.rawValue).tag(option)
-                                    }
-                                }.pickerStyle(SegmentedPickerStyle())
+                                self.pickerBody
                             }
                         }
                 }
             }.padding(20)
         }.onAppear {
-            agoraManager.joinChannel(DocsAppConfig.shared.channel)
+            await agoraManager.joinChannel(
+                DocsAppConfig.shared.channel
+            )
         }.onDisappear { agoraManager.leaveChannel()
         }.onChange(of: agoraManager.backgroundType) { _ in agoraManager.updateBackground() }
     }

@@ -124,25 +124,10 @@ public struct StreamMediaView: View {
                         ).aspectRatio(contentMode: .fit).cornerRadius(10)
                     }
                     // Show the video feeds for each participant.
-                    ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                        AgoraVideoCanvasView(manager: agoraManager, uid: uid)
-                            .aspectRatio(contentMode: .fit).cornerRadius(10)
-                    }
+                    self.innerScrollingVideos
                 }.padding(20)
             }
-            VStack {
-                Text(agoraManager.label ?? "").padding(4)
-                    .background {
-                        #if os(iOS)
-                        VisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
-                            .cornerRadius(5).blur(radius: 1).opacity(0.75)
-                        #else
-                        Color.secondary
-                            .cornerRadius(5).blur(radius: 1).opacity(0.75)
-                        #endif
-                    }.padding(4)
-                Spacer()
-            }
+            ToastView(message: $agoraManager.label)
         }.onAppear {
             await agoraManager.joinChannel(DocsAppConfig.shared.channel)
             agoraManager.startStreaming(from: streamURL)

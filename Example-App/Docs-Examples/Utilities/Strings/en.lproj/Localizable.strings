@@ -22,3 +22,4 @@
 "ai-noise-suppression-title" = "AI Noise Suppression";
 "geofencing-title" = "Geofencing";
 "virtual-background-title" = "Virtual background";
+"permissions-error" = "Camera and microphone permissions were not granted.\nCheck your security settings and try again.";

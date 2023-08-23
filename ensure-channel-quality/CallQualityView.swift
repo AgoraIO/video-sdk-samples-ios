@@ -77,27 +77,30 @@ struct CallQualityView: View {
     )
 
     var body: some View {
-        ScrollView {
-            VStack {
-                ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                    AgoraVideoCanvasView(manager: agoraManager, uid: uid)
-                        .aspectRatio(contentMode: .fit).cornerRadius(10)
-                        .overlay(alignment: .topLeading) {
-                            Text(agoraManager.callQualities[uid] ?? "no data").padding(4)
-                                .background {
-                                    #if os(iOS)
-                                    VisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
-                                        .cornerRadius(10).blur(radius: 1).opacity(0.75)
-                                    #endif
-                                }.padding(4)
-                        }
-                }
-            }.padding(20)
-        }.onAppear {
-            await agoraManager.joinChannel(DocsAppConfig.shared.channel)
-        }.onDisappear {
-            agoraManager.leaveChannel()
-        }
+        ZStack {
+            ScrollView {
+                VStack {
+                    ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
+                        AgoraVideoCanvasView(manager: agoraManager, uid: uid)
+                            .aspectRatio(contentMode: .fit).cornerRadius(10)
+                            .overlay(alignment: .topLeading) {
+                                self.callQualityOverlay(for: uid)
+                            }
+                    }
+                }.padding(20)
+            }
+            ToastView(message: $agoraManager.label)
+        }.onAppear { await agoraManager.joinChannel(DocsAppConfig.shared.channel)
+        }.onDisappear { agoraManager.leaveChannel() }
+    }
+
+    func callQualityOverlay(for uid: UInt) -> some View {
+        Text(agoraManager.callQualities[uid] ?? "no data").padding(4).background {
+            #if os(iOS)
+            VisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+                .cornerRadius(10).blur(radius: 1).opacity(0.75)
+            #endif
+        }.padding(4)
     }
 
     init(channelId: String) {

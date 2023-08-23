@@ -210,17 +210,6 @@ public struct ChannelRelayView: View {
             }
             VStack {
                 Spacer()
-                if let label = agoraManager.label {
-                    Text(label).padding(5).background {
-                        #if os(iOS)
-                        VisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
-                            .cornerRadius(5).blur(radius: 1).opacity(0.75)
-                        #else
-                        Color.secondary
-                            .cornerRadius(5).blur(radius: 1).opacity(0.75)
-                        #endif
-                    }.padding(4)
-                }
                 Button {
                     Task { await self.agoraManager.channelRelayBtnClicked() }
                 } label: {
@@ -231,12 +220,9 @@ public struct ChannelRelayView: View {
                     }
                 }
             }
+            ToastView(message: $agoraManager.label)
         }.onAppear {
-            agoraManager.agoraEngine.joinChannel(
-                byToken: DocsAppConfig.shared.rtcToken,
-                channelId: agoraManager.primaryChannel,
-                info: nil, uid: DocsAppConfig.shared.uid
-            )
+            await agoraManager.joinChannel(agoraManager.primaryChannel)
         }.onDisappear {
             agoraManager.leaveChannel()
         }
