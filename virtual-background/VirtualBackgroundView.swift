@@ -1,9 +1,8 @@
-
 import Foundation
 import AgoraRtcKit
 import SwiftUI
 
-fileprivate enum VirtualBackgroundType: String, Equatable, CaseIterable, Identifiable {
+private enum VirtualBackgroundType: String, Equatable, CaseIterable, Identifiable {
     var id: String { self.rawValue }
 
     case normal
@@ -12,7 +11,7 @@ fileprivate enum VirtualBackgroundType: String, Equatable, CaseIterable, Identif
     case image
 }
 
-fileprivate func convertUIColorToHex(_ color: UIColor) -> UInt {
+private func convertUIColorToHex(_ color: UIColor) -> UInt {
     var red: CGFloat = 0
     var green: CGFloat = 0
     var blue: CGFloat = 0
@@ -58,7 +57,9 @@ public class VirtualBackgroundManager: AgoraManager {
 
 /// A view that displays the video feeds of all participants in a channel.
 public struct VirtualBackgroundView: View {
-    @ObservedObject public var agoraManager = VirtualBackgroundManager(appId: DocsAppConfig.shared.appId, role: .broadcaster)
+    @ObservedObject public var agoraManager = VirtualBackgroundManager(
+        appId: DocsAppConfig.shared.appId, role: .broadcaster
+    )
 
     public var body: some View {
         ScrollView {
