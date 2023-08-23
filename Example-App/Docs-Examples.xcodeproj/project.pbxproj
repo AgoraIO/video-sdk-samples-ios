@@ -453,6 +453,7 @@
 				F310F63229C8D02E006DB727 /* Resources */,
 				F3A88CF22A1E0405000B2292 /* Embed Foundation Extensions */,
 				F391AA482A4E98CE0098E597 /* Check App ID */,
+				F3611F382A965A050086E3F4 /* Run Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -555,6 +556,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		F3611F382A965A050086E3F4 /* Run Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Swiftlint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		F391AA482A4E98CE0098E597 /* Check App ID */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;

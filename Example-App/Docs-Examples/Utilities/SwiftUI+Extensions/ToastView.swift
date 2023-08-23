@@ -34,18 +34,14 @@ struct ToastView: View {
                     .multilineTextAlignment(.center)
             }
         }
-        .onChange(of: self.message) { newValue in
-            self.setupCancellable()
-        }
+        .onChange(of: self.message) { _ in self.setupCancellable() }
     }
 
     private func setupCancellable() {
         cancellable?.invalidate()
         cancellable = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { timer in
-            cancellable?.invalidate()
-            withAnimation {
-                message = nil
-            }
+            timer.invalidate()
+            withAnimation { message = nil }
         }
     }
 }
