@@ -53,16 +53,26 @@ To build and run the project, use the build button (Cmd+R) in Xcode. Select your
 
 You'll find numerous examples illustrating the functionality and features of this reference app in the root directory. Each example is self-contained in its own directory, providing an easy way to understand how to use the app. For more information about each example, see the README file within its directory.
 
-- [SDK quickstart](get-started-sdk)
-- [Secure authentication with tokens](authentication-workflow)
-- [Connect through restricted networks with Cloud Proxy](cloud-proxy)
-- [Stream media to a channel](play-media)
-- [Secure channel encryption](media-stream-encryption)
-- [Call quality best practice](ensure-channel-quality)
-- [Screen share, volume control and mute](product-workflow)
-- [Custom video and audio sources](custom-video-and-audio)
-- [Raw video and audio processing](stream-raw-audio-and-video)
-- [Geofencing](geofencing)
+### Get Started
+- [SDK quickstart](./get-started-sdk/)
+- [Secure authentication with tokens](./authentication-workflow/)
+
+### Core Functionality
+
+- [Connect through restricted networks with Cloud Proxy](./cloud-proxy/)
+- [Stream media to a channel](./play-media/)
+- [Secure channel encryption](./media-stream-encryption/)
+- [Live streaming over multiple channels](./live-streaming-over-multiple-channels/)
+- [Call quality best practice](./ensure-channel-quality/)
+- [Screen share, volume control and mute](./product-workflow/)
+- [Custom video and audio sources](./custom-video-and-audio/)
+- [Raw video and audio processing](./stream-raw-audio-and-video/)
+<!-- - [Integrate and extension]() -->
+
+### Integrate Features
+
+- [Geofencing](./geofencing/)
+- [Virtual background](./virtual-background/)
 
 ## Screenshots
 
