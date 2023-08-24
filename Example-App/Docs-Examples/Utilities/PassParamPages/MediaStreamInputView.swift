@@ -67,7 +67,7 @@ struct MediaStreamInputView<Content: HasMediaInput>: View {
                     GitHubButtonView(continueTo.docPath)
                 }
             }), label: {
-                Text("Join Channel")
+                Text(LocalizedStringKey("params-continue-button"))
             }).disabled(channelId.isEmpty || videoURL == nil)
                 .buttonStyle(.borderedProminent)
                 .navigationTitle("Media Stream Input")

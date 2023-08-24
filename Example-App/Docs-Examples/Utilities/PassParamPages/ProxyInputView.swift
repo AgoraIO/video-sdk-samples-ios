@@ -63,11 +63,11 @@ struct ProxyInputView<Content: HasProxyServerInput>: View {
                     GitHubButtonView(continueTo.docPath)
                 }
             }), label: {
-                Text("Join Channel")
+                Text(LocalizedStringKey("params-continue-button"))
             }).disabled(channelId.isEmpty)
                 .buttonStyle(.borderedProminent)
             Spacer()
-            Text("Make sure you have enabled Cloud Proxy in Agora's Console")
+            Text("Make sure you have enabled Cloud Proxy in Agora's Console.")
                 .font(.callout).foregroundColor(.accentColor).multilineTextAlignment(.center)
         }.onAppear {
             channelId = DocsAppConfig.shared.channel

@@ -19,6 +19,8 @@
 		F31BF8812A6E9105002E7AC2 /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31BF8802A6E9105002E7AC2 /* MediaPicker.swift */; };
 		F31BF8862A6EC37F002E7AC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F31BF8892A6EC37F002E7AC2 /* Localizable.strings */; };
 		F31BF8872A6EC37F002E7AC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F31BF8892A6EC37F002E7AC2 /* Localizable.strings */; };
+		F32AF89A2A8A9A7B00A27ED1 /* MultiChannelInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32AF8992A8A9A7B00A27ED1 /* MultiChannelInputView.swift */; };
+		F32AF8A02A8A9D1B00A27ED1 /* ChannelRelayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32AF89E2A8A9D1A00A27ED1 /* ChannelRelayView.swift */; };
 		F34266592A6AD2960086B920 /* RawMediaProcessingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34266582A6AD2960086B920 /* RawMediaProcessingView.swift */; };
 		F342665D2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F342665C2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift */; };
 		F344ED9A2A45942B00B3C313 /* AgoraCameraSourcePush.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344ED982A45942A00B3C313 /* AgoraCameraSourcePush.swift */; };
@@ -30,6 +32,12 @@
 		F35967322A5C3A66005CEE79 /* ReplayKit in Frameworks */ = {isa = PBXBuildFile; productRef = F35967312A5C3A66005CEE79 /* ReplayKit */; };
 		F35A42802A6973F300FF93D5 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A427F2A6973F300FF93D5 /* NavigationLazyView.swift */; };
 		F35A42822A69750400FF93D5 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A42812A69750300FF93D5 /* VisualEffectView.swift */; };
+		F3611F352A964F970086E3F4 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3611F342A964F970086E3F4 /* ToastView.swift */; };
+		F3611F372A96587F0086E3F4 /* AppStoryViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3611F362A96587F0086E3F4 /* AppStoryViewProtocol.swift */; };
+		F37BC5A72A96152600935601 /* VirtualBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37BC5A52A96152600935601 /* VirtualBackgroundView.swift */; };
+		F37BC5AA2A96411D00935601 /* VirtualBackground in Frameworks */ = {isa = PBXBuildFile; productRef = F37BC5A92A96411D00935601 /* VirtualBackground */; };
+		F37BC5AE2A96436000935601 /* background_ss.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F37BC5AD2A96436000935601 /* background_ss.jpg */; };
+		F37BC5B02A964BD500935601 /* AgoraManager+Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37BC5AF2A964BD500935601 /* AgoraManager+Permissions.swift */; };
 		F3A88CCE2A1DE629000B2292 /* GettingStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CCC2A1DE629000B2292 /* GettingStartedView.swift */; };
 		F3A88CD42A1DE645000B2292 /* CallQualityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CD22A1DE645000B2292 /* CallQualityView.swift */; };
 		F3A88CD92A1DE663000B2292 /* TokenAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CD72A1DE663000B2292 /* TokenAuthenticationView.swift */; };
@@ -92,6 +100,9 @@
 		F31BF87C2A6E4C91002E7AC2 /* StreamMediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamMediaView.swift; path = "../../../../play-media/StreamMediaView.swift"; sourceTree = "<group>"; };
 		F31BF8802A6E9105002E7AC2 /* MediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
 		F31BF8882A6EC37F002E7AC2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F32AF8992A8A9A7B00A27ED1 /* MultiChannelInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiChannelInputView.swift; sourceTree = "<group>"; };
+		F32AF89E2A8A9D1A00A27ED1 /* ChannelRelayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChannelRelayView.swift; path = "../../../../live-streaming-over-multiple-channels/ChannelRelayView.swift"; sourceTree = "<group>"; };
+		F32AF89F2A8A9D1A00A27ED1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../live-streaming-over-multiple-channels/README.md"; sourceTree = "<group>"; };
 		F34266582A6AD2960086B920 /* RawMediaProcessingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RawMediaProcessingView.swift; path = "../../../../stream-raw-audio-and-video/RawMediaProcessingView.swift"; sourceTree = "<group>"; };
 		F342665A2A6AD2A30086B920 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../stream-raw-audio-and-video/README.md"; sourceTree = "<group>"; };
 		F342665C2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModifyVideoFrameDelegate.swift; path = "../../../../stream-raw-audio-and-video/ModifyVideoFrameDelegate.swift"; sourceTree = "<group>"; };
@@ -103,7 +114,13 @@
 		F348B3962A4D7BDC00AF6B9B /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = "../agora-manager/config.json"; sourceTree = SOURCE_ROOT; };
 		F35A427F2A6973F300FF93D5 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		F35A42812A69750300FF93D5 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
+		F3611F342A964F970086E3F4 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		F3611F362A96587F0086E3F4 /* AppStoryViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoryViewProtocol.swift; sourceTree = "<group>"; };
 		F372069829C8EE420029EEC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F37BC5A52A96152600935601 /* VirtualBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VirtualBackgroundView.swift; path = "../../../../virtual-background/VirtualBackgroundView.swift"; sourceTree = "<group>"; };
+		F37BC5A62A96152600935601 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../virtual-background/README.md"; sourceTree = "<group>"; };
+		F37BC5AD2A96436000935601 /* background_ss.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = background_ss.jpg; path = "../../../../virtual-background/background_ss.jpg"; sourceTree = "<group>"; };
+		F37BC5AF2A964BD500935601 /* AgoraManager+Permissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AgoraManager+Permissions.swift"; sourceTree = "<group>"; };
 		F3A88CCC2A1DE629000B2292 /* GettingStartedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GettingStartedView.swift; path = "../../../../get-started-sdk/GettingStartedView.swift"; sourceTree = "<group>"; };
 		F3A88CCD2A1DE629000B2292 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../get-started-sdk/README.md"; sourceTree = "<group>"; };
 		F3A88CD12A1DE645000B2292 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../ensure-channel-quality/README.md"; sourceTree = "<group>"; };
@@ -145,6 +162,7 @@
 			files = (
 				F31BF87F2A6E8DEF002E7AC2 /* ReplayKit in Frameworks */,
 				F3C571C229C8E50E0002B322 /* RtcBasic in Frameworks */,
+				F37BC5AA2A96411D00935601 /* VirtualBackground in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +248,15 @@
 			path = Strings;
 			sourceTree = "<group>";
 		};
+		F32AF89D2A8A9CEE00A27ED1 /* live-streaming-over-multiple-channels */ = {
+			isa = PBXGroup;
+			children = (
+				F32AF89F2A8A9D1A00A27ED1 /* README.md */,
+				F32AF89E2A8A9D1A00A27ED1 /* ChannelRelayView.swift */,
+			);
+			path = "live-streaming-over-multiple-channels";
+			sourceTree = "<group>";
+		};
 		F33A889729E839DE0029499C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +280,16 @@
 			path = "stream-raw-audio-and-video";
 			sourceTree = "<group>";
 		};
+		F37BC5A42A96149200935601 /* virtual-background */ = {
+			isa = PBXGroup;
+			children = (
+				F37BC5A62A96152600935601 /* README.md */,
+				F37BC5AD2A96436000935601 /* background_ss.jpg */,
+				F37BC5A52A96152600935601 /* VirtualBackgroundView.swift */,
+			);
+			path = "virtual-background";
+			sourceTree = "<group>";
+		};
 		F3A88CCA2A1DE5FE000B2292 /* app-stories */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,12 +297,14 @@
 				F3A88CD52A1DE650000B2292 /* authentication-workflow */,
 				F3E8E6F52A42EABF00E6B774 /* cloud-proxy */,
 				F31BF87B2A6E4C68002E7AC2 /* play-media */,
+				F32AF89D2A8A9CEE00A27ED1 /* live-streaming-over-multiple-channels */,
 				F3E8E6F02A42E53F00E6B774 /* media-stream-encryption */,
 				F3A88CD02A1DE634000B2292 /* ensure-channel-quality */,
 				F3A88CDF2A1DF27F000B2292 /* product-workflow */,
 				F3A88CDA2A1DEEE0000B2292 /* custom-video-and-audio */,
 				F34266572A6AD2660086B920 /* stream-raw-audio-and-video */,
 				F31BF86E2A6BB676002E7AC2 /* geofencing */,
+				F37BC5A42A96149200935601 /* virtual-background */,
 			);
 			path = "app-stories";
 			sourceTree = "<group>";
@@ -341,6 +380,7 @@
 			children = (
 				F3D7BD4E29DB42D00014DEC0 /* ChannelInputView.swift */,
 				F31BF8792A6E4A09002E7AC2 /* MediaStreamInputView.swift */,
+				F32AF8992A8A9A7B00A27ED1 /* MultiChannelInputView.swift */,
 				F31BF8752A6C3E56002E7AC2 /* GeofenceInputView.swift */,
 				F3D7BD5029DB46BB0014DEC0 /* TokenAuthInputView.swift */,
 				F3E8E6FC2A43E8AD00E6B774 /* EncryptionKeysInputView.swift */,
@@ -355,6 +395,7 @@
 			children = (
 				F348B3962A4D7BDC00AF6B9B /* config.json */,
 				F3D7BD4629DB30680014DEC0 /* AgoraManager.swift */,
+				F37BC5AF2A964BD500935601 /* AgoraManager+Permissions.swift */,
 				F3C06BB42A4D861200F59BC2 /* DocsAppConfig.swift */,
 				F3CA2CE329CB00F400561441 /* AgoraVideoCanvasView.swift */,
 			);
@@ -392,8 +433,10 @@
 			children = (
 				F3E59CBA2A57257300EC2B2E /* View+Extensions.swift */,
 				F35A42812A69750300FF93D5 /* VisualEffectView.swift */,
+				F3611F362A96587F0086E3F4 /* AppStoryViewProtocol.swift */,
 				F35A427F2A6973F300FF93D5 /* NavigationLazyView.swift */,
 				F31BF8802A6E9105002E7AC2 /* MediaPicker.swift */,
+				F3611F342A964F970086E3F4 /* ToastView.swift */,
 			);
 			path = "SwiftUI+Extensions";
 			sourceTree = "<group>";
@@ -410,6 +453,7 @@
 				F310F63229C8D02E006DB727 /* Resources */,
 				F3A88CF22A1E0405000B2292 /* Embed Foundation Extensions */,
 				F391AA482A4E98CE0098E597 /* Check App ID */,
+				F3611F382A965A050086E3F4 /* Run Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -420,6 +464,7 @@
 			packageProductDependencies = (
 				F3C571C129C8E50E0002B322 /* RtcBasic */,
 				F31BF87E2A6E8DEF002E7AC2 /* ReplayKit */,
+				F37BC5A92A96411D00935601 /* VirtualBackground */,
 			);
 			productName = "Docs-Examples";
 			productReference = F310F63429C8D02E006DB727 /* Docs-Examples.app */;
@@ -493,6 +538,7 @@
 			files = (
 				F31BF8862A6EC37F002E7AC2 /* Localizable.strings in Resources */,
 				F310F63F29C8D031006DB727 /* Preview Assets.xcassets in Resources */,
+				F37BC5AE2A96436000935601 /* background_ss.jpg in Resources */,
 				F310F63C29C8D031006DB727 /* Assets.xcassets in Resources */,
 				F348B3972A4D7BDC00AF6B9B /* config.json in Resources */,
 			);
@@ -510,6 +556,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		F3611F382A965A050086E3F4 /* Run Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Swiftlint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\necho $(which swiftlint)\nif which swiftlint > /dev/null; then\n  swiftlint ../\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		F391AA482A4E98CE0098E597 /* Check App ID */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -537,6 +602,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3A88CD42A1DE645000B2292 /* CallQualityView.swift in Sources */,
+				F3611F372A96587F0086E3F4 /* AppStoryViewProtocol.swift in Sources */,
 				F3A88CD92A1DE663000B2292 /* TokenAuthenticationView.swift in Sources */,
 				F3E59CBB2A57257300EC2B2E /* View+Extensions.swift in Sources */,
 				F3D7BD4F29DB42D00014DEC0 /* ChannelInputView.swift in Sources */,
@@ -544,15 +610,19 @@
 				F35A42822A69750400FF93D5 /* VisualEffectView.swift in Sources */,
 				F3E8E6F42A42E56E00E6B774 /* MediaEncryptionView.swift in Sources */,
 				F31BF8762A6C3E56002E7AC2 /* GeofenceInputView.swift in Sources */,
+				F37BC5A72A96152600935601 /* VirtualBackgroundView.swift in Sources */,
+				F32AF8A02A8A9D1B00A27ED1 /* ChannelRelayView.swift in Sources */,
 				F344ED9A2A45942B00B3C313 /* AgoraCameraSourcePush.swift in Sources */,
 				F31BF87D2A6E4C91002E7AC2 /* StreamMediaView.swift in Sources */,
 				F31BF8812A6E9105002E7AC2 /* MediaPicker.swift in Sources */,
 				F34266592A6AD2960086B920 /* RawMediaProcessingView.swift in Sources */,
 				F310F63A29C8D02E006DB727 /* ContentView.swift in Sources */,
+				F32AF89A2A8A9A7B00A27ED1 /* MultiChannelInputView.swift in Sources */,
 				F3FBDEA32A6BA94A00DAB164 /* ModifyAudioFrameDelegate.swift in Sources */,
 				F31BF8712A6BB69A002E7AC2 /* GeofencingView.swift in Sources */,
 				F3D7BD4729DB30680014DEC0 /* AgoraManager.swift in Sources */,
 				F344EDA02A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift in Sources */,
+				F37BC5B02A964BD500935601 /* AgoraManager+Permissions.swift in Sources */,
 				F3A88CCE2A1DE629000B2292 /* GettingStartedView.swift in Sources */,
 				F31BF87A2A6E4A09002E7AC2 /* MediaStreamInputView.swift in Sources */,
 				F342665D2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift in Sources */,
@@ -560,6 +630,7 @@
 				F3CA2CDB29C97AF400561441 /* Documentation.docc in Sources */,
 				F3F1046C2A73CFB200220C3A /* GitHubButtonView.swift in Sources */,
 				F3A88CFD2A1E17E0000B2292 /* RPSystemBroadcastPickerWrapper.swift in Sources */,
+				F3611F352A964F970086E3F4 /* ToastView.swift in Sources */,
 				F3E8E6FD2A43E8AD00E6B774 /* EncryptionKeysInputView.swift in Sources */,
 				F3C06BB52A4D861200F59BC2 /* DocsAppConfig.swift in Sources */,
 				F3E8E6F92A42EAD100E6B774 /* CloudProxyView.swift in Sources */,
@@ -897,6 +968,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F3C571C029C8E50E0002B322 /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
 			productName = ReplayKit;
+		};
+		F37BC5A92A96411D00935601 /* VirtualBackground */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3C571C029C8E50E0002B322 /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
+			productName = VirtualBackground;
 		};
 		F3C571C129C8E50E0002B322 /* RtcBasic */ = {
 			isa = XCSwiftPackageProductDependency;

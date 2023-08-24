@@ -14,19 +14,22 @@ public struct GettingStartedView: View {
 
     public var body: some View {
         // Show a scrollable view of video feeds for all participants.
-        ScrollView {
-            VStack {
-                // Show the video feeds for each participant.
-                ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                    AgoraVideoCanvasView(manager: agoraManager, uid: uid)
-                        .aspectRatio(contentMode: .fit).cornerRadius(10)
-                }
-            }.padding(20)
+        ZStack {
+            ScrollView {
+                VStack {
+                    // Show the video feeds for each participant.
+                    ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
+                        AgoraVideoCanvasView(manager: agoraManager, uid: uid)
+                            .aspectRatio(contentMode: .fit).cornerRadius(10)
+                    }
+                }.padding(20)
+            }
+            ToastView(message: $agoraManager.label)
         }.onAppear {
-            agoraManager.agoraEngine.joinChannel(
-                byToken: DocsAppConfig.shared.rtcToken,
-                channelId: DocsAppConfig.shared.channel,
-                info: nil, uid: DocsAppConfig.shared.uid
+            await agoraManager.joinChannel(
+                DocsAppConfig.shared.channel,
+                token: DocsAppConfig.shared.rtcToken,
+                uid: DocsAppConfig.shared.uid
             )
         }.onDisappear {
             agoraManager.leaveChannel()

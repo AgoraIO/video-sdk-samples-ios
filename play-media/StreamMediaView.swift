@@ -10,7 +10,15 @@ import AgoraRtcKit
 
 public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
 
+    // MARK: - Properties
+
+    @Published var mediaPlaying: Bool = false
+    @Published var mediaDuration: Int = 0
+    @Published var playerButtonText = "Open Media File"
     var mediaPlayer: AgoraRtcMediaPlayerProtocol?
+
+    // MARK: - Agora Engine Functions
+
     /// Starts streaming a video from a URL
     /// - Parameter url: Source URL of the media file. Could be local or remote.
     ///
@@ -97,11 +105,6 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
         }
     }
     // swiftlint:enable identifier_name
-
-    @Published var label: String?
-    @Published var mediaPlaying: Bool = false
-    @Published var mediaDuration: Int = 0
-    @Published var playerButtonText = "Open Media File"
 }
 
 // MARK: - UI
@@ -118,32 +121,17 @@ public struct StreamMediaView: View {
                     if agoraManager.mediaPlaying, let mediaPlayer = agoraManager.mediaPlayer {
                         AgoraVideoCanvasView(
                             manager: agoraManager,
-                            canvasIdType: .mediaSource(
+                            canvasId: .mediaSource(
                                 .mediaPlayer,
                                 mediaPlayerId: mediaPlayer.getMediaPlayerId()
                             )
                         ).aspectRatio(contentMode: .fit).cornerRadius(10)
                     }
                     // Show the video feeds for each participant.
-                    ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                        AgoraVideoCanvasView(manager: agoraManager, uid: uid)
-                            .aspectRatio(contentMode: .fit).cornerRadius(10)
-                    }
+                    self.innerScrollingVideos
                 }.padding(20)
             }
-            VStack {
-                Text(agoraManager.label ?? "").padding(4)
-                    .background {
-                        #if os(iOS)
-                        VisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
-                            .cornerRadius(5).blur(radius: 1).opacity(0.75)
-                        #else
-                        Color.secondary
-                            .cornerRadius(5).blur(radius: 1).opacity(0.75)
-                        #endif
-                    }.padding(4)
-                Spacer()
-            }
+            ToastView(message: $agoraManager.label)
         }.onAppear {
             await agoraManager.joinChannel(DocsAppConfig.shared.channel)
             agoraManager.startStreaming(from: streamURL)

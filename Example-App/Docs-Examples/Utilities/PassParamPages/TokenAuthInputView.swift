@@ -49,7 +49,7 @@ struct TokenAuthInputView<Content: HasTokenServerInput>: View {
                     GitHubButtonView(continueTo.docPath)
                 }
             }), label: {
-                Text("Join Channel")
+                Text(LocalizedStringKey("params-continue-button"))
             }).disabled(channelId.isEmpty || tokenUrl.isEmpty)
                 .buttonStyle(.borderedProminent)
                 .navigationTitle("Token Authentication Input")
