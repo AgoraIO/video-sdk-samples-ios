@@ -9,6 +9,9 @@ import SwiftUI
 import AgoraRtcKit
 
 public extension AgoraManager {
+
+    // MARK: - Token Request
+
     /// Fetches a token from the specified token server URL.
     ///
     /// - Parameters:
@@ -42,6 +45,8 @@ public extension AgoraManager {
         public let rtcToken: String
     }
 
+    // MARK: - Agora Engine Functions
+
     /// Fetch a token from the token server, and then join the channel using Agora SDK.
     /// - Returns: A boolean, for whether or not the token fetching was successful.
     /// - Parameters:
@@ -52,10 +57,13 @@ public extension AgoraManager {
             from: tokenUrl, channel: channel,
             role: role, userId: 0
         ) {
-            agoraEngine.joinChannel(byToken: token, channelId: channel, info: nil, uid: 0)
-            return true
+            return await self.joinChannel(
+                channel, token: token, uid: 0
+            ) == 0
         } else { return false }
     }
+
+    // MARK: - Delegate Methods
 
     func rtcEngine(
         _ engine: AgoraRtcEngineKit, tokenPrivilegeWillExpire token: String
@@ -69,6 +77,8 @@ public extension AgoraManager {
         }
     }
 }
+
+// MARK: - UI
 
 /// A view that authenticates the user with a token and joins them to a channel using Agora SDK.
 struct TokenAuthenticationView: View {
@@ -90,29 +100,23 @@ struct TokenAuthenticationView: View {
     }
 
     var body: some View {
-        Group {
-            if tokenPassed == nil {
-                ProgressView()
-            } else if tokenPassed == true {
-                ScrollView {
-                    VStack {
-                        ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                            AgoraVideoCanvasView(manager: agoraManager, uid: uid)
-                                .aspectRatio(contentMode: .fit).cornerRadius(10)
-                        }
-                    }.padding(20)
+        ZStack {
+            Group {
+                if tokenPassed == nil {
+                    ProgressView()
+                } else if tokenPassed == true {
+                    self.basicScrollingVideos
+                } else {
+                    Text("Error fetching token.")
                 }
-            } else {
-                Text("Error fetching token.")
             }
+            ToastView(message: $agoraManager.label)
         }.onAppear {
-            Task {
-                /// On joining, call ``AgoraManager/fetchTokenThenJoin(tokenUrl:channel:)``.
-                tokenPassed = await agoraManager.fetchTokenThenJoin(
-                    tokenUrl: DocsAppConfig.shared.tokenUrl,
-                    channel: DocsAppConfig.shared.channel
-                )
-            }
+            /// On joining, call ``AgoraManager/fetchTokenThenJoin(tokenUrl:channel:)``.
+            tokenPassed = await agoraManager.fetchTokenThenJoin(
+                tokenUrl: DocsAppConfig.shared.tokenUrl,
+                channel: DocsAppConfig.shared.channel
+            )
         }.onDisappear { agoraManager.leaveChannel() }
     }
     static let docPath = getFolderName(from: #file)

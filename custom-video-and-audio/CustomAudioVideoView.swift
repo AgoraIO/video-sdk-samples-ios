@@ -69,18 +69,21 @@ class CustomAudioVideoManager: AgoraManager, AgoraCameraSourcePushDelegate {
     @discardableResult
     override func joinChannel(
         _ channel: String, token: String? = nil, uid: UInt = 0, info: String? = nil
-    ) -> Int32 {
+    ) async -> Int32 {
         defer { pushSource?.startCapture(ofDevice: captureDevice) }
 
-        return super.joinChannel(channel, token: token, uid: uid, info: info)
+        return await super.joinChannel(channel, token: token, uid: uid, info: info)
     }
 
     @discardableResult
-    override func leaveChannel(leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil) -> Int32 {
+    override func leaveChannel(
+        leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil,
+        destroyInstance: Bool = true
+    ) -> Int32 {
         // Need to stop the capture on exit
         pushSource?.stopCapture()
         pushSource = nil
-        return super.leaveChannel(leaveChannelBlock: leaveChannelBlock)
+        return super.leaveChannel(leaveChannelBlock: leaveChannelBlock, destroyInstance: destroyInstance)
     }
 
     override func rtcEngine(
@@ -101,18 +104,18 @@ struct CustomAudioVideoView: View {
     var customPreview = CustomVideoSourcePreview()
 
     var body: some View {
-        ScrollView {
-            VStack {
-                // The local custom camera view
-                AgoraCustomVideoCanvasView(
-                    canvas: customPreview, previewLayer: agoraManager.previewLayer
-                ).aspectRatio(contentMode: .fit).cornerRadius(10)
-                // All remote camera views
-                ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                    AgoraVideoCanvasView(manager: agoraManager, uid: uid)
-                        .aspectRatio(contentMode: .fit).cornerRadius(10)
-                }
-            }.padding(20)
+        ZStack {
+            ScrollView {
+                VStack {
+                    // The local custom camera view
+                    AgoraCustomVideoCanvasView(
+                        canvas: customPreview, previewLayer: agoraManager.previewLayer
+                    ).aspectRatio(contentMode: .fit).cornerRadius(10)
+                    // All remote camera views
+                    self.innerScrollingVideos
+                }.padding(20)
+            }
+            ToastView(message: $agoraManager.label)
         }.onAppear {
             await agoraManager.joinChannel(DocsAppConfig.shared.channel)
         }.onDisappear {

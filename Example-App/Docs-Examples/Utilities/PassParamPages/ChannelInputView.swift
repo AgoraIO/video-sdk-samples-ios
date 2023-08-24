@@ -21,6 +21,7 @@ extension GettingStartedView: HasChannelInput {}
 extension CallQualityView: HasChannelInput {}
 extension ScreenShareAndVolumeView: HasChannelInput {}
 extension RawMediaProcessingView: HasChannelInput {}
+extension VirtualBackgroundView: HasChannelInput {}
 
 /// A view that takes a user inputted `channelId` string and navigates to a view
 /// which conforms to the `HasChannelInput` protocol.
@@ -43,7 +44,7 @@ struct ChannelInputView<Content: HasChannelInput>: View {
                     GitHubButtonView(continueTo.docPath)
                 }
             }), label: {
-                Text("Join Channel")
+                Text(LocalizedStringKey("params-continue-button"))
             }).disabled(channelId.isEmpty)
                 .buttonStyle(.borderedProminent)
                 .navigationTitle("Channel Input")

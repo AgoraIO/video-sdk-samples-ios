@@ -58,7 +58,7 @@ struct EncryptionKeysInputView<Content: HasEncryptionInput>: View {
                     GitHubButtonView(continueTo.docPath)
                 }
             }), label: {
-                Text("Join Channel")
+                Text(LocalizedStringKey("params-continue-button"))
             }).buttonStyle(.borderedProminent)
                 .disabled(channelId.isEmpty || encryptionKey.isEmpty || encryptionSalt.isEmpty)
                 .navigationTitle("Encryption Key Input")

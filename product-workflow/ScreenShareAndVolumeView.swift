@@ -66,7 +66,7 @@ struct ScreenShareAndVolumeView: View {
     )
 
     var body: some View {
-        VStack {
+        ZStack {
             ScrollView {
                 VStack {
                     ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
@@ -80,13 +80,14 @@ struct ScreenShareAndVolumeView: View {
                             }
                     }
                 }.padding(20)
-            }.onAppear { await agoraManager.joinChannel(DocsAppConfig.shared.channel)
-            }.onDisappear { agoraManager.leaveChannel() }
-            #if os(iOS)
-            Group { agoraManager.broadcastPicker }
-                .frame(height: 44).padding().background(.tertiary)
-            #endif
-        }
+            }
+            ToastView(message: $agoraManager.label)
+        }.onAppear { await agoraManager.joinChannel(DocsAppConfig.shared.channel)
+        }.onDisappear { agoraManager.leaveChannel() }
+        #if os(iOS)
+        Group { agoraManager.broadcastPicker }
+            .frame(height: 44).padding().background(.tertiary)
+        #endif
     }
 
     private func volumeBinding(for key: UInt) -> Binding<Double> {

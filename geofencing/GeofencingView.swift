@@ -35,7 +35,11 @@ class GeofencingManager: AgoraManager {
         }
         engineConfig.areaCode = combinedAreaCode
         let eng = AgoraRtcEngineKit.sharedEngine(with: engineConfig, delegate: self)
-        eng.enableVideo()
+        if DocsAppConfig.shared.product != .voice {
+            eng.enableVideo()
+        } else {
+            eng.enableAudio()
+        }
         eng.setClientRole(role)
         return eng
     }
@@ -45,6 +49,14 @@ class GeofencingManager: AgoraManager {
 struct GeofencingView: View {
     /// The Agora SDK manager.
     @ObservedObject var agoraManager: GeofencingManager
+
+    var body: some View {
+        ZStack {
+            self.basicScrollingVideos
+            ToastView(message: $agoraManager.label)
+        }.onAppear { await agoraManager.joinChannel(DocsAppConfig.shared.channel)
+        }.onDisappear { agoraManager.leaveChannel() }
+    }
 
     /// Initializes a new ``GeofencingView``.
     ///
@@ -59,19 +71,6 @@ struct GeofencingView: View {
         )
     }
 
-    var body: some View {
-        ZStack {
-            ScrollView {
-                VStack {
-                    ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                        AgoraVideoCanvasView(manager: agoraManager, uid: uid)
-                            .aspectRatio(contentMode: .fit).cornerRadius(10)
-                    }
-                }.padding(20)
-            }
-        }.onAppear { await agoraManager.joinChannel(DocsAppConfig.shared.channel)
-        }.onDisappear { agoraManager.leaveChannel() }
-    }
     static let docPath = getFolderName(from: #file)
     static let docTitle = LocalizedStringKey("geofencing-title")
 }

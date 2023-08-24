@@ -22,7 +22,7 @@ This page shows you how to use Video SDK features to account for these factors a
 
 ### Agora Logic
 
-The business logic for the call quality guide can be found in [CallQualityManager](CallQualityView.swift#L14). Here you will find code snippets for [starting a probe request](CallQualityView.swift#L18) and [seeing the response](CallQualityView.swift#L33). You can also monitor [remote video stats](CallQualityView.swift#L46), such as the received bitrate and packet loss rate, as well as [local video stats](CallQualityView.swift#L62).
+The business logic for the call quality guide can be found in [CallQualityManager](CallQualityView.swift#L12). Here you will find code snippets for [starting a probe request](CallQualityView.swift#L16) and [seeing the response](CallQualityView.swift#L31-L36). You can also monitor [remote video stats](CallQualityView.swift#L44-L51), such as the received bitrate and packet loss rate, as well as [local video stats](CallQualityView.swift#L59-L69).
 
 ## Full Documentation
 

@@ -35,7 +35,9 @@ fileprivate extension AgoraManager {
 
         // Call the method to enable media encryption.
         if agoraEngine.enableEncryption(true, encryptionConfig: config) == 0 {
-            print("Media encryption enabled.")
+            label = "Media encryption enabled."
+        } else {
+            label = "Media encryption failed."
         }
     }
 }
@@ -48,13 +50,9 @@ struct MediaEncryptionView: View {
     )
 
     var body: some View {
-        ScrollView {
-            VStack {
-                ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                    AgoraVideoCanvasView(manager: agoraManager, uid: uid)
-                        .aspectRatio(contentMode: .fit).cornerRadius(10)
-                }
-            }.padding(20)
+        ZStack {
+            self.basicScrollingVideos
+            ToastView(message: $agoraManager.label)
         }.onAppear {
             agoraManager.enableEncryption(
                 key: self.encryptionKey, salt: self.encryptionSalt,

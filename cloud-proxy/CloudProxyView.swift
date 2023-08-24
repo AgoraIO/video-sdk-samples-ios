@@ -13,11 +13,14 @@ class CloudProxyManager: AgoraManager {
     @Published var proxyState: AgoraProxyType?
     @Published var proxyResponse: Int32 = 0
 
-    init(appId: String, role: AgoraClientRole = .audience, proxyType: AgoraCloudProxyType) {
-        super.init(appId: appId, role: role)
+    // MARK: - Agora Engine Functions
+
+    func setCloudProxy(to proxyType: AgoraCloudProxyType) {
         proxyResponse = self.agoraEngine.setCloudProxy(proxyType)
         if proxyType == .noneProxy { proxyState = .noneProxyType }
     }
+
+    // MARK: - Delegate Methods
 
     // swiftlint:disable:next function_parameter_count
     func rtcEngine(
@@ -26,56 +29,17 @@ class CloudProxyManager: AgoraManager {
     ) {
         proxyState = proxyType
     }
-}
 
-/// A view that authenticates the user with a token and joins them to a channel using Agora SDK.
-struct CloudProxyView: View {
-    /// The Agora SDK manager.
-    @ObservedObject var agoraManager: CloudProxyManager
+    // MARK: - Other Setup
 
-    /// Initializes a new ``CloudProxyView``.
-    ///
-    /// - Parameters:
-    ///   - channelId: The channel ID to join.
-    ///   - proxyType: Type of proxy to be used.
-    public init(channelId: String, proxyType: AgoraCloudProxyType) {
-        DocsAppConfig.shared.channel = channelId
-        self.agoraManager = CloudProxyManager(
-            appId: DocsAppConfig.shared.appId,
-            role: .broadcaster, proxyType: proxyType
-        )
+    init(appId: String, role: AgoraClientRole = .audience, proxyType: AgoraCloudProxyType) {
+        super.init(appId: appId, role: role)
+        self.setCloudProxy(to: proxyType)
     }
 
-    var body: some View {
-        ZStack {
-            ScrollView {
-                VStack {
-                    ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                        AgoraVideoCanvasView(manager: agoraManager, uid: uid)
-                            .aspectRatio(contentMode: .fit).cornerRadius(10)
-                    }
-                }.padding(20)
-            }
-            VStack {
-                let text = agoraManager.proxyResponse < 0 ?
-                    "Connection Error \(agoraManager.proxyResponse)" :
-                    "Connecting"
-                Text(agoraManager.proxyState == nil ? text : agoraManager.proxyState!.humanReadableString
-                ).padding().background(.tertiary).cornerRadius(25).padding()
-                Spacer()
-            }.padding()
-        }.onAppear { await agoraManager.joinChannel(DocsAppConfig.shared.channel)
-        }.onDisappear { agoraManager.leaveChannel() }
-    }
-    static let docPath = getFolderName(from: #file)
-    static let docTitle = LocalizedStringKey("cloud-proxy-title")
 }
 
-struct CloudProxyView_Previews: PreviewProvider {
-    static var previews: some View {
-        CloudProxyView(channelId: "test", proxyType: .noneProxy)
-    }
-}
+// MARK: - Property Helpers
 
 extension AgoraProxyType {
     var humanReadableString: String {
@@ -97,5 +61,50 @@ extension AgoraProxyType {
         @unknown default:
             return "Unknown Proxy State"
         }
+    }
+}
+
+// MARK: - UI
+
+/// A view that authenticates the user with a token and joins them to a channel using Agora SDK.
+struct CloudProxyView: View {
+    /// The Agora SDK manager.
+    @ObservedObject var agoraManager: CloudProxyManager
+
+    /// Initializes a new ``CloudProxyView``.
+    ///
+    /// - Parameters:
+    ///   - channelId: The channel ID to join.
+    ///   - proxyType: Type of proxy to be used.
+    public init(channelId: String, proxyType: AgoraCloudProxyType) {
+        DocsAppConfig.shared.channel = channelId
+        self.agoraManager = CloudProxyManager(
+            appId: DocsAppConfig.shared.appId,
+            role: .broadcaster, proxyType: proxyType
+        )
+    }
+
+    var body: some View {
+        ZStack {
+            self.basicScrollingVideos
+            VStack {
+                let text = agoraManager.proxyResponse < 0 ?
+                    "Connection Error \(agoraManager.proxyResponse)" :
+                    "Connecting"
+                Text(agoraManager.proxyState == nil ? text : agoraManager.proxyState!.humanReadableString
+                ).padding().background(.tertiary).cornerRadius(25).padding()
+                Spacer()
+            }.padding()
+            ToastView(message: $agoraManager.label)
+        }.onAppear { await agoraManager.joinChannel(DocsAppConfig.shared.channel)
+        }.onDisappear { agoraManager.leaveChannel() }
+    }
+    static let docPath = getFolderName(from: #file)
+    static let docTitle = LocalizedStringKey("cloud-proxy-title")
+}
+
+struct CloudProxyView_Previews: PreviewProvider {
+    static var previews: some View {
+        CloudProxyView(channelId: "test", proxyType: .noneProxy)
     }
 }

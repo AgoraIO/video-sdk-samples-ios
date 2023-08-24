@@ -4,6 +4,7 @@
     "appId": "",
     "rtcToken": "",
     "tokenUrl": "",
+    "product": "ils",
     "signalingToken": "",
     "encryptionMode": 7,
     "salt": "",
