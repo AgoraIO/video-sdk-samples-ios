@@ -55,7 +55,7 @@ struct MultiChannelInputView<Content: HasMultiChannelInput>: View {
                     GitHubButtonView(continueTo.docPath)
                 }
             }), label: {
-                Text("Join Channel")
+                Text(LocalizedStringKey("params-continue-button"))
             }).disabled(primaryChannel.isEmpty || secondaryChannel.isEmpty)
                 .buttonStyle(.borderedProminent)
                 .navigationTitle("Channel Input")

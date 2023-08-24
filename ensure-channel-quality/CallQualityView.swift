@@ -10,9 +10,40 @@ import AgoraRtcKit
 
 /// A custom Agora SDK manager for call quality.
 public class CallQualityManager: AgoraManager {
+
+    // MARK: - Properties
+
     /// A dictionary mapping user IDs to call quality statistics.
     @Published public var callQualities: [UInt: String] = [:]
 
+    @Published public var streamType: [UInt: AgoraVideoStreamType] = [:]
+
+    @Published public var lastMileQuality: AgoraNetworkQuality = .unknown
+
+    // MARK: - Agora Engine Functions
+
+    public override func setupEngine() -> AgoraRtcEngineKit {
+        let engine = super.setupEngine()
+
+        // Set Audio Scenario
+        engine.setAudioScenario(.gameStreaming)
+
+        // Enable dual stream mode
+        engine.setDualStreamMode(.enableSimulcastStream)
+        engine.setAudioProfile(.default)
+
+        // Set the video configuration
+        let videoConfig = AgoraVideoEncoderConfiguration(
+            size: CGSize(width: 640, height: 360),
+            frameRate: .fps10,
+            bitrate: AgoraVideoBitrateStandard,
+            orientationMode: .adaptative,
+            mirrorMode: .auto
+        )
+        engine.setVideoEncoderConfiguration(videoConfig)
+
+        return engine
+    }
     func startProbeTest() {
         // Configure a LastmileProbeConfig instance.
         let config = AgoraLastmileProbeConfig()
@@ -25,10 +56,21 @@ public class CallQualityManager: AgoraManager {
         // The expected downlink bitrate (bps). The value range is [100000,5000000].
         config.expectedDownlinkBitrate = 100000
 
-        agoraEngine.startLastmileProbeTest(config)
+        print(agoraEngine.startLastmileProbeTest(config))
     }
 
-    public func rtcEngine(_ engine: AgoraRtcEngineKit, lastmileProbeTest result: AgoraLastmileProbeResult) {
+    func setStreamQuality(for uid: UInt, to quality: AgoraVideoStreamType) {
+        agoraEngine.setRemoteVideoStream(uid, type: quality)
+    }
+
+    // MARK: - Delegate Methods
+
+    public func rtcEngine(_ engine: AgoraRtcEngineKit, lastmileQuality quality: AgoraNetworkQuality) {
+        self.lastMileQuality = quality
+    }
+
+    public func rtcEngine(_ engine: AgoraRtcEngineKit, lastmileProbeTest result: AgoraLastmileProbeResult
+    ) {
         engine.stopLastmileProbeTest()
         // The result object contains the detailed test results that help you
         // manage call quality. For example, the downlink jitter"
@@ -69,6 +111,25 @@ public class CallQualityManager: AgoraManager {
     }
 }
 
+// MARK: - Property Helpers
+
+extension AgoraNetworkQuality {
+    var qualityDetails: (String, Color)? {
+        switch self {
+        case .excellent: return ("Excellent", .green)
+        case .good: return ("Good", .blue)
+        case .poor: return ("Poor", .yellow)
+        case .bad: return ("Bad", .orange)
+        case .vBad: return ("Very Bad", .red)
+        case .down: return ("Down", .gray)
+        case .unknown, .unsupported, .detecting: return nil
+        @unknown default: return nil
+        }
+    }
+}
+
+// MARK: - UI
+
 /// A view that displays the video feeds of all participants in a channel, along with their call quality statistics.
 struct CallQualityView: View {
     /// The Agora SDK manager for call quality.
@@ -76,22 +137,91 @@ struct CallQualityView: View {
         appId: DocsAppConfig.shared.appId, role: .broadcaster
     )
 
+    @State var channelJoined = false
+    @State var betweenChannel = false
+
+    func streamQualityOverlay(for uid: UInt) -> some View {
+        ZStack(alignment: .top) {
+            HStack(alignment: .top) {
+                self.callQualityOverlay(for: uid)
+                Spacer()
+                if uid != agoraManager.localUserId {
+                    VStack(alignment: .trailing) {
+                        Text("Stream Quality")
+                        Toggle(isOn: qualityBinding(for: uid)) {}
+                    }
+                }
+            }.padding(3)
+            let streamType = agoraManager.streamType[uid] ?? .high
+            RoundedRectangle(cornerRadius: 10).strokeBorder(
+                (streamType == .low ? .red : .green)
+            )
+        }
+    }
+
     var body: some View {
         ZStack {
-            ScrollView {
-                VStack {
-                    ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                        AgoraVideoCanvasView(manager: agoraManager, uid: uid)
-                            .aspectRatio(contentMode: .fit).cornerRadius(10)
-                            .overlay(alignment: .topLeading) {
-                                self.callQualityOverlay(for: uid)
+            VStack {
+                if let (qualityStr, color) = agoraManager.lastMileQuality.qualityDetails {
+                    Text("Call Quality: \(qualityStr)")
+                        .padding(4)
+                        .background(color)
+                        .cornerRadius(8)
+                }
+                ScrollView {
+                    VStack {
+                        ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
+                            AgoraVideoCanvasView(manager: agoraManager, uid: uid)
+                                .aspectRatio(contentMode: .fit).cornerRadius(10)
+                                .overlay(alignment: .topLeading) {
+                                    self.streamQualityOverlay(for: uid)
+                                }
+                        }
+                    }.padding(20)
+                }
+                HStack {
+                    if !self.channelJoined, !self.betweenChannel { Button {
+                        self.agoraManager.agoraEngine.stopLastmileProbeTest()
+                        self.agoraManager.startProbeTest()
+                    } label: {
+                        Text("Run Probe Test")
+                            .foregroundColor(.primary).padding(5)
+                            .background(.secondary).cornerRadius(5)
+                    }}
+                    Button {
+                        if channelJoined {
+                            self.channelJoined = agoraManager.leaveChannel(destroyInstance: false) != 0
+                        } else {
+                            betweenChannel = true
+                            Task {
+                                self.channelJoined = await agoraManager
+                                    .joinChannel(DocsAppConfig.shared.channel) == 0
+                                betweenChannel = false
                             }
-                    }
-                }.padding(20)
+                        }
+                    } label: {
+                        Text((self.channelJoined ? "Leave" : "Join") + " Channel")
+                            .foregroundColor(.primary).padding(5)
+                            .background(.secondary).cornerRadius(5)
+                    }.disabled(betweenChannel)
+
+                }
             }
             ToastView(message: $agoraManager.label)
-        }.onAppear { await agoraManager.joinChannel(DocsAppConfig.shared.channel)
-        }.onDisappear { agoraManager.leaveChannel() }
+        }.onDisappear {
+            agoraManager.leaveChannel()
+        }
+    }
+
+    private func qualityBinding(for key: UInt) -> Binding<Bool> {
+        Binding<Bool>(
+            get: { (self.agoraManager.streamType[key] ?? .high) == .high },
+            set: { newValue in
+                let newQuality = newValue ? AgoraVideoStreamType.high : .low
+                self.agoraManager.streamType[key] = newQuality
+                agoraManager.setStreamQuality(for: key, to: newQuality)
+            }
+        )
     }
 
     func callQualityOverlay(for uid: UInt) -> some View {

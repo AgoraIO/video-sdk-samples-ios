@@ -10,7 +10,15 @@ import AgoraRtcKit
 
 public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
 
+    // MARK: - Properties
+
+    @Published var mediaPlaying: Bool = false
+    @Published var mediaDuration: Int = 0
+    @Published var playerButtonText = "Open Media File"
     var mediaPlayer: AgoraRtcMediaPlayerProtocol?
+
+    // MARK: - Agora Engine Functions
+
     /// Starts streaming a video from a URL
     /// - Parameter url: Source URL of the media file. Could be local or remote.
     ///
@@ -97,10 +105,6 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
         }
     }
     // swiftlint:enable identifier_name
-
-    @Published var mediaPlaying: Bool = false
-    @Published var mediaDuration: Int = 0
-    @Published var playerButtonText = "Open Media File"
 }
 
 // MARK: - UI

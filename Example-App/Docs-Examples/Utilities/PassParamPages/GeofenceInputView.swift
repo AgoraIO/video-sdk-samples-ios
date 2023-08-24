@@ -100,7 +100,7 @@ struct GeofenceInputView<Content: HasGeoInput>: View {
                     GitHubButtonView(continueTo.docPath)
                 }
             }), label: {
-                Text("Join Channel")
+                Text(LocalizedStringKey("params-continue-button"))
             }).disabled(channelId.isEmpty || !regionSelected())
                 .buttonStyle(.borderedProminent)
         }.onAppear {

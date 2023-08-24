@@ -14,6 +14,9 @@ import SwiftUI
 /// Use AgoraManager to set up and manage Agora RTC sessions, manage the client's role,
 /// and control the client's connection to the Agora RTC server.
 open class AgoraManager: NSObject, ObservableObject {
+
+    // MARK: - Properties
+
     /// The Agora App ID for the session.
     public let appId: String
     /// The client's role in the session.
@@ -21,39 +24,33 @@ open class AgoraManager: NSObject, ObservableObject {
         didSet { agoraEngine.setClientRole(role) }
     }
 
+    /// The set of all users in the channel.
+    @Published public var allUsers: Set<UInt> = []
+
     @Published var label: String?
 
     /// Integer ID of the local user.
     @Published public var localUserId: UInt = 0
 
+    // MARK: - Agora Engine Functions
+
     private var engine: AgoraRtcEngineKit?
     /// The Agora RTC Engine Kit for the session.
     public var agoraEngine: AgoraRtcEngineKit {
         if let engine { return engine }
-        return setupEngine()
+        let engine = setupEngine()
+        self.engine = engine
+        return engine
     }
 
     open func setupEngine() -> AgoraRtcEngineKit {
+        print(appId)
         let eng = AgoraRtcEngineKit.sharedEngine(withAppId: appId, delegate: self)
         if DocsAppConfig.shared.product != .voice {
             eng.enableVideo()
         } else { eng.enableAudio() }
         eng.setClientRole(role)
-        self.engine = eng
         return eng
-    }
-
-    /// The set of all users in the channel.
-    @Published public var allUsers: Set<UInt> = []
-
-    /// Initializes a new instance of `AgoraManager` with the specified app ID and client role.
-    ///
-    /// - Parameters:
-    ///   - appId: The Agora App ID for the session.
-    ///   - role: The client's role in the session. The default value is `.audience`.
-    public init(appId: String, role: AgoraClientRole = .audience) {
-        self.appId = appId
-        self.role = role
     }
 
     /// Joins a channel, starting the connection to an RTC session.
@@ -78,7 +75,8 @@ open class AgoraManager: NSObject, ObservableObject {
         }
 
         return self.agoraEngine.joinChannel(
-            byToken: token, channelId: channel, info: info, uid: uid
+            byToken: token, channelId: channel,
+            info: info, uid: uid
         )
     }
 
@@ -116,15 +114,30 @@ open class AgoraManager: NSObject, ObservableObject {
     /// This method also empties all entries in ``allUsers``,
     @discardableResult
     open func leaveChannel(
-        leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil
+        leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil,
+        destroyInstance: Bool = true
     ) -> Int32 {
         let leaveErr = self.agoraEngine.leaveChannel(leaveChannelBlock)
         self.agoraEngine.stopPreview()
-        defer { AgoraRtcEngineKit.destroy() }
+        defer { if destroyInstance { AgoraRtcEngineKit.destroy() } }
         self.allUsers.removeAll()
         return leaveErr
     }
+
+    // MARK: - Setup
+
+    /// Initializes a new instance of `AgoraManager` with the specified app ID and client role.
+    ///
+    /// - Parameters:
+    ///   - appId: The Agora App ID for the session.
+    ///   - role: The client's role in the session. The default value is `.audience`.
+    public init(appId: String, role: AgoraClientRole = .audience) {
+        self.appId = appId
+        self.role = role
+    }
 }
+
+// MARK: - Delegate Methods
 
 extension AgoraManager: AgoraRtcEngineDelegate {
     /// The delegate is telling us that the local user has successfully joined the channel.

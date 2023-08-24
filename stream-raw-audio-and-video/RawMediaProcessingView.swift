@@ -9,10 +9,16 @@ import SwiftUI
 import AgoraRtcKit
 
 public class MediaProcessingManager: AgoraManager, HasModifyVideo, HasModifyAudio {
+
+    // MARK: - Properties
+
     @Published var videoModification: VideoModification = .none
     @Published var audioModification: AudioModification = .none
     var videoFrameDelegate: ModifyVideoFrameDelegate?
     var audioFrameDelegate: ModifyAudioFrameDelegate?
+
+    // MARK: - Agora Engine Functions
+
     override init(appId: String, role: AgoraClientRole = .audience) {
         super.init(appId: appId, role: role)
 
@@ -74,7 +80,9 @@ public struct RawMediaProcessingView: View {
                 HStack {
                     Image(systemName: "speaker.wave.3")
                     Picker("Choose Audio Modification", selection: $agoraManager.audioModification) {
-                        ForEach([AudioModification.none, .reverb, .louder], id: \.rawValue) { Text($0.rawValue).tag($0) }
+                        ForEach(
+                            [AudioModification.none, .reverb, .louder], id: \.rawValue
+                        ) { Text($0.rawValue).tag($0) }
                     }.pickerStyle(SegmentedPickerStyle())
                 }.padding()
 

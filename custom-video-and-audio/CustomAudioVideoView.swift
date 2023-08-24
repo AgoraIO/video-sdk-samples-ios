@@ -76,11 +76,14 @@ class CustomAudioVideoManager: AgoraManager, AgoraCameraSourcePushDelegate {
     }
 
     @discardableResult
-    override func leaveChannel(leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil) -> Int32 {
+    override func leaveChannel(
+        leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil,
+        destroyInstance: Bool = true
+    ) -> Int32 {
         // Need to stop the capture on exit
         pushSource?.stopCapture()
         pushSource = nil
-        return super.leaveChannel(leaveChannelBlock: leaveChannelBlock)
+        return super.leaveChannel(leaveChannelBlock: leaveChannelBlock, destroyInstance: destroyInstance)
     }
 
     override func rtcEngine(
