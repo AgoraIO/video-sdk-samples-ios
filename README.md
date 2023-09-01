@@ -66,8 +66,7 @@ Before getting started with this example app, please ensure you have the followi
 
    As with any Xcode project, head to the target, "Signing & Capabilities", and add your team, and modify the bundle identifier to make it unique.
 
-4. 
-5. 1. **Modify the project configuration**
+4.  **Modify the project configuration**
 
    The app loads connection parameters from the [`config.json`](./agora-manager/config.json) file. Ensure that the 
    file is populated with the required parameter values before running the application.
@@ -79,7 +78,7 @@ Before getting started with this example app, please ensure you have the followi
     - `serverUrl`: The URL for the token generator. See [Secure authentication with tokens](authentication-workflow) for information on how to set up a token server.
     - `tokenExpiryTime`: The time in seconds after which a token expires.
 
-    If a valid `serverUrl` is provided, all samples use the token server to obtain a token except the **SDK quickstart** project that uses the `rtcToken`. If a `serverUrl` is not specified, all samples except **Secure authentication with tokens** use the `rtcToken` from `config.json`.
+   If a valid `serverUrl` is provided, all samples use the token server to obtain a token except the **SDK quickstart** project that uses the `rtcToken`. If a `serverUrl` is not specified, all samples except **Secure authentication with tokens** use the `rtcToken` from `config.json`.
 
 5. **Build and run the project**
 

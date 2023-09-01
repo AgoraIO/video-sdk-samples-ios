@@ -28,4 +28,4 @@ Place the `UIView` in your app where you'd like it, set the `AgoraRtcVideoCanvas
 
 ## How to run this project
 
-To see how to run this project, read the instructions in the main [README](../../README.md) or [SDK quickstart](https://docs-beta.agora.io/en/video-calling/get-started/get-started-sdk).
+To see how to run this project, read the instructions in the main [README](../README.md) or [SDK quickstart](https://docs-beta.agora.io/en/video-calling/get-started/get-started-sdk).

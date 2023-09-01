@@ -16,5 +16,5 @@ Once choosing a proxy type, you need to call `agoraEngine.setCloudProxy` with yo
 
 ## How to run this project
 
-To see how to run this project, read the instructions in the main [README](../../README.md) or [SDK quickstart](https://docs-beta.agora.io/en/video-calling/get-started/get-started-sdk).
+To see how to run this project, read the instructions in the main [README](../README.md) or [SDK quickstart](https://docs-beta.agora.io/en/video-calling/get-started/get-started-sdk).
 
