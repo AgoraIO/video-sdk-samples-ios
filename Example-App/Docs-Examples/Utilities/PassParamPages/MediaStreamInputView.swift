@@ -6,7 +6,9 @@
 //
 
 import SwiftUI
+#if canImport(UIKit)
 import UIKit
+#endif
 import AVFoundation
 
 protocol HasMediaInput: HasDocPath {
@@ -34,9 +36,11 @@ struct MediaStreamInputView<Content: HasMediaInput>: View {
                 print("Cannot select media on the simulator.")
                 #else
                 DispatchQueue.main.async {
+                    #if canImport(UIKit)
                     UIApplication.shared.sendAction(
                         #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil
                     )
+                    #endif
                     // Clear the previously selected media
                     videoURL = nil
                     videoThumbnail = nil
@@ -63,9 +67,11 @@ struct MediaStreamInputView<Content: HasMediaInput>: View {
                 channelId: channelId.trimmingCharacters(in: .whitespaces),
                 url: videoURL!
             ).navigationTitle(continueTo.docTitle).toolbar {
+                #if os(iOS)
                 ToolbarItem(placement: .navigationBarTrailing) {
                     GitHubButtonView(continueTo.docPath)
                 }
+                #endif
             }), label: {
                 Text(LocalizedStringKey("params-continue-button"))
             }).disabled(channelId.isEmpty || videoURL == nil)

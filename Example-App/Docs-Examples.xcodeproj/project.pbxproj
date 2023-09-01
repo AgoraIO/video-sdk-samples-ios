@@ -15,7 +15,6 @@
 		F31BF8762A6C3E56002E7AC2 /* GeofenceInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31BF8752A6C3E56002E7AC2 /* GeofenceInputView.swift */; };
 		F31BF87A2A6E4A09002E7AC2 /* MediaStreamInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31BF8792A6E4A09002E7AC2 /* MediaStreamInputView.swift */; };
 		F31BF87D2A6E4C91002E7AC2 /* StreamMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31BF87C2A6E4C91002E7AC2 /* StreamMediaView.swift */; };
-		F31BF87F2A6E8DEF002E7AC2 /* ReplayKit in Frameworks */ = {isa = PBXBuildFile; productRef = F31BF87E2A6E8DEF002E7AC2 /* ReplayKit */; };
 		F31BF8812A6E9105002E7AC2 /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31BF8802A6E9105002E7AC2 /* MediaPicker.swift */; };
 		F31BF8862A6EC37F002E7AC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F31BF8892A6EC37F002E7AC2 /* Localizable.strings */; };
 		F31BF8872A6EC37F002E7AC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F31BF8892A6EC37F002E7AC2 /* Localizable.strings */; };
@@ -28,16 +27,18 @@
 		F344ED9E2A494CE700B3C313 /* CustomCameraInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344ED9D2A494CE700B3C313 /* CustomCameraInputView.swift */; };
 		F344EDA02A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344ED9F2A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift */; };
 		F348B3972A4D7BDC00AF6B9B /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = F348B3962A4D7BDC00AF6B9B /* config.json */; };
-		F35967182A5C35FE005CEE79 /* RtcBasic in Frameworks */ = {isa = PBXBuildFile; productRef = F35967172A5C35FE005CEE79 /* RtcBasic */; };
-		F35967322A5C3A66005CEE79 /* ReplayKit in Frameworks */ = {isa = PBXBuildFile; productRef = F35967312A5C3A66005CEE79 /* ReplayKit */; };
 		F35A42802A6973F300FF93D5 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A427F2A6973F300FF93D5 /* NavigationLazyView.swift */; };
 		F35A42822A69750400FF93D5 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35A42812A69750300FF93D5 /* VisualEffectView.swift */; };
 		F3611F352A964F970086E3F4 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3611F342A964F970086E3F4 /* ToastView.swift */; };
 		F3611F372A96587F0086E3F4 /* AppStoryViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3611F362A96587F0086E3F4 /* AppStoryViewProtocol.swift */; };
 		F37BC5A72A96152600935601 /* VirtualBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37BC5A52A96152600935601 /* VirtualBackgroundView.swift */; };
-		F37BC5AA2A96411D00935601 /* VirtualBackground in Frameworks */ = {isa = PBXBuildFile; productRef = F37BC5A92A96411D00935601 /* VirtualBackground */; };
 		F37BC5AE2A96436000935601 /* background_ss.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F37BC5AD2A96436000935601 /* background_ss.jpg */; };
 		F37BC5B02A964BD500935601 /* AgoraManager+Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37BC5AF2A964BD500935601 /* AgoraManager+Permissions.swift */; };
+		F38636502AA24392006A8D7C /* ReplayKit in Frameworks */ = {isa = PBXBuildFile; productRef = F386364F2AA24392006A8D7C /* ReplayKit */; };
+		F38636522AA24392006A8D7C /* RtcBasic in Frameworks */ = {isa = PBXBuildFile; productRef = F38636512AA24392006A8D7C /* RtcBasic */; };
+		F38636542AA24392006A8D7C /* VirtualBackground in Frameworks */ = {isa = PBXBuildFile; productRef = F38636532AA24392006A8D7C /* VirtualBackground */; };
+		F38636562AA243A0006A8D7C /* ReplayKit in Frameworks */ = {isa = PBXBuildFile; productRef = F38636552AA243A0006A8D7C /* ReplayKit */; };
+		F38636582AA243A0006A8D7C /* RtcBasic in Frameworks */ = {isa = PBXBuildFile; productRef = F38636572AA243A0006A8D7C /* RtcBasic */; };
 		F3A88CCE2A1DE629000B2292 /* GettingStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CCC2A1DE629000B2292 /* GettingStartedView.swift */; };
 		F3A88CD42A1DE645000B2292 /* CallQualityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CD22A1DE645000B2292 /* CallQualityView.swift */; };
 		F3A88CD92A1DE663000B2292 /* TokenAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CD72A1DE663000B2292 /* TokenAuthenticationView.swift */; };
@@ -49,7 +50,6 @@
 		F3C06BB32A4D85FC00F59BC2 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = F348B3962A4D7BDC00AF6B9B /* config.json */; };
 		F3C06BB52A4D861200F59BC2 /* DocsAppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C06BB42A4D861200F59BC2 /* DocsAppConfig.swift */; };
 		F3C06BB62A4D863B00F59BC2 /* DocsAppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C06BB42A4D861200F59BC2 /* DocsAppConfig.swift */; };
-		F3C571C229C8E50E0002B322 /* RtcBasic in Frameworks */ = {isa = PBXBuildFile; productRef = F3C571C129C8E50E0002B322 /* RtcBasic */; };
 		F3CA2CDB29C97AF400561441 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = F3CA2CDA29C97AF400561441 /* Documentation.docc */; };
 		F3CA2CE429CB00F400561441 /* AgoraVideoCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CA2CE329CB00F400561441 /* AgoraVideoCanvasView.swift */; };
 		F3D7BD4729DB30680014DEC0 /* AgoraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7BD4629DB30680014DEC0 /* AgoraManager.swift */; };
@@ -160,9 +160,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F31BF87F2A6E8DEF002E7AC2 /* ReplayKit in Frameworks */,
-				F3C571C229C8E50E0002B322 /* RtcBasic in Frameworks */,
-				F37BC5AA2A96411D00935601 /* VirtualBackground in Frameworks */,
+				F38636502AA24392006A8D7C /* ReplayKit in Frameworks */,
+				F38636522AA24392006A8D7C /* RtcBasic in Frameworks */,
+				F38636542AA24392006A8D7C /* VirtualBackground in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,9 +170,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F38636562AA243A0006A8D7C /* ReplayKit in Frameworks */,
 				F3A88CEB2A1E0405000B2292 /* ReplayKit.framework in Frameworks */,
-				F35967182A5C35FE005CEE79 /* RtcBasic in Frameworks */,
-				F35967322A5C3A66005CEE79 /* ReplayKit in Frameworks */,
+				F38636582AA243A0006A8D7C /* RtcBasic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,9 +462,9 @@
 			);
 			name = "Docs-Examples";
 			packageProductDependencies = (
-				F3C571C129C8E50E0002B322 /* RtcBasic */,
-				F31BF87E2A6E8DEF002E7AC2 /* ReplayKit */,
-				F37BC5A92A96411D00935601 /* VirtualBackground */,
+				F386364F2AA24392006A8D7C /* ReplayKit */,
+				F38636512AA24392006A8D7C /* RtcBasic */,
+				F38636532AA24392006A8D7C /* VirtualBackground */,
 			);
 			productName = "Docs-Examples";
 			productReference = F310F63429C8D02E006DB727 /* Docs-Examples.app */;
@@ -484,8 +484,8 @@
 			);
 			name = screenSharer;
 			packageProductDependencies = (
-				F35967172A5C35FE005CEE79 /* RtcBasic */,
-				F35967312A5C3A66005CEE79 /* ReplayKit */,
+				F38636552AA243A0006A8D7C /* ReplayKit */,
+				F38636572AA243A0006A8D7C /* RtcBasic */,
 			);
 			productName = screenSharer;
 			productReference = F3A88CE82A1E0405000B2292 /* screenSharer.appex */;
@@ -519,7 +519,7 @@
 			);
 			mainGroup = F310F62B29C8D02E006DB727;
 			packageReferences = (
-				F3C571C029C8E50E0002B322 /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */,
+				F386364E2AA24392006A8D7C /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */,
 			);
 			productRefGroup = F310F63529C8D02E006DB727 /* Products */;
 			projectDirPath = "";
@@ -818,6 +818,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.rocketar.Docs-Examples";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -854,6 +857,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.rocketar.Docs-Examples";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -947,40 +953,42 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F3C571C029C8E50E0002B322 /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */ = {
+		F386364E2AA24392006A8D7C /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AgoraIO/AgoraRtcEngine_iOS";
 			requirement = {
 				kind = exactVersion;
 				version = 4.2.2;
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F31BF87E2A6E8DEF002E7AC2 /* ReplayKit */ = {
+		F386364F2AA24392006A8D7C /* ReplayKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F3C571C029C8E50E0002B322 /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
+			package = F386364E2AA24392006A8D7C /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
 			productName = ReplayKit;
 		};
-		F35967172A5C35FE005CEE79 /* RtcBasic */ = {
+		F38636512AA24392006A8D7C /* RtcBasic */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F3C571C029C8E50E0002B322 /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
+			package = F386364E2AA24392006A8D7C /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
 			productName = RtcBasic;
 		};
-		F35967312A5C3A66005CEE79 /* ReplayKit */ = {
+		F38636532AA24392006A8D7C /* VirtualBackground */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F3C571C029C8E50E0002B322 /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
-			productName = ReplayKit;
-		};
-		F37BC5A92A96411D00935601 /* VirtualBackground */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F3C571C029C8E50E0002B322 /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
+			package = F386364E2AA24392006A8D7C /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
 			productName = VirtualBackground;
 		};
-		F3C571C129C8E50E0002B322 /* RtcBasic */ = {
+		F38636552AA243A0006A8D7C /* ReplayKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F3C571C029C8E50E0002B322 /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
+			package = F386364E2AA24392006A8D7C /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
+			productName = ReplayKit;
+		};
+		F38636572AA243A0006A8D7C /* RtcBasic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F386364E2AA24392006A8D7C /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
 			productName = RtcBasic;
 		};
 /* End XCSwiftPackageProductDependency section */

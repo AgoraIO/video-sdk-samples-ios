@@ -25,7 +25,7 @@ struct ContentView: View {
                     }
                     NavigationLink(TokenAuthenticationView.docTitle) {
                         TokenAuthInputView(continueTo: TokenAuthenticationView.self)
-                    }
+                    }.disabled(true)
                 }
                 // MARK: - Core Functionality
                 Section("Core functionality") {
@@ -53,9 +53,11 @@ struct ContentView: View {
                     }
                     NavigationLink("Receive notifications about channel events") {}
                         .disabled(true)
+                    #if os(iOS)
                     NavigationLink(CustomAudioVideoView.docTitle) {
                         CustomCameraInputView(continueTo: CustomAudioVideoView.self)
                     }
+                    #endif
                     NavigationLink(RawMediaProcessingView.docTitle) {
                         ChannelInputView(continueTo: RawMediaProcessingView
                             .self)
@@ -75,7 +77,11 @@ struct ContentView: View {
                         }
                     }
                 }
-            }.navigationTitle(LocalizedStringKey("app_title")).navigationBarTitleDisplayMode(.inline)
+            }
+            #if os(iOS)
+            .navigationTitle(LocalizedStringKey("app_title"))
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
         }.onAppear {
             self.productChoice = DocsAppConfig.shared.product
         }.onChange(of: self.productChoice) { newValue in

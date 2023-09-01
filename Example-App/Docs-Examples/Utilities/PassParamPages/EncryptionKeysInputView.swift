@@ -54,9 +54,11 @@ struct EncryptionKeysInputView<Content: HasEncryptionInput>: View {
                 encryptionSalt: encryptionSalt.trimmingCharacters(in: .whitespaces),
                 encryptionMode: self.encryptionType
             ).navigationTitle(continueTo.docTitle).toolbar {
+                #if os(iOS)
                 ToolbarItem(placement: .navigationBarTrailing) {
                     GitHubButtonView(continueTo.docPath)
                 }
+                #endif
             }), label: {
                 Text(LocalizedStringKey("params-continue-button"))
             }).buttonStyle(.borderedProminent)

@@ -51,9 +51,11 @@ struct MultiChannelInputView<Content: HasMultiChannelInput>: View {
                 secondaryChannel: secondaryChannel.trimmingCharacters(in: .whitespaces),
                 isRelay: relayType == .relay
             ).navigationTitle(continueTo.docTitle).toolbar {
+                #if os(iOS)
                 ToolbarItem(placement: .navigationBarTrailing) {
                     GitHubButtonView(continueTo.docPath)
                 }
+                #endif
             }), label: {
                 Text(LocalizedStringKey("params-continue-button"))
             }).disabled(primaryChannel.isEmpty || secondaryChannel.isEmpty)
