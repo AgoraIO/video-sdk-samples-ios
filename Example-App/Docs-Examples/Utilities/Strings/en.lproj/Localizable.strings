@@ -24,3 +24,5 @@
 "virtual-background-title" = "Virtual background";
 "permissions-error" = "Camera and microphone permissions were not granted.\nCheck your security settings and try again.";
 "params-continue-button" = "Continue";
+"invalid-permissions" = "Camera and microphone permissions were not granted.\nCheck your security settings and try again.";
+
