@@ -65,12 +65,7 @@ open class AgoraManager: NSObject, ObservableObject {
         _ channel: String, token: String? = nil, uid: UInt = 0, info: String? = nil
     ) async -> Int32 {
         if await !AgoraManager.checkForPermissions() {
-            DispatchQueue.main.async {
-                self.label = """
-                Camera and microphone permissions were not granted.
-                Check your security settings and try again.
-                """
-            }
+            await self.updateLabel(key: "invalid-permissions")
             return -3
         }
 
@@ -80,7 +75,86 @@ open class AgoraManager: NSObject, ObservableObject {
         )
     }
 
+    /// Joins a video call, establishing a connection for video communication.
+    /// - Parameters:
+    ///   - channel: Name of the channel to join.
+    ///   - token: Token to join the channel, this can be nil for a weak security testing session.
+    ///   - uid: User ID of the local user. This can be 0 to allow the engine to automatically assign an ID.
+    /// - Returns: Error code, 0 = success, &lt; 0 = failure.
     @discardableResult
+    func joinVideoCall(
+        _ channel: String, token: String? = nil, uid: UInt = 0
+    ) async -> Int32 {
+        /// See ``AgoraManager/checkForPermissions()``, or Apple's docs for details of this method.
+        if await !AgoraManager.checkForPermissions() {
+            await self.updateLabel(key: "invalid-permissions")
+            return -3
+        }
+
+        let opt = AgoraRtcChannelMediaOptions()
+        opt.channelProfile = .communication
+
+        return self.agoraEngine.joinChannel(
+            byToken: token, channelId: channel,
+            uid: uid, mediaOptions: opt
+        )
+    }
+
+    /// Joins a voice call, establishing a connection for audio communication.
+    /// - Parameters:
+    ///   - channel: Name of the channel to join.
+    ///   - token: Token to join the channel, this can be nil for a weak security testing session.
+    ///   - uid: User ID of the local user. This can be 0 to allow the engine to automatically assign an ID.
+    /// - Returns: Error code, 0 = success, &lt; 0 = failure.
+    @discardableResult
+    func joinVoiceCall(
+        _ channel: String, token: String? = nil, uid: UInt = 0
+    ) async -> Int32 {
+        /// See ``AgoraManager/checkForPermissions()``, or Apple's docs for details of this method.
+        if await !AgoraManager.checkForPermissions() {
+            await self.updateLabel(key: "invalid-permissions")
+            return -3
+        }
+
+        let opt = AgoraRtcChannelMediaOptions()
+        opt.channelProfile = .communication
+
+        return self.agoraEngine.joinChannel(
+            byToken: token, channelId: channel,
+            uid: uid, mediaOptions: opt
+        )
+    }
+
+    /// Joins a broadcast stream, enabling broadcasting or audience mode.
+    /// - Parameters:
+    ///   - channel: Name of the channel to join.
+    ///   - token: Token to join the channel, this can be nil for a weak security testing session.
+    ///   - uid: User ID of the local user. This can be 0 to allow the engine to automatically assign an ID.
+    ///   - isBroadcaster: Flag to indicate if the user is joining as a broadcaster (true) or audience (false).
+    ///                    Defaults to true.
+    /// - Returns: Error code, 0 = success, &lt; 0 = failure.
+    @discardableResult
+    func joinBroadcastStream(
+        _ channel: String, token: String? = nil,
+        uid: UInt = 0, isBroadcaster: Bool = true
+    ) async -> Int32 {
+        /// See ``AgoraManager/checkForPermissions()``, or Apple's docs for details of this method.
+        if isBroadcaster, await !AgoraManager.checkForPermissions() {
+            await self.updateLabel(key: "invalid-permissions")
+            return -3
+        }
+
+        let opt = AgoraRtcChannelMediaOptions()
+        opt.channelProfile = .liveBroadcasting
+        opt.clientRoleType = isBroadcaster ? .broadcaster : .audience
+        opt.audienceLatencyLevel = isBroadcaster ? .ultraLowLatency : .lowLatency
+
+        return self.agoraEngine.joinChannel(
+            byToken: token, channelId: channel,
+            uid: uid, mediaOptions: opt
+        )
+    }
+
     /// This method is used by this app specifically. If there is a tokenURL,
     /// it will attempt to retrieve a token from there.
     /// Otherwise it will simply apply the provided token in config.json or nil.
@@ -89,6 +163,7 @@ open class AgoraManager: NSObject, ObservableObject {
     ///   - channel: Name of the channel to join.
     ///   - uid: User ID of the local user. This can be 0 to allow the engine to automatically assign an ID.
     /// - Returns: Error code, 0 = success, &lt; 0 = failure.
+    @discardableResult
     internal func joinChannel(_ channel: String, uid: UInt? = nil) async -> Int32 {
         let userId = uid ?? DocsAppConfig.shared.uid
         var token = DocsAppConfig.shared.rtcToken
@@ -99,7 +174,7 @@ open class AgoraManager: NSObject, ObservableObject {
                     role: self.role, userId: userId
                 )
             } catch {
-                print("token server fetch failed: \(error.localizedDescription)")
+                await self.updateLabel(to: "token server fetch failed: \(error.localizedDescription)")
             }
         }
         return await self.joinChannel(channel, token: token, uid: userId, info: nil)
@@ -134,6 +209,16 @@ open class AgoraManager: NSObject, ObservableObject {
     public init(appId: String, role: AgoraClientRole = .audience) {
         self.appId = appId
         self.role = role
+    }
+
+    @MainActor
+    func updateLabel(to message: String) {
+        self.label = message
+    }
+
+    @MainActor
+    func updateLabel(key: String) {
+        self.label = NSLocalizedString(key, comment: "")
     }
 }
 

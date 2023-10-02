@@ -951,8 +951,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AgoraIO/AgoraRtcEngine_iOS";
 			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 4.2.0;
+				kind = exactVersion;
+				version = 4.2.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

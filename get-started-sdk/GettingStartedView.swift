@@ -26,11 +26,20 @@ public struct GettingStartedView: View {
             }
             ToastView(message: $agoraManager.label)
         }.onAppear {
-            await agoraManager.joinChannel(
-                DocsAppConfig.shared.channel,
-                token: DocsAppConfig.shared.rtcToken,
-                uid: DocsAppConfig.shared.uid
-            )
+            let channel = DocsAppConfig.shared.channel
+            let token = DocsAppConfig.shared.rtcToken
+            let uid = DocsAppConfig.shared.uid
+            switch DocsAppConfig.shared.product {
+            case .rtc:
+                await agoraManager.joinVideoCall(channel, token: token, uid: uid)
+            case .ils:
+                await agoraManager.joinBroadcastStream(
+                    channel, token: token, uid: uid,
+                    isBroadcaster: true
+                )
+            case .voice:
+                await agoraManager.joinVoiceCall(channel, token: token, uid: uid)
+            }
         }.onDisappear {
             agoraManager.leaveChannel()
         }
