@@ -40,9 +40,11 @@ struct ChannelInputView<Content: HasChannelInput>: View {
             NavigationLink(destination: NavigationLazyView(continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces)
             ).navigationTitle(continueTo.docTitle).toolbar {
+                #if os(iOS)
                 ToolbarItem(placement: .navigationBarTrailing) {
                     GitHubButtonView(continueTo.docPath)
                 }
+                #endif
             }), label: {
                 Text(LocalizedStringKey("params-continue-button"))
             }).disabled(channelId.isEmpty)

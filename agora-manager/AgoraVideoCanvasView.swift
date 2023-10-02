@@ -24,6 +24,11 @@ public protocol CanvasViewHelper: AnyObject {
 // Add the `CanvasViewHelper` protocol to AgoraManager. 
 extension AgoraManager: CanvasViewHelper {}
 
+#if os(macOS)
+typealias UIViewRepresentable = NSViewRepresentable
+typealias UIView = NSView
+#endif
+
 /// AgoraVideoCanvasView is a UIViewRepresentable struct that provides a view
 /// for displaying remote or local video in an Agora RTC session.
 ///
@@ -191,17 +196,9 @@ public struct AgoraVideoCanvasView: UIViewRepresentable {
         self.canvasProperties = canvasProps
     }
 
-    /// Creates and configures a `UIView` for the view. This UIView will be the view the video is rendered onto.
-    ///
-    /// - Parameter context: The `UIViewRepresentable` context.
-    ///
-    /// - Returns: A `UIView` for displaying the video stream.
-    public func makeUIView(context: Context) -> UIView {
-        setupCanvasView()
-    }
     private func setupCanvasView() -> UIView {
         // Create and return the remote video view
-        let canvasView = UIViewType()
+        let canvasView = UIView()
         canvas.view = canvasView
         canvas.renderMode = canvasProperties.renderMode
         canvas.cropArea = canvasProperties.cropArea
@@ -227,9 +224,35 @@ public struct AgoraVideoCanvasView: UIViewRepresentable {
             self.setUserId(to: self.canvasId, agoraEngine: manager.agoraEngine)
         }
     }
+}
+extension AgoraVideoCanvasView {
+    #if os(iOS)
+    /// Creates and configures a `UIView` for the view. This UIView will be the view the video is rendered onto.
+    ///
+    /// - Parameter context: The `UIViewRepresentable` context.
+    ///
+    /// - Returns: A `UIView` for displaying the video stream.
+    public func makeUIView(context: Context) -> UIView {
+        setupCanvasView()
+    }
 
     /// Updates the Canvas view.
     public func updateUIView(_ uiView: UIView, context: Context) {
         self.updateCanvasValues()
     }
+    #elseif os(macOS)
+    /// Creates and configures a `NSView` for the view. This UIView will be the view the video is rendered onto.
+    ///
+    /// - Parameter context: The `NSViewRepresentable` context.
+    ///
+    /// - Returns: A `NSView` for displaying the video stream.
+    public func makeNSView(context: Context) -> NSView {
+        setupCanvasView()
+    }
+
+    /// Updates the Canvas view.
+    public func updateNSView(_ uiView: NSView, context: Context) {
+        self.updateCanvasValues()
+    }
+    #endif
 }

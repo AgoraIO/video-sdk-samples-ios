@@ -21,17 +21,27 @@ struct GitHubButtonView: View {
             Button(action: {
                 openURL(url)
             }, label: {
+                #if os(iOS)
                 Image(uiImage: UIImage(
                     named: "github-mark\(colorScheme == .dark ? "-white" : "")")!
                 ).resizable().frame(width: 24, height: 24)
+                #elseif os(macOS)
+                Image(nsImage: NSImage(
+                    named: "github-mark\(colorScheme == .dark ? "-white" : "")")!
+                ).resizable().frame(width: 24, height: 24)
+                #endif
             })
         }
     }
 
     func openURL(_ url: URL) {
+        #if os(iOS)
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
+        #elseif os(macOS)
+        NSWorkspace.shared.open(url)
+        #endif
     }
 
     @Environment(\.colorScheme) var colorScheme

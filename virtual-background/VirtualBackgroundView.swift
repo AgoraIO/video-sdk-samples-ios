@@ -11,6 +11,10 @@ private enum VirtualBackgroundType: String, Equatable, CaseIterable, Identifiabl
     case image
 }
 
+#if os(macOS)
+typealias UIColor = NSColor
+#endif
+
 private func convertUIColorToHex(_ color: UIColor) -> UInt {
     var red: CGFloat = 0
     var green: CGFloat = 0

@@ -39,15 +39,20 @@ struct TokenAuthInputView<Content: HasTokenServerInput>: View {
         VStack {
             TextField("Enter channel id", text: $channelId)
                 .textFieldStyle(.roundedBorder).padding([.horizontal, .top])
-            TextField("Enter token URL", text: $tokenUrl).keyboardType(.URL)
+            TextField("Enter token URL", text: $tokenUrl)
+                #if os(iOS)
+                .keyboardType(.URL)
+                #endif
                 .textFieldStyle(.roundedBorder).padding([.horizontal, .bottom])
             NavigationLink(destination: NavigationLazyView(continueTo.init(
                 channelId: channelId.trimmingCharacters(in: .whitespaces),
                 tokenUrl: tokenUrl.trimmingCharacters(in: .whitespaces)
             ).navigationTitle(continueTo.docTitle).toolbar {
+                #if os(iOS)
                 ToolbarItem(placement: .navigationBarTrailing) {
                     GitHubButtonView(continueTo.docPath)
                 }
+                #endif
             }), label: {
                 Text(LocalizedStringKey("params-continue-button"))
             }).disabled(channelId.isEmpty || tokenUrl.isEmpty)

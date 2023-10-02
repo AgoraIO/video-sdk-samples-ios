@@ -8,7 +8,7 @@
 import SwiftUI
 import AgoraRtcKit
 import AVKit
-
+#if os(iOS)
 /// A protocol for views that require a custom camera capture device.
 protocol HasCustomVideoInput: View, HasDocPath {
     init(channelId: String, customCamera: AVCaptureDevice)
@@ -48,9 +48,11 @@ struct CustomCameraInputView<Content: HasCustomVideoInput>: View {
                     channelId: channelId.trimmingCharacters(in: .whitespaces),
                     customCamera: availableCams[selectedCamera]
                 ).navigationTitle(continueTo.docTitle).toolbar {
+                    #if os(iOS)
                     ToolbarItem(placement: .navigationBarTrailing) {
                         GitHubButtonView(continueTo.docPath)
                     }
+                    #endif
                 }), label: {
                     Text(LocalizedStringKey("params-continue-button"))
                 }).disabled(channelId.isEmpty)
@@ -70,3 +72,4 @@ struct CustomCameraInputView_Previews: PreviewProvider {
         CustomCameraInputView(continueTo: CustomAudioVideoView.self)
     }
 }
+#endif

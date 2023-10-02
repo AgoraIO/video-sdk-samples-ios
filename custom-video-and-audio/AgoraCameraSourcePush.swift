@@ -50,7 +50,9 @@ open class AgoraCameraSourcePush: NSObject {
         self.delegate = delegate
 
         self.captureSession = AVCaptureSession()
+        #if os(iOS)
         self.captureSession.usesApplicationAudioSession = false
+        #endif
 
         let captureOutput = AVCaptureVideoDataOutput()
         captureOutput.videoSettings = [
