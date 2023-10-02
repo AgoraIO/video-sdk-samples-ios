@@ -54,9 +54,9 @@ public class RelayManager: AgoraManager {
             DispatchQueue.main.async {
                 self.mediaRelaying = false
                 if result != 0 {
-                    self.label = "leave channel failure: \(result)"
+                    self.updateLabel(to: "leave channel failure: \(result)")
                 } else {
-                    self.label = "leaveChannelEx Success"
+                    self.updateLabel(to: "leaveChannelEx Success")
                 }
             }
         } else {
@@ -80,9 +80,9 @@ public class RelayManager: AgoraManager {
             DispatchQueue.main.async {
                 self.mediaRelaying = result == 0
                 if result != 0 {
-                    self.label = "join channel failure: \(result)"
+                    self.updateLabel(to: "join channel failure: \(result)")
                 } else {
-                    self.label = "joinChannelEx Success"
+                    self.updateLabel(to: "joinChannelEx Success")
                 }
             }
         }
@@ -177,7 +177,7 @@ public class RelayManager: AgoraManager {
         }
         DispatchQueue.main.async {[weak self] in
             guard let weakself = self else { return }
-            weakself.label = outputLabel
+            weakself.updateLabel(to: outputLabel)
         }
     }
 }

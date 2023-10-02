@@ -35,9 +35,9 @@ fileprivate extension AgoraManager {
 
         // Call the method to enable media encryption.
         if agoraEngine.enableEncryption(true, encryptionConfig: config) == 0 {
-            label = "Media encryption enabled."
+            Task { await self.updateLabel(to: "Media encryption enabled.") }
         } else {
-            label = "Media encryption failed."
+            Task { await self.updateLabel(to: "Media encryption failed.") }
         }
     }
 }
