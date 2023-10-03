@@ -28,7 +28,7 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
         mediaPlayer = agoraEngine.createMediaPlayer(with: self)
         // Open the media file
         mediaPlayer!.open(url.absoluteString, startPos: 0)
-        label = "Opening Media File..."
+        Task { await self.updateLabel(to: "Opening Media File...") }
     }
 
     /// Update the AgoraRtcChannelMediaOptions to control the media player publishing behavior.
@@ -71,7 +71,7 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
             // Update the UI, and start playing
             DispatchQueue.main.async {[weak self] in
                 guard let weakself = self else { return }
-                weakself.label = "Playback started"
+                self?.updateLabel(to: "Playback started")
                 weakself.mediaDuration = weakself.mediaPlayer!.getDuration()
 
                 weakself.updateChannelPublishOptions(publishingMedia: true)
@@ -80,7 +80,7 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
         case .playBackAllLoopsCompleted:
             // Media file finished playing
             DispatchQueue.main.async {[weak self] in
-                self?.label = "Playback finished"
+                self?.updateLabel(to: "Playback finished")
 
                 self?.updateChannelPublishOptions(publishingMedia: false)
             }
@@ -99,8 +99,7 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
         if mediaDuration > 0 {
             let result = (Float(position) / Float(mediaDuration))
             DispatchQueue.main.async { [weak self] in
-                guard let weakself = self else { return }
-                weakself.label = "Playback progress: \(Int(result * 100))%"
+                self?.updateLabel(to: "Playback progress: \(Int(result * 100))%")
             }
         }
     }
