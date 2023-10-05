@@ -25,7 +25,7 @@ struct ContentView: View {
                     }
                     NavigationLink(TokenAuthenticationView.docTitle) {
                         TokenAuthInputView(continueTo: TokenAuthenticationView.self)
-                    }.disabled(true)
+                    }
                 }
                 // MARK: - Core Functionality
                 Section("Core functionality") {

@@ -163,21 +163,33 @@ public class RelayManager: AgoraManager {
         channelMediaRelayStateDidChange state: AgoraChannelMediaRelayState,
         error: AgoraChannelMediaRelayError
     ) {
-        var outputLabel: String
         switch state {
         case .connecting:
-            outputLabel = "Channel media relay is connecting."
+            // Channel media relay is connecting.
+            break
         case .running:
-            mediaRelaying = true
-            outputLabel = "Channel media relay is running."
+            // Channel media relay is running.
+            break
         case .failure:
-            mediaRelaying = false
-            outputLabel = "Channel media relay failure. Error code: \(error.rawValue)"
+            // Channel media relay failure
+            break
         default: return
         }
-        DispatchQueue.main.async {[weak self] in
-            guard let weakself = self else { return }
-            weakself.updateLabel(to: outputLabel)
+        Task { await self.updateMediaRelayLabel(with: state, error: error) }
+    }
+
+    @MainActor
+    func updateMediaRelayLabel(with state: AgoraChannelMediaRelayState, error: AgoraChannelMediaRelayError) async {
+        switch state {
+        case .connecting:
+            self.updateLabel(to: "Channel media relay is connecting.")
+        case .running:
+            self.mediaRelaying = true
+            self.updateLabel(to: "Channel media relay is running.")
+        case .failure:
+            self.mediaRelaying = false
+            self.updateLabel(to: "Channel media relay failure. Error code: \(error.rawValue)")
+        default: return
         }
     }
 }

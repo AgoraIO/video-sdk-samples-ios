@@ -29,7 +29,10 @@ class ScreenShareVolumeManager: AgoraManager {
     ///   - channel: Channel to join
     /// - Returns: Join channel error code. 0 = Success, &lt;0 = Failure
     @discardableResult
-    override func joinChannel(_ channel: String, uid: UInt? = nil) async -> Int32 {
+    override func joinChannel(
+        _ channel: String, uid: UInt? = nil,
+        mediaOptions: AgoraRtcChannelMediaOptions? = nil
+    ) async -> Int32 {
         let rtnCode = await super.joinChannel(channel, uid: uid)
 
         // suiteName is the App Group assigned to the main app and the broadcast extension.

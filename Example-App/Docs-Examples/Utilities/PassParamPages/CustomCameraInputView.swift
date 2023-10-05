@@ -11,7 +11,7 @@ import AVKit
 #if os(iOS)
 /// A protocol for views that require a custom camera capture device.
 protocol HasCustomVideoInput: View, HasDocPath {
-    init(channelId: String, customCamera: AVCaptureDevice)
+    init(channelId: String, customCamera: AVCaptureDevice, customMic: AVCaptureDevice)
 }
 
 extension CustomAudioVideoView: HasCustomVideoInput {}
@@ -24,11 +24,18 @@ struct CustomCameraInputView<Content: HasCustomVideoInput>: View {
     /// The channel ID entered by the user.
     @State private var channelId: String = DocsAppConfig.shared.channel
     var availableCams = AVCaptureDevice.DiscoverySession(
-        deviceTypes: [.builtInWideAngleCamera, .builtInUltraWideCamera, .builtInTelephotoCamera],
-        mediaType: .video, position: .back
+        deviceTypes: [
+            .builtInWideAngleCamera, .builtInUltraWideCamera, .builtInTelephotoCamera
+        ], mediaType: .video, position: .unspecified
+    ).devices
+
+    var availableMics = AVCaptureDevice.DiscoverySession(
+        deviceTypes: [.builtInMicrophone],
+        mediaType: .audio, position: .unspecified
     ).devices
 
     @State var selectedCamera: Int = 0
+    @State var selectedMic: Int = 0
 
     /// The type of view to navigate to after the user inputs the channel ID and token URL.
     public var continueTo: Content.Type
@@ -44,9 +51,17 @@ struct CustomCameraInputView<Content: HasCustomVideoInput>: View {
                         }
                     }.pickerStyle(MenuPickerStyle()).padding()
                 }
+                if !self.availableMics.isEmpty {
+                    Picker("Choose Microphones", selection: $selectedMic) {
+                        ForEach(Array(availableMics.enumerated()), id: \.offset) { idx, cam in
+                            Text(cam.localizedName).tag(idx)
+                        }
+                    }.pickerStyle(MenuPickerStyle()).padding()
+                }
                 NavigationLink(destination: NavigationLazyView(continueTo.init(
                     channelId: channelId.trimmingCharacters(in: .whitespaces),
-                    customCamera: availableCams[selectedCamera]
+                    customCamera: availableCams[selectedCamera],
+                    customMic: availableMics[selectedMic]
                 ).navigationTitle(continueTo.docTitle).toolbar {
                     #if os(iOS)
                     ToolbarItem(placement: .navigationBarTrailing) {
