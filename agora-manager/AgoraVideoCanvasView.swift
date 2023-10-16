@@ -70,8 +70,7 @@ public struct AgoraVideoCanvasView: UIViewRepresentable {
         case .userId(let userId):
             canvas.uid = userId
             if userId == manager?.localUserId {
-                agoraEngine.startPreview()
-                agoraEngine.setupLocalVideo(canvas)
+                self.setupLocalVideo(agoraEngine: agoraEngine)
             } else {
                 agoraEngine.setupRemoteVideo(canvas)
             }
@@ -83,6 +82,11 @@ public struct AgoraVideoCanvasView: UIViewRepresentable {
             if let playerId { canvas.mediaPlayerId = playerId }
             agoraEngine.setupLocalVideo(canvas)
         }
+    }
+
+    func setupLocalVideo(agoraEngine: AgoraRtcEngineKit) {
+        agoraEngine.startPreview()
+        agoraEngine.setupLocalVideo(canvas)
     }
 
     // MARK: - Canvas Properties
@@ -196,7 +200,7 @@ public struct AgoraVideoCanvasView: UIViewRepresentable {
         self.canvasProperties = canvasProps
     }
 
-    private func setupCanvasView() -> UIView {
+    private func createCanvasView() -> UIView {
         // Create and return the remote video view
         let canvasView = UIView()
         canvas.view = canvasView
@@ -233,7 +237,7 @@ extension AgoraVideoCanvasView {
     ///
     /// - Returns: A `UIView` for displaying the video stream.
     public func makeUIView(context: Context) -> UIView {
-        setupCanvasView()
+        createCanvasView()
     }
 
     /// Updates the Canvas view.
@@ -247,7 +251,7 @@ extension AgoraVideoCanvasView {
     ///
     /// - Returns: A `NSView` for displaying the video stream.
     public func makeNSView(context: Context) -> NSView {
-        setupCanvasView()
+        createCanvasView()
     }
 
     /// Updates the Canvas view.

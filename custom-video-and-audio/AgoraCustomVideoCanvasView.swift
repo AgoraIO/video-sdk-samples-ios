@@ -21,8 +21,8 @@ public struct AgoraCustomVideoCanvasView: UIViewRepresentable {
     /// Creates and configures a `UIView` for the view. This UIView will be the view the video is rendered onto.
     /// - Parameter context: The `UIViewRepresentable` context.
     /// - Returns: A `UIView` for displaying the custom local video stream.
-    public func makeUIView(context: Context) -> UIView { setupCanvasView() }
-    func setupCanvasView() -> UIView { canvas }
+    public func makeUIView(context: Context) -> UIView { createCanvasView() }
+    func createCanvasView() -> UIView { canvas }
 
     /// Updates the `AgoraRtcVideoCanvas` object for the view with new values, if necessary.
     func updateCanvasValues() {
@@ -86,8 +86,8 @@ public struct AgoraCustomVideoCanvasView: NSViewRepresentable {
     /// Creates and configures an `NSView` for the view. This NSView will be the view the video is rendered onto.
     /// - Parameter context: The `NSViewRepresentable` context.
     /// - Returns: A `NSView` for displaying the custom local video stream.
-    public func makeNSView(context: Context) -> NSView { setupCanvasView() }
-    func setupCanvasView() -> NSView { canvas }
+    public func makeNSView(context: Context) -> NSView { createCanvasView() }
+    func createCanvasView() -> NSView { canvas }
 
     /// Updates the `AgoraRtcVideoCanvas` object for the view with new values, if necessary.
     func updateCanvasValues() {
