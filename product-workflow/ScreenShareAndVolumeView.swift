@@ -53,6 +53,22 @@ class ScreenShareVolumeManager: AgoraManager {
         return RPSystemBroadcastPickerWrapper(preferredExtension: bundleIdentifier)
     }
 
+    fileprivate func publishScreenCaptureTrack(_ connection: AgoraRtcConnection) {
+        // The broadcast extension has started capturing frames
+        let mediaOptions = AgoraRtcChannelMediaOptions()
+        mediaOptions.publishCameraTrack = false
+        mediaOptions.publishMicrophoneTrack = false
+        mediaOptions.publishScreenCaptureAudio = false
+        mediaOptions.publishScreenCaptureVideo = true
+        mediaOptions.clientRoleType = .broadcaster
+        mediaOptions.autoSubscribeAudio = false
+
+        agoraEngine.joinChannelEx(
+            byToken: self.screenShareToken, connection: connection,
+            delegate: nil, mediaOptions: mediaOptions
+        )
+    }
+
     public func rtcEngine(
         _ engine: AgoraRtcEngineKit, localVideoStateChangedOf state: AgoraVideoLocalState,
         error: AgoraLocalVideoStreamError, sourceType: AgoraVideoSourceType
@@ -66,19 +82,7 @@ class ScreenShareVolumeManager: AgoraManager {
             )
             switch state {
             case .capturing:
-                // The broadcast extension has started capturing frames
-                let mediaOptions = AgoraRtcChannelMediaOptions()
-                mediaOptions.publishCameraTrack = false
-                mediaOptions.publishMicrophoneTrack = false
-                mediaOptions.publishScreenCaptureAudio = false
-                mediaOptions.publishScreenCaptureVideo = true
-                mediaOptions.clientRoleType = .broadcaster
-                mediaOptions.autoSubscribeAudio = false
-
-                agoraEngine.joinChannelEx(
-                    byToken: self.screenShareToken, connection: connection,
-                    delegate: nil, mediaOptions: mediaOptions
-                )
+                self.publishScreenCaptureTrack(connection)
             case .encoding: break
             case .stopped, .failed:
                 // The broadcast extension has finished capturing frames
