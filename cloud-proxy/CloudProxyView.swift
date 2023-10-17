@@ -25,9 +25,20 @@ class CloudProxyManager: AgoraManager {
     // swiftlint:disable:next function_parameter_count
     func rtcEngine(
         _ engine: AgoraRtcEngineKit, didProxyConnected channel: String,
-        withUid uid: UInt, proxyType: AgoraProxyType, localProxyIp: String, elapsed: Int
+        withUid uid: UInt, proxyType: AgoraProxyType,
+        localProxyIp: String, elapsed: Int
     ) {
         proxyState = proxyType
+    }
+
+    func rtcEngine(
+        _ engine: AgoraRtcEngineKit,
+        connectionChangedTo state: AgoraConnectionState,
+        reason: AgoraConnectionChangedReason
+    ) {
+        if state == .failed, reason == .reasonJoinFailed {
+            // connection failed, try connect with proxy
+        }
     }
 
     // MARK: - Other Setup

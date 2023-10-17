@@ -59,6 +59,46 @@ public class CallQualityManager: AgoraManager {
         print(agoraEngine.startLastmileProbeTest(config))
     }
 
+    var echoConfig: AgoraEchoTestConfiguration?
+    var localCanvas: AgoraRtcVideoCanvas?
+    let echoView = UIView()
+
+    func startEchoTest(channel: String) async throws -> Int32 {
+        let echoConfig = AgoraEchoTestConfiguration()
+        echoConfig.enableAudio = true
+        echoConfig.enableVideo = true
+        echoConfig.channelId = channel
+        echoConfig.intervalInSeconds = 2 // Interval between recording and playback
+
+        echoConfig.view = echoView
+        echoConfig.token = DocsAppConfig.shared.rtcToken
+        let localCanvas = AgoraRtcVideoCanvas()
+        localCanvas.view = echoConfig.view
+        localCanvas.uid = 0
+
+        agoraEngine.setupLocalVideo(localCanvas)
+        self.localCanvas = localCanvas
+
+        if !DocsAppConfig.shared.tokenUrl.isEmpty {
+            let token = try await self.fetchToken(
+                from: DocsAppConfig.shared.tokenUrl, channel: channel,
+                role: .broadcaster
+            )
+            echoConfig.token = token
+        }
+        self.echoConfig = echoConfig
+
+        return agoraEngine.startEchoTest(withConfig: echoConfig)
+    }
+
+    @discardableResult
+    func stopEchoTest() -> Int32 {
+        self.echoConfig = nil
+        self.agoraEngine.stopPreview()
+        self.agoraEngine.enableLocalVideo(false)
+        return agoraEngine.stopEchoTest()
+    }
+
     func setStreamQuality(for uid: UInt, to quality: AgoraVideoStreamType) {
         agoraEngine.setRemoteVideoStream(uid, type: quality)
     }
@@ -170,12 +210,18 @@ struct CallQualityView: View {
                 }
                 ScrollView {
                     VStack {
-                        ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
-                            AgoraVideoCanvasView(manager: agoraManager, uid: uid)
+                        if agoraManager.echoConfig != nil {
+                            SimpleUIViewWrapper(uiView: agoraManager.echoView)
                                 .aspectRatio(contentMode: .fit).cornerRadius(10)
-                                .overlay(alignment: .topLeading) {
-                                    self.streamQualityOverlay(for: uid)
-                                }
+                        }
+                        ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
+                            if self.agoraManager.localUserId != uid || self.agoraManager.echoConfig == nil {
+                                AgoraVideoCanvasView(manager: agoraManager, uid: uid)
+                                    .aspectRatio(contentMode: .fit).cornerRadius(10)
+                                    .overlay(alignment: .topLeading) {
+                                        self.streamQualityOverlay(for: uid)
+                                    }
+                            }
                         }
                     }.padding(20)
                 }
@@ -193,6 +239,8 @@ struct CallQualityView: View {
                             self.channelJoined = agoraManager.leaveChannel(destroyInstance: false) != 0
                         } else {
                             betweenChannel = true
+                            self.agoraManager.stopEchoTest()
+                            self.agoraManager.allUsers.removeAll()
                             Task {
                                 self.channelJoined = await agoraManager
                                     .joinChannel(DocsAppConfig.shared.channel) == 0
@@ -204,7 +252,20 @@ struct CallQualityView: View {
                             .foregroundColor(.primary).padding(5)
                             .background(.secondary).cornerRadius(5)
                     }.disabled(betweenChannel)
+                    if !channelJoined {
+                        Button {
+                            if agoraManager.echoConfig == nil {
+                                Task { try await agoraManager.startEchoTest(channel: DocsAppConfig.shared.channel) }
+                            } else {
+                                print("stop it = \(agoraManager.stopEchoTest())")
+                            }
+                        } label: {
+                            Text((agoraManager.echoConfig == nil ? "Start" : "Stop") + " echo test")
+                                .foregroundColor(.primary).padding(5)
+                                .background(.secondary).cornerRadius(5)
+                        }
 
+                    }
                 }
             }
             ToastView(message: $agoraManager.label)
@@ -238,6 +299,20 @@ struct CallQualityView: View {
     }
     static let docPath = getFolderName(from: #file)
     static let docTitle = LocalizedStringKey("ensure-channel-quality-title")
+}
+
+private struct SimpleUIViewWrapper: UIViewRepresentable {
+    typealias UIViewType = UIView
+
+    let uiView: UIView
+
+    func makeUIView(context: Context) -> UIView {
+        return uiView
+    }
+
+    func updateUIView(_ uiView: UIView, context: Context) {
+        // You can perform any updates here if needed
+    }
 }
 
 struct CallQualityView_Previews: PreviewProvider {
