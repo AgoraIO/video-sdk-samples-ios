@@ -44,7 +44,6 @@ open class AgoraManager: NSObject, ObservableObject {
     }
 
     open func setupEngine() -> AgoraRtcEngineKit {
-        print(appId)
         let eng = AgoraRtcEngineKit.sharedEngine(withAppId: appId, delegate: self)
         if DocsAppConfig.shared.product != .voice {
             eng.enableVideo()
@@ -58,20 +57,27 @@ open class AgoraManager: NSObject, ObservableObject {
     ///   - channel: Name of the channel to join.
     ///   - token: Token to join the channel, this can be nil for an weak security testing session.
     ///   - uid: User ID of the local user. This can be 0 to allow the engine to automatically assign an ID.
-    ///   - info: Info is currently unused by RTC, it is reserved for future use.
+    ///   - mediaOptions: AgoraRtcChannelMediaOptions object for join settings
     /// - Returns: Error code, 0 = success, &lt; 0 = failure.
     @discardableResult
     open func joinChannel(
-        _ channel: String, token: String? = nil, uid: UInt = 0, info: String? = nil
+        _ channel: String, token: String? = nil, uid: UInt = 0,
+        mediaOptions: AgoraRtcChannelMediaOptions? = nil
     ) async -> Int32 {
         if await !AgoraManager.checkForPermissions() {
             await self.updateLabel(key: "invalid-permissions")
             return -3
         }
 
+        if let mediaOptions {
+            return self.agoraEngine.joinChannel(
+                byToken: token, channelId: channel,
+                uid: uid, mediaOptions: mediaOptions
+            )
+        }
         return self.agoraEngine.joinChannel(
             byToken: token, channelId: channel,
-            info: info, uid: uid
+            info: nil, uid: uid
         )
     }
 
@@ -164,7 +170,10 @@ open class AgoraManager: NSObject, ObservableObject {
     ///   - uid: User ID of the local user. This can be 0 to allow the engine to automatically assign an ID.
     /// - Returns: Error code, 0 = success, &lt; 0 = failure.
     @discardableResult
-    internal func joinChannel(_ channel: String, uid: UInt? = nil) async -> Int32 {
+    internal func joinChannel(
+        _ channel: String, uid: UInt? = nil,
+        mediaOptions: AgoraRtcChannelMediaOptions? = nil
+    ) async -> Int32 {
         let userId = uid ?? DocsAppConfig.shared.uid
         var token = DocsAppConfig.shared.rtcToken
         if !DocsAppConfig.shared.tokenUrl.isEmpty {
@@ -177,7 +186,9 @@ open class AgoraManager: NSObject, ObservableObject {
                 await self.updateLabel(to: "token server fetch failed: \(error.localizedDescription)")
             }
         }
-        return await self.joinChannel(channel, token: token, uid: userId, info: nil)
+        return await self.joinChannel(
+            channel, token: token, uid: userId, mediaOptions: mediaOptions
+        )
     }
 
     /// Leaves the channel and stops the preview for the session.
@@ -217,8 +228,8 @@ open class AgoraManager: NSObject, ObservableObject {
     }
 
     @MainActor
-    func updateLabel(key: String) {
-        self.label = NSLocalizedString(key, comment: "")
+    func updateLabel(key: String, comment: String = "") {
+        self.label = NSLocalizedString(key, comment: comment)
     }
 }
 

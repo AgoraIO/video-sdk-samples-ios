@@ -32,8 +32,13 @@ public protocol AgoraCameraSourcePushDelegate: AnyObject {
 /// An open class that represents the camera source for pushing frames.
 open class AgoraCameraSourcePush: NSObject {
     /// The delegate for the camera source.
-    public var delegate: AgoraCameraSourcePushDelegate?
+    public var videoDevice: AVCaptureDevice
 
+    /// Callback method called when a video frame is captured.
+    public var onVideoFrameCaptured: ((_ pixelBuffer: CVPixelBuffer, _ rotation: Int, _ timeStamp: CMTime) -> Void)
+
+    /// The preview layer for displaying the captured video.
+    public var previewLayer: AVCaptureVideoPreviewLayer?
     /// The active capture session.
     private let captureSession: AVCaptureSession
     /// The dispatch queue for processing and sending images from the capture session.
@@ -45,10 +50,16 @@ open class AgoraCameraSourcePush: NSObject {
 
     /// Creates a new AgoraCameraSourcePush object.
     ///
-    /// - Parameter delegate: The delegate to which the pixel buffer is sent.
-    public init(delegate: AgoraCameraSourcePushDelegate) {
-        self.delegate = delegate
-
+    /// - Parameter videoDevice: Video device to be captured for the session
+    /// - Parameter onVideoFrameCaptured: escaping callback for each time a new frame is ready to push to Agora SDK
+    public init(
+        videoDevice: AVCaptureDevice,
+        onVideoFrameCaptured: @escaping (
+            _ pixelBuffer: CVPixelBuffer, _ rotation: Int, _ timeStamp: CMTime
+        ) -> Void
+    ) {
+        self.videoDevice = videoDevice
+        self.onVideoFrameCaptured = onVideoFrameCaptured
         self.captureSession = AVCaptureSession()
         #if os(iOS)
         self.captureSession.usesApplicationAudioSession = false
@@ -63,8 +74,7 @@ open class AgoraCameraSourcePush: NSObject {
         }
 
         self.captureQueue = DispatchQueue(label: "AgoraCaptureQueue")
-
-        delegate.previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
+        self.previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
     }
 
     deinit {
@@ -72,9 +82,7 @@ open class AgoraCameraSourcePush: NSObject {
     }
 
     /// Starts capturing frames from the device.
-    ///
-    /// - Parameter device: The capture device from which to capture images.
-    open func startCapture(ofDevice device: AVCaptureDevice) {
+    open func startCapturing() {
         guard let currentOutput = self.currentOutput else {
             return
         }
@@ -85,7 +93,7 @@ open class AgoraCameraSourcePush: NSObject {
             guard let strongSelf = self else {
                 return
             }
-            strongSelf.setCaptureDevice(device, ofSession: strongSelf.captureSession)
+            strongSelf.setCaptureDevice(strongSelf.videoDevice, ofSession: strongSelf.captureSession)
             strongSelf.captureSession.beginConfiguration()
             if strongSelf.captureSession.canSetSessionPreset(.vga640x480) {
                 strongSelf.captureSession.sessionPreset = .vga640x480
@@ -104,7 +112,7 @@ open class AgoraCameraSourcePush: NSObject {
     }
 
     /// Stops capturing frames.
-    func stopCapture() {
+    func stopCapturing() {
         self.currentOutput?.setSampleBufferDelegate(nil, queue: nil)
         self.captureQueue.async { [weak self] in
             self?.captureSession.stopRunning()
@@ -162,7 +170,7 @@ extension AgoraCameraSourcePush: AVCaptureVideoDataOutputSampleBufferDelegate {
             let imgRot = 0
             #endif
 
-            self?.delegate?.myVideoCapture(pixelBuffer, rotation: imgRot, timeStamp: time)
+            self?.onVideoFrameCaptured(pixelBuffer, imgRot, time)
         }
     }
 }
