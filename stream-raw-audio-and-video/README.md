@@ -6,7 +6,8 @@ In some scenarios, raw audio and video captured through the camera and microphon
 
 For context on this sample, and a full explanation of the essential code snippets used in this project, read [Raw video and audio processing](https://docs.agora.io/en/interactive-live-streaming/develop/stream-raw-audio-and-video?platform=ios).
 
+The implemented features can be found in [RawMediaProcessingView.swift](./RawMediaProcessingView.swift).
 
 ## How to run this project
 
-To see how to run this project, read the instructions in the main [README](../README.md) or [SDK quickstart](https://docs-beta.agora.io/en/video-calling/get-started/product-workflow).
+To see how to run this project, read the instructions in the main [README](../README.md) or [SDK quickstart](https://docs.agora.io/en/interactive-live-streaming/get-started/get-started-sdk?platform=ios).

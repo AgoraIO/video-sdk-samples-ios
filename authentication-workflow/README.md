@@ -6,8 +6,7 @@ This page shows you how to quickly set up an authentication token server, retrie
 
 ## Understand the code
 
-
-For context on this sample, and a full explanation of the essential code snippets used in this project, read [Secure authentication with tokens](https://docs-beta.agora.io/en/video-calling/get-started/authentication-workflow).
+For context on this sample, and a full explanation of the essential code snippets used in this project, read [Secure authentication with tokens](https://docs.agora.io/en/video-calling/get-started/authentication-workflow).
 
 ### Token Logic
 
@@ -21,5 +20,5 @@ Once you have the token, join the channel using the Agora SDK with the token, as
 
 ## How to run this project
 
-To see how to run this project, read the instructions in the main [README](../README.md) or [SDK quickstart](https://docs-beta.agora.io/en/video-calling/get-started/get-started-sdk).
+To see how to run this project, read the instructions in the main [README](../README.md) or [SDK quickstart](https://docs.agora.io/en/interactive-live-streaming/get-started/get-started-sdk?platform=ios).
 

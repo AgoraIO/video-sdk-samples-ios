@@ -11,7 +11,8 @@ By default, Video SDK uses the basic audio and video modules on the device your 
 
 For context on this sample, and a full explanation of the essential code snippets used in this project, read [Custom video and audio sources](https://docs.agora.io/en/interactive-live-streaming/develop/custom-video-and-audio?platform=ios).
 
+The implemented features can be found in [CustomAudioVideoView.swift](./CustomAudioVideoView.swift).
 
 ## How to run this project
 
-To see how to run this project, read the instructions in the main [README](../README.md) or [SDK quickstart](https://docs-beta.agora.io/en/video-calling/get-started/product-workflow).
+To see how to run this project, read the instructions in the main [README](../README.md) or [SDK quickstart](https://docs.agora.io/en/interactive-live-streaming/get-started/get-started-sdk?platform=ios).

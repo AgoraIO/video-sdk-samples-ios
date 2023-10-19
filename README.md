@@ -84,7 +84,6 @@ Before getting started with this example app, please ensure you have the followi
 
    To build and run the project, use the build button (Cmd+R) in Xcode. Select your preferred device/simulator as the scheme.
 
-
 ## Screenshots
 
 | Landing page | Call quality best practice | Custom video and audio sources | Screen share, volume control and mute |
