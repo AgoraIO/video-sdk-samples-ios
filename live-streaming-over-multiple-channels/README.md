@@ -8,11 +8,10 @@ This app shows you how to implement these features in your channel.
 
 ## Understand the code
 
-For context on this sample, and a full explanation of the essential code snippets used in this project, read [Stream media to a channel](https://docs-beta.agora.io/en/interactive-live-streaming/develop/live-streaming-over-multiple-channels)
+For context on this sample, and a full explanation of the essential code snippets used in this project, read [Stream media to a channel](https://docs.agora.io/en/interactive-live-streaming/develop/live-streaming-over-multiple-channels).
 
+The implemented features can be found in [ChannelRelayView.swift](./ChannelRelayView.swift).
 
 ## How to run this project
 
-To see how to run this project, read the instructions in the main [README](../README.md) or [SDK quickstart](https://docs-beta.agora.io/en/video-calling/get-started/get-started-sdk).
-
-
+To see how to run this project, read the instructions in the main [README](../README.md) or [SDK quickstart](https://docs.agora.io/en/interactive-live-streaming/get-started/get-started-sdk?platform=ios).
