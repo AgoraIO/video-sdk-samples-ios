@@ -15,7 +15,7 @@ private enum VirtualBackgroundType: String, Equatable, CaseIterable, Identifiabl
 typealias UIColor = NSColor
 #endif
 
-private func convertUIColorToHex(_ color: UIColor) -> UInt {
+private func convertColorToHex(_ color: UIColor) -> UInt {
     var red: CGFloat = 0
     var green: CGFloat = 0
     var blue: CGFloat = 0
@@ -36,22 +36,46 @@ public class VirtualBackgroundManager: AgoraManager {
     @Published fileprivate var backgroundType: VirtualBackgroundType = .normal
 
     func updateBackground() {
-        let virtualBackgroundSource = AgoraVirtualBackgroundSource()
+        // First check that virtual backgrounds is available
+        guard agoraEngine.isFeatureAvailable(
+            onDevice: .videoPreprocessVirtualBackground
+        ) else { return }
 
         switch backgroundType {
-        case .normal:
-            self.agoraEngine.enableVirtualBackground(false, backData: nil, segData: nil)
-            return
-        case .blurred:
-            virtualBackgroundSource.backgroundSourceType = .blur
-            virtualBackgroundSource.blurDegree = .high
-        case .color:
-            virtualBackgroundSource.backgroundSourceType = .color
-            virtualBackgroundSource.color = convertUIColorToHex(.red)
-        case .image:
-            virtualBackgroundSource.backgroundSourceType = .img
-            virtualBackgroundSource.source = Bundle.main.path(forResource: "background_ss", ofType: "jpg")
+        case .normal: self.agoraEngine.enableVirtualBackground(false, backData: nil, segData: nil)
+        case .blurred: self.blurBackground()
+        case .color: self.colorBackground()
+        case .image: self.imageBackground()
         }
+    }
+
+    func blurBackground() {
+        let virtualBackgroundSource = AgoraVirtualBackgroundSource()
+        virtualBackgroundSource.backgroundSourceType = .blur
+        virtualBackgroundSource.blurDegree = .high
+
+        let segData = AgoraSegmentationProperty()
+        segData.modelType = .agoraAi
+
+        agoraEngine.enableVirtualBackground(true, backData: virtualBackgroundSource, segData: segData)
+    }
+
+    func colorBackground() {
+        let virtualBackgroundSource = AgoraVirtualBackgroundSource()
+        virtualBackgroundSource.backgroundSourceType = .color
+        virtualBackgroundSource.color = convertColorToHex(.red)
+
+        let segData = AgoraSegmentationProperty()
+        segData.modelType = .agoraAi
+
+        agoraEngine.enableVirtualBackground(true, backData: virtualBackgroundSource, segData: segData)
+    }
+
+    func imageBackground() {
+        let virtualBackgroundSource = AgoraVirtualBackgroundSource()
+        virtualBackgroundSource.backgroundSourceType = .img
+        virtualBackgroundSource.source = Bundle.main.path(forResource: "background_ss", ofType: "jpg")
+
         let segData = AgoraSegmentationProperty()
         segData.modelType = .agoraAi
 
@@ -73,6 +97,8 @@ public struct VirtualBackgroundView: View {
         }.pickerStyle(SegmentedPickerStyle())
     }
 
+    @State var virtualBackgroundsAvailable: Bool = false
+
     public var body: some View {
         ScrollView {
             VStack {
@@ -81,7 +107,11 @@ public struct VirtualBackgroundView: View {
                         .aspectRatio(contentMode: .fit).cornerRadius(10)
                         .overlay(alignment: .bottom) {
                             if uid == agoraManager.localUserId {
-                                self.pickerBody
+                                if virtualBackgroundsAvailable {
+                                    self.pickerBody.padding()
+                                } else {
+                                    Text("Virtual backgrounds not available")
+                                }
                             }
                         }
                 }
@@ -90,6 +120,11 @@ public struct VirtualBackgroundView: View {
             await agoraManager.joinChannel(
                 DocsAppConfig.shared.channel
             )
+            DispatchQueue.main.async {
+                self.virtualBackgroundsAvailable = agoraManager.agoraEngine.isFeatureAvailable(
+                    onDevice: .videoPreprocessVirtualBackground
+                )
+            }
         }.onDisappear { agoraManager.leaveChannel()
         }.onChange(of: agoraManager.backgroundType) { _ in agoraManager.updateBackground() }
     }

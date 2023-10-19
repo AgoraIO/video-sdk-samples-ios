@@ -44,7 +44,6 @@
 		F3A88CD92A1DE663000B2292 /* TokenAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CD72A1DE663000B2292 /* TokenAuthenticationView.swift */; };
 		F3A88CE22A1DF2F1000B2292 /* ScreenShareAndVolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CE02A1DF2F1000B2292 /* ScreenShareAndVolumeView.swift */; };
 		F3A88CEB2A1E0405000B2292 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A88CEA2A1E0405000B2292 /* ReplayKit.framework */; };
-		F3A88CEE2A1E0405000B2292 /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CED2A1E0405000B2292 /* SampleHandler.swift */; };
 		F3A88CF32A1E0405000B2292 /* screenSharer.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F3A88CE82A1E0405000B2292 /* screenSharer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F3A88CFD2A1E17E0000B2292 /* RPSystemBroadcastPickerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A88CFC2A1E17E0000B2292 /* RPSystemBroadcastPickerWrapper.swift */; };
 		F3C06BB32A4D85FC00F59BC2 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = F348B3962A4D7BDC00AF6B9B /* config.json */; };
@@ -132,7 +131,6 @@
 		F3A88CE12A1DF2F1000B2292 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../product-workflow/README.md"; sourceTree = "<group>"; };
 		F3A88CE82A1E0405000B2292 /* screenSharer.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = screenSharer.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3A88CEA2A1E0405000B2292 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
-		F3A88CED2A1E0405000B2292 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
 		F3A88CEF2A1E0405000B2292 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3A88CF82A1E05F1000B2292 /* Docs-Examples.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Docs-Examples.entitlements"; sourceTree = "<group>"; };
 		F3A88CF92A1E0627000B2292 /* screenSharer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = screenSharer.entitlements; sourceTree = "<group>"; };
@@ -262,10 +260,10 @@
 		F33A889729E839DE0029499C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				F3CA2CE229CB00C900561441 /* AgoraManager */,
 				F31BF8822A6EC318002E7AC2 /* Strings */,
 				F3F1046A2A73C5AC00220C3A /* Misc+Views */,
 				F3F5F18F2A58252700A909DE /* SwiftUI+Extensions */,
-				F3CA2CE229CB00C900561441 /* AgoraManager */,
 				F3CA2CCC29C96B1600561441 /* PassParamPages */,
 			);
 			path = Utilities;
@@ -372,7 +370,6 @@
 			isa = PBXGroup;
 			children = (
 				F3A88CF92A1E0627000B2292 /* screenSharer.entitlements */,
-				F3A88CED2A1E0405000B2292 /* SampleHandler.swift */,
 				F3A88CEF2A1E0405000B2292 /* Info.plist */,
 			);
 			path = screenSharer;
@@ -652,7 +649,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3C06BB62A4D863B00F59BC2 /* DocsAppConfig.swift in Sources */,
-				F3A88CEE2A1E0405000B2292 /* SampleHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -961,8 +957,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AgoraIO/AgoraRtcEngine_iOS";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				kind = exactVersion;
+				version = 4.2.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
