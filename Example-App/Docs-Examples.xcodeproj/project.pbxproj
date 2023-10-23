@@ -20,6 +20,8 @@
 		F31BF8872A6EC37F002E7AC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F31BF8892A6EC37F002E7AC2 /* Localizable.strings */; };
 		F32AF89A2A8A9A7B00A27ED1 /* MultiChannelInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32AF8992A8A9A7B00A27ED1 /* MultiChannelInputView.swift */; };
 		F32AF8A02A8A9D1B00A27ED1 /* ChannelRelayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32AF89E2A8A9D1A00A27ED1 /* ChannelRelayView.swift */; };
+		F32F965A2AE295890090C560 /* SpatialAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32F96582AE295890090C560 /* SpatialAudioView.swift */; };
+		F32F965B2AE295890090C560 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F32F96592AE295890090C560 /* README.md */; };
 		F34266592A6AD2960086B920 /* RawMediaProcessingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34266582A6AD2960086B920 /* RawMediaProcessingView.swift */; };
 		F342665D2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F342665C2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift */; };
 		F344ED9A2A45942B00B3C313 /* AgoraCameraSourcePush.swift in Sources */ = {isa = PBXBuildFile; fileRef = F344ED982A45942A00B3C313 /* AgoraCameraSourcePush.swift */; };
@@ -49,6 +51,8 @@
 		F3C06BB32A4D85FC00F59BC2 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = F348B3962A4D7BDC00AF6B9B /* config.json */; };
 		F3C06BB52A4D861200F59BC2 /* DocsAppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C06BB42A4D861200F59BC2 /* DocsAppConfig.swift */; };
 		F3C06BB62A4D863B00F59BC2 /* DocsAppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C06BB42A4D861200F59BC2 /* DocsAppConfig.swift */; };
+		F3C2054F2AE67EB400736E6F /* SpatialAudio in Frameworks */ = {isa = PBXBuildFile; productRef = F3C2054E2AE67EB400736E6F /* SpatialAudio */; };
+		F3C205512AE67F9700736E6F /* audiomixing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3C205502AE67F9700736E6F /* audiomixing.mp3 */; };
 		F3C5B2AA2ACC5A6600AC4081 /* AgoraAudioSourcePush.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5B2A92ACC5A6500AC4081 /* AgoraAudioSourcePush.swift */; };
 		F3CA2CDB29C97AF400561441 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = F3CA2CDA29C97AF400561441 /* Documentation.docc */; };
 		F3CA2CE429CB00F400561441 /* AgoraVideoCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CA2CE329CB00F400561441 /* AgoraVideoCanvasView.swift */; };
@@ -103,6 +107,8 @@
 		F32AF8992A8A9A7B00A27ED1 /* MultiChannelInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiChannelInputView.swift; sourceTree = "<group>"; };
 		F32AF89E2A8A9D1A00A27ED1 /* ChannelRelayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChannelRelayView.swift; path = "../../../../live-streaming-over-multiple-channels/ChannelRelayView.swift"; sourceTree = "<group>"; };
 		F32AF89F2A8A9D1A00A27ED1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../live-streaming-over-multiple-channels/README.md"; sourceTree = "<group>"; };
+		F32F96582AE295890090C560 /* SpatialAudioView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpatialAudioView.swift; path = "../../../../spatial-audio/SpatialAudioView.swift"; sourceTree = "<group>"; };
+		F32F96592AE295890090C560 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../spatial-audio/README.md"; sourceTree = "<group>"; };
 		F34266582A6AD2960086B920 /* RawMediaProcessingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RawMediaProcessingView.swift; path = "../../../../stream-raw-audio-and-video/RawMediaProcessingView.swift"; sourceTree = "<group>"; };
 		F342665A2A6AD2A30086B920 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../stream-raw-audio-and-video/README.md"; sourceTree = "<group>"; };
 		F342665C2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModifyVideoFrameDelegate.swift; path = "../../../../stream-raw-audio-and-video/ModifyVideoFrameDelegate.swift"; sourceTree = "<group>"; };
@@ -136,6 +142,7 @@
 		F3A88CF92A1E0627000B2292 /* screenSharer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = screenSharer.entitlements; sourceTree = "<group>"; };
 		F3A88CFC2A1E17E0000B2292 /* RPSystemBroadcastPickerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RPSystemBroadcastPickerWrapper.swift; path = "../../../../product-workflow/RPSystemBroadcastPickerWrapper.swift"; sourceTree = "<group>"; };
 		F3C06BB42A4D861200F59BC2 /* DocsAppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocsAppConfig.swift; path = "../../../../agora-manager/DocsAppConfig.swift"; sourceTree = "<group>"; };
+		F3C205502AE67F9700736E6F /* audiomixing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = audiomixing.mp3; path = "../../../../spatial-audio/audiomixing.mp3"; sourceTree = "<group>"; };
 		F3C5B2A92ACC5A6500AC4081 /* AgoraAudioSourcePush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AgoraAudioSourcePush.swift; path = "../../../../custom-video-and-audio/AgoraAudioSourcePush.swift"; sourceTree = "<group>"; };
 		F3CA2CDA29C97AF400561441 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 		F3CA2CE329CB00F400561441 /* AgoraVideoCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AgoraVideoCanvasView.swift; path = "../../../../agora-manager/AgoraVideoCanvasView.swift"; sourceTree = "<group>"; };
@@ -160,6 +167,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3C2054F2AE67EB400736E6F /* SpatialAudio in Frameworks */,
 				F38636502AA24392006A8D7C /* ReplayKit in Frameworks */,
 				F38636522AA24392006A8D7C /* RtcBasic in Frameworks */,
 				F38636542AA24392006A8D7C /* VirtualBackground in Frameworks */,
@@ -257,6 +265,16 @@
 			path = "live-streaming-over-multiple-channels";
 			sourceTree = "<group>";
 		};
+		F32F96572AE294840090C560 /* spatial-audio */ = {
+			isa = PBXGroup;
+			children = (
+				F32F96592AE295890090C560 /* README.md */,
+				F32F96582AE295890090C560 /* SpatialAudioView.swift */,
+				F3C205502AE67F9700736E6F /* audiomixing.mp3 */,
+			);
+			path = "spatial-audio";
+			sourceTree = "<group>";
+		};
 		F33A889729E839DE0029499C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -303,6 +321,7 @@
 				F3A88CDF2A1DF27F000B2292 /* product-workflow */,
 				F3A88CDA2A1DEEE0000B2292 /* custom-video-and-audio */,
 				F34266572A6AD2660086B920 /* stream-raw-audio-and-video */,
+				F32F96572AE294840090C560 /* spatial-audio */,
 				F31BF86E2A6BB676002E7AC2 /* geofencing */,
 				F37BC5A42A96149200935601 /* virtual-background */,
 			);
@@ -465,6 +484,7 @@
 				F386364F2AA24392006A8D7C /* ReplayKit */,
 				F38636512AA24392006A8D7C /* RtcBasic */,
 				F38636532AA24392006A8D7C /* VirtualBackground */,
+				F3C2054E2AE67EB400736E6F /* SpatialAudio */,
 			);
 			productName = "Docs-Examples";
 			productReference = F310F63429C8D02E006DB727 /* Docs-Examples.app */;
@@ -536,10 +556,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F32F965B2AE295890090C560 /* README.md in Resources */,
 				F31BF8862A6EC37F002E7AC2 /* Localizable.strings in Resources */,
 				F310F63F29C8D031006DB727 /* Preview Assets.xcassets in Resources */,
 				F37BC5AE2A96436000935601 /* background_ss.jpg in Resources */,
 				F310F63C29C8D031006DB727 /* Assets.xcassets in Resources */,
+				F3C205512AE67F9700736E6F /* audiomixing.mp3 in Resources */,
 				F348B3972A4D7BDC00AF6B9B /* config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -633,6 +655,7 @@
 				F3A88CFD2A1E17E0000B2292 /* RPSystemBroadcastPickerWrapper.swift in Sources */,
 				F3611F352A964F970086E3F4 /* ToastView.swift in Sources */,
 				F3E8E6FD2A43E8AD00E6B774 /* EncryptionKeysInputView.swift in Sources */,
+				F32F965A2AE295890090C560 /* SpatialAudioView.swift in Sources */,
 				F3C06BB52A4D861200F59BC2 /* DocsAppConfig.swift in Sources */,
 				F3E8E6F92A42EAD100E6B774 /* CloudProxyView.swift in Sources */,
 				F3E8E6FB2A42F60500E6B774 /* ProxyInputView.swift in Sources */,
@@ -988,6 +1011,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F386364E2AA24392006A8D7C /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
 			productName = RtcBasic;
+		};
+		F3C2054E2AE67EB400736E6F /* SpatialAudio */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F386364E2AA24392006A8D7C /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
+			productName = SpatialAudio;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

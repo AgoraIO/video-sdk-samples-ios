@@ -66,7 +66,9 @@ struct ContentView: View {
                 }
                 Section("Integrate Features") {
                     NavigationLink("Audio and voice effects") {}.disabled(true)
-                    NavigationLink("3D Spatial Audio") {}.disabled(true)
+                    NavigationLink(SpatialAudioView.docTitle) {
+                        ChannelInputView(continueTo: SpatialAudioView.self)
+                    }
                     NavigationLink("AI Noise Suppression") {}.disabled(true)
                     NavigationLink(GeofencingView.docTitle) {
                         GeofenceInputView(continueTo: GeofencingView.self)
