@@ -9,22 +9,105 @@ import SwiftUI
 import AgoraRtcKit
 
 public class RelayManager: AgoraManager {
-    var mediaRelaying: Bool? = false
     var primaryChannel: String
     var secondaryChannel: String
-    var isRelay: Bool
+
+    var secondConnection: AgoraRtcConnection {
+        AgoraRtcConnection(
+            channelId: self.secondaryChannel,
+            localUid: Int(destUid)
+        )
+    }
+
     // Can be any number, the range is arbitrary
     var destUid: UInt = .random(in: 1000...5000)
-    var exDelegate: ExDelegate!
+    lazy var exDelegate: ExDelegate = {
+        ExDelegate(
+            secondChannelIds: secondChannelIdsBinding,
+            connection: AgoraRtcConnection(channelId: self.secondaryChannel, localUid: Int(self.destUid))
+        )
+    }()
+
+    func joinChannelEx(token: String?) -> Int32 {
+        let mediaOptions = AgoraRtcChannelMediaOptions()
+        mediaOptions.channelProfile = .liveBroadcasting
+        mediaOptions.clientRoleType = .audience
+        mediaOptions.autoSubscribeAudio = true
+        mediaOptions.autoSubscribeVideo = true
+
+        return agoraEngine.joinChannelEx(
+            byToken: token, connection: self.secondConnection,
+            delegate: self.exDelegate, mediaOptions: mediaOptions
+        )
+    }
+
+    func leaveChannelEx() -> Int32 {
+        agoraEngine.leaveChannelEx(self.secondConnection, leaveChannelBlock: nil)
+    }
+
+    @discardableResult
+    func setupMediaRelay(
+        sourceToken: String?, destinationToken: String?
+    ) -> Int32 {
+        // Configure the source channel information.
+        let srcChannelInfo = AgoraChannelMediaRelayInfo(token: sourceToken)
+        srcChannelInfo.channelName = self.primaryChannel
+        srcChannelInfo.uid = 0
+        let mediaRelayConfiguration = AgoraChannelMediaRelayConfiguration()
+        mediaRelayConfiguration.sourceInfo = srcChannelInfo
+
+        // Configure the destination channel information.
+        let destChannelInfo = AgoraChannelMediaRelayInfo(token: destinationToken)
+        destChannelInfo.channelName = self.secondaryChannel
+        destChannelInfo.uid = self.destUid
+        mediaRelayConfiguration.setDestinationInfo(
+            destChannelInfo, forChannelName: self.secondaryChannel
+        )
+
+        // Start relaying media streams across channels
+        return agoraEngine.startOrUpdateChannelMediaRelay(mediaRelayConfiguration)
+    }
+
+    @discardableResult
+    func stopMediaRelay() -> Int32 {
+        agoraEngine.stopChannelMediaRelay()
+    }
+
+    /// Occurs when the state of the media stream relay changes.
+    /// - Parameters:
+    ///   - engine: One AgoraRtcEngineKit object.
+    ///   - state: The state code.
+    ///   - error: The error code of the channel media relay.
+    func rtcEngine(
+        _ engine: AgoraRtcEngineKit,
+        channelMediaRelayStateDidChange state: AgoraChannelMediaRelayState,
+        error: AgoraChannelMediaRelayError
+    ) {
+        switch state {
+        case .connecting:
+            // Channel media relay is connecting.
+            break
+        case .running:
+            // Channel media relay is running.
+            break
+        case .failure:
+            // Channel media relay failure
+            break
+        default: return
+        }
+        Task { await self.updateMediaRelayLabel(with: state, error: error) }
+    }
+
+    // MARK: - Manager setup
+
+    var mediaRelaying: Bool? = false
+    var isRelay: Bool
+
     init(primaryChannel: String, secondaryChannel: String, isRelay: Bool) {
         self.primaryChannel = primaryChannel
         self.secondaryChannel = secondaryChannel
         self.isRelay = isRelay
         super.init(appId: DocsAppConfig.shared.appId, role: .broadcaster)
-        self.exDelegate = ExDelegate(
-            secondChannelIds: secondChannelIdsBinding,
-            connection: AgoraRtcConnection(channelId: self.secondaryChannel, localUid: Int(self.destUid))
-        )
     }
     func channelRelayBtnClicked() async {
         guard let mediaRelaying else { return }
@@ -35,7 +118,7 @@ public class RelayManager: AgoraManager {
             await joinChannelEx(!mediaRelaying)
         }
     }
-    // MARK: - Join Channel Ex Example
+
     @Published var secondChannelIds: [AgoraVideoCanvasView.CanvasIdType] = []
 
     // Create a computed property that returns a Binding to secondChannelIds
@@ -47,10 +130,9 @@ public class RelayManager: AgoraManager {
     }
 
     func joinChannelEx(_ enable: Bool) async {
-        let rtcSecondConnection = AgoraRtcConnection(channelId: self.secondaryChannel, localUid: Int(destUid))
         if !enable {
             /// This triggers ``ExDelegate-swift.class/rtcEngine(_:didLeaveChannelWith:)``
-            let result = agoraEngine.leaveChannelEx(rtcSecondConnection, leaveChannelBlock: nil)
+            let result = self.leaveChannelEx()
             DispatchQueue.main.async {
                 self.mediaRelaying = false
                 if result != 0 {
@@ -60,12 +142,6 @@ public class RelayManager: AgoraManager {
                 }
             }
         } else {
-            let mediaOptions = AgoraRtcChannelMediaOptions()
-            mediaOptions.channelProfile = .liveBroadcasting
-            mediaOptions.clientRoleType = .audience
-            mediaOptions.autoSubscribeAudio = true
-            mediaOptions.autoSubscribeVideo = true
-
             var destChannelToken: String?
             if !DocsAppConfig.shared.tokenUrl.isEmpty {
                 destChannelToken = try? await self.fetchToken(
@@ -73,10 +149,7 @@ public class RelayManager: AgoraManager {
                 )
             }
 
-            let result = agoraEngine.joinChannelEx(
-                byToken: destChannelToken, connection: rtcSecondConnection,
-                delegate: self.exDelegate, mediaOptions: mediaOptions
-            )
+            let result = self.joinChannelEx(token: destChannelToken)
             DispatchQueue.main.async {
                 self.mediaRelaying = result == 0
                 if result != 0 {
@@ -120,7 +193,7 @@ public class RelayManager: AgoraManager {
     // MARK: - Relay Media Example
     func relayMediaToggle(_ enable: Bool) async {
         if enable {
-            agoraEngine.stopChannelMediaRelay()
+            self.stopMediaRelay()
         } else {
             var sourceChannelToken: String?
             if !DocsAppConfig.shared.tokenUrl.isEmpty {
@@ -128,12 +201,6 @@ public class RelayManager: AgoraManager {
                     from: DocsAppConfig.shared.tokenUrl, channel: primaryChannel, role: .broadcaster
                 )
             }
-            // Configure the source channel information.
-            let srcChannelInfo = AgoraChannelMediaRelayInfo(token: sourceChannelToken)
-            srcChannelInfo.channelName = primaryChannel
-            srcChannelInfo.uid = 0
-            let mediaRelayConfiguration = AgoraChannelMediaRelayConfiguration()
-            mediaRelayConfiguration.sourceInfo = srcChannelInfo
 
             var destChannelToken: String?
             if !DocsAppConfig.shared.tokenUrl.isEmpty {
@@ -142,40 +209,11 @@ public class RelayManager: AgoraManager {
                 )
             }
 
-            // Configure the destination channel information.
-            let destChannelInfo = AgoraChannelMediaRelayInfo(token: destChannelToken)
-            destChannelInfo.channelName = secondaryChannel
-            destChannelInfo.uid = destUid
-            mediaRelayConfiguration.setDestinationInfo(destChannelInfo, forChannelName: secondaryChannel)
-
-            // Start relaying media streams across channels
-            agoraEngine.startOrUpdateChannelMediaRelay(mediaRelayConfiguration)
+            self.setupMediaRelay(
+                sourceToken: sourceChannelToken,
+                destinationToken: destChannelToken
+            )
         }
-    }
-
-    /// Occurs when the state of the media stream relay changes.
-    /// - Parameters:
-    ///   - engine: One AgoraRtcEngineKit object.
-    ///   - state: The state code.
-    ///   - error: The error code of the channel media relay.
-    func rtcEngine(
-        _ engine: AgoraRtcEngineKit,
-        channelMediaRelayStateDidChange state: AgoraChannelMediaRelayState,
-        error: AgoraChannelMediaRelayError
-    ) {
-        switch state {
-        case .connecting:
-            // Channel media relay is connecting.
-            break
-        case .running:
-            // Channel media relay is running.
-            break
-        case .failure:
-            // Channel media relay failure
-            break
-        default: return
-        }
-        Task { await self.updateMediaRelayLabel(with: state, error: error) }
     }
 
     @MainActor
@@ -242,7 +280,9 @@ public struct ChannelRelayView: View {
 
     init(primaryChannel: String, secondaryChannel: String, isRelay: Bool = false) {
         self.agoraManager = RelayManager(
-            primaryChannel: primaryChannel, secondaryChannel: secondaryChannel, isRelay: isRelay
+            primaryChannel: primaryChannel,
+            secondaryChannel: secondaryChannel,
+            isRelay: isRelay
         )
     }
 
