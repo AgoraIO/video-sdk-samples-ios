@@ -133,7 +133,9 @@ struct ScreenShareAndVolumeView: View {
             await agoraManager.joinChannel(
                 DocsAppConfig.shared.channel, uid: UInt.random(in: 1500...100_000)
             )
+            #if os(iOS)
             agoraManager.setupScreenSharing()
+            #endif
             agoraManager.screenShareToken = DocsAppConfig.shared.rtcToken
             if !DocsAppConfig.shared.tokenUrl.isEmpty {
                 // try to fetch a valid token, ready for sharing our screen.
