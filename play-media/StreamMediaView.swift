@@ -27,7 +27,7 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
         // Create an instance of the media player
         mediaPlayer = agoraEngine.createMediaPlayer(with: self)
         // Open the media file
-        mediaPlayer!.open(url.absoluteString, startPos: 0)
+        mediaPlayer!.open(url.path, startPos: 0)
         Task { await self.updateLabel(to: "Opening Media File...") }
     }
 
@@ -53,6 +53,10 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
         // Update the AgoraRtcChannel with the new media options
         return agoraEngine.updateChannel(with: channelOptions)
     }
+
+    func playMedia() { self.mediaPlayer?.play() }
+    func pauseMedia() { self.mediaPlayer?.pause() }
+    func resumeMedia() { self.mediaPlayer?.resume() }
 
     // swiftlint:disable identifier_name
     /// This method is called when the AgoraRtcMediaPlayer changes its state.
@@ -87,6 +91,9 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
             // Clean up
             agoraEngine.destroyMediaPlayer(mediaPlayer)
             mediaPlayer = nil
+        case .playing:
+            // Media started playing
+            break
         default: break
         }
     }
