@@ -24,6 +24,18 @@ class ScreenShareVolumeManager: AgoraManager {
         }
     }
 
+    func muteLocalUser() {
+        self.agoraEngine.muteLocalAudioStream(true)
+    }
+
+    func unmuteLocalUser() {
+        self.agoraEngine.muteLocalAudioStream(false)
+    }
+
+    func muteRemoteUser(uid: UInt, isMuted: Bool) {
+        self.agoraEngine.muteRemoteAudioStream(uid, mute: isMuted)
+    }
+
     /// Limited IDs reserved for screen sharing.
     /// This way we know what's a screen share, and what's a regular camera.
     /// Our regular UID can be set in a similar way.
