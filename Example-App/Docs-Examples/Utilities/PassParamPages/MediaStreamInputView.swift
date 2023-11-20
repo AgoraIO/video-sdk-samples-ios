@@ -26,6 +26,10 @@ struct MediaStreamInputView<Content: HasMediaInput>: View {
     @State private var videoURL: URL?
     @State private var videoThumbnail: Image?
     @State var isImagePickerPresented = false
+
+    #if os(macOS)
+    @State private var videoBookmark: Data?
+    #endif
     var body: some View {
         VStack {
             TextField("Enter channel id", text: $channelId).textFieldStyle(.roundedBorder).padding()
@@ -45,7 +49,11 @@ struct MediaStreamInputView<Content: HasMediaInput>: View {
                     videoURL = nil
                     videoThumbnail = nil
 
+                    #if os(macOS)
+                    self.showSelectMediaPanel()
+                    #else
                     withAnimation { self.isImagePickerPresented.toggle() }
+                    #endif
                 }
                 #endif
             }, label: {
@@ -85,6 +93,27 @@ struct MediaStreamInputView<Content: HasMediaInput>: View {
             #endif
         })
     }
+
+    #if os(macOS)
+    func showSelectMediaPanel() {
+        let openPanel = NSOpenPanel()
+
+        openPanel.canChooseFiles = true
+        openPanel.canChooseDirectories = false
+        openPanel.allowsMultipleSelection = false
+        openPanel.allowedContentTypes = [.movie]
+        if openPanel.runModal() == .OK, let url = openPanel.url {
+            self.videoBookmark = try? url.bookmarkData(options: .suitableForBookmarkFile)
+            var isStale = false
+            if let videoURL = try? URL(
+                resolvingBookmarkData: self.videoBookmark!, bookmarkDataIsStale: &isStale),
+               !isStale {
+                let vidNsUrl = videoURL as NSURL
+                self.videoURL = videoURL
+            }
+        }
+    }
+    #endif
 }
 
 struct MediaStreamInputView_Previews: PreviewProvider {
