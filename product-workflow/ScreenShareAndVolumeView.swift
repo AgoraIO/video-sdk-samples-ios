@@ -80,6 +80,9 @@ struct ScreenShareAndVolumeView: View {
     @State var selectedScreenName: String = ""
     @State var selectedScreen: CGWindowID?
     @State var screenSharingActive = false
+
+    @State internal var popupWidth: CGFloat = 0
+    @State internal var popupHeight: CGFloat = 0
     #endif
 
     var body: some View {
