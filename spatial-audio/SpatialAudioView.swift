@@ -119,15 +119,13 @@ public class SpatialAudioManager: AgoraManager {
 
     func transform(for index: Int) -> Transform {
         switch index {
-        case 1...6:
-            return Transform(
-                rotation: simd_quatf(angle: .pi, axis: [0, 1, 0]),
-                translation: [sin(Float(index) * .pi / 3), cos(Float(index) * .pi / 3), -1]
-            )
+        case 1...6: return Transform(
+            rotation: simd_quatf(angle: .pi, axis: [0, 1, 0]),
+            translation: [sin(Float(index) * .pi / 3), cos(Float(index) * .pi / 3), -1])
         default: return Transform(
             rotation: simd_quatf(angle: .pi, axis: [0, 1, 0]),
-            translation: [0, 0, -1]
-        )}
+            translation: [0, 0, -1])
+        }
     }
 }
 

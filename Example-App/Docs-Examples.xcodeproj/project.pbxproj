@@ -36,6 +36,8 @@
 		F37BC5A72A96152600935601 /* VirtualBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37BC5A52A96152600935601 /* VirtualBackgroundView.swift */; };
 		F37BC5AE2A96436000935601 /* background_ss.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F37BC5AD2A96436000935601 /* background_ss.jpg */; };
 		F37BC5B02A964BD500935601 /* AgoraManager+Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37BC5AF2A964BD500935601 /* AgoraManager+Permissions.swift */; };
+		F38269622B0CFE2B00F2E003 /* ScreenShareAndVolumeView+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38269612B0CFE2A00F2E003 /* ScreenShareAndVolumeView+macOS.swift */; };
+		F38269642B0CFE9700F2E003 /* ScreenShareAndVolumeView+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38269632B0CFE9700F2E003 /* ScreenShareAndVolumeView+iOS.swift */; };
 		F38636502AA24392006A8D7C /* ReplayKit in Frameworks */ = {isa = PBXBuildFile; productRef = F386364F2AA24392006A8D7C /* ReplayKit */; };
 		F38636522AA24392006A8D7C /* RtcBasic in Frameworks */ = {isa = PBXBuildFile; productRef = F38636512AA24392006A8D7C /* RtcBasic */; };
 		F38636542AA24392006A8D7C /* VirtualBackground in Frameworks */ = {isa = PBXBuildFile; productRef = F38636532AA24392006A8D7C /* VirtualBackground */; };
@@ -127,6 +129,8 @@
 		F37BC5A62A96152600935601 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../virtual-background/README.md"; sourceTree = "<group>"; };
 		F37BC5AD2A96436000935601 /* background_ss.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = background_ss.jpg; path = "../../../../virtual-background/background_ss.jpg"; sourceTree = "<group>"; };
 		F37BC5AF2A964BD500935601 /* AgoraManager+Permissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AgoraManager+Permissions.swift"; sourceTree = "<group>"; };
+		F38269612B0CFE2A00F2E003 /* ScreenShareAndVolumeView+macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ScreenShareAndVolumeView+macOS.swift"; path = "../../../../product-workflow/ScreenShareAndVolumeView+macOS.swift"; sourceTree = "<group>"; };
+		F38269632B0CFE9700F2E003 /* ScreenShareAndVolumeView+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ScreenShareAndVolumeView+iOS.swift"; path = "../../../../product-workflow/ScreenShareAndVolumeView+iOS.swift"; sourceTree = "<group>"; };
 		F3A88CCC2A1DE629000B2292 /* GettingStartedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GettingStartedView.swift; path = "../../../../get-started-sdk/GettingStartedView.swift"; sourceTree = "<group>"; };
 		F3A88CCD2A1DE629000B2292 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../get-started-sdk/README.md"; sourceTree = "<group>"; };
 		F3A88CD12A1DE645000B2292 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../ensure-channel-quality/README.md"; sourceTree = "<group>"; };
@@ -372,6 +376,8 @@
 			children = (
 				F3A88CE12A1DF2F1000B2292 /* README.md */,
 				F3A88CE02A1DF2F1000B2292 /* ScreenShareAndVolumeView.swift */,
+				F38269632B0CFE9700F2E003 /* ScreenShareAndVolumeView+iOS.swift */,
+				F38269612B0CFE2A00F2E003 /* ScreenShareAndVolumeView+macOS.swift */,
 				F3A88CFC2A1E17E0000B2292 /* RPSystemBroadcastPickerWrapper.swift */,
 			);
 			path = "product-workflow";
@@ -647,6 +653,7 @@
 				F344EDA02A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift in Sources */,
 				F37BC5B02A964BD500935601 /* AgoraManager+Permissions.swift in Sources */,
 				F3A88CCE2A1DE629000B2292 /* GettingStartedView.swift in Sources */,
+				F38269622B0CFE2B00F2E003 /* ScreenShareAndVolumeView+macOS.swift in Sources */,
 				F31BF87A2A6E4A09002E7AC2 /* MediaStreamInputView.swift in Sources */,
 				F342665D2A6AD3690086B920 /* ModifyVideoFrameDelegate.swift in Sources */,
 				F35A42802A6973F300FF93D5 /* NavigationLazyView.swift in Sources */,
@@ -654,6 +661,7 @@
 				F3F1046C2A73CFB200220C3A /* GitHubButtonView.swift in Sources */,
 				F3A88CFD2A1E17E0000B2292 /* RPSystemBroadcastPickerWrapper.swift in Sources */,
 				F3611F352A964F970086E3F4 /* ToastView.swift in Sources */,
+				F38269642B0CFE9700F2E003 /* ScreenShareAndVolumeView+iOS.swift in Sources */,
 				F3E8E6FD2A43E8AD00E6B774 /* EncryptionKeysInputView.swift in Sources */,
 				F32F965A2AE295890090C560 /* SpatialAudioView.swift in Sources */,
 				F3C06BB52A4D861200F59BC2 /* DocsAppConfig.swift in Sources */,

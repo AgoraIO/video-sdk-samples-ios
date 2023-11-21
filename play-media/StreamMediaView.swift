@@ -27,7 +27,7 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
         // Create an instance of the media player
         mediaPlayer = agoraEngine.createMediaPlayer(with: self)
         // Open the media file
-        mediaPlayer!.open(url.absoluteString, startPos: 0)
+        mediaPlayer!.open(url.path, startPos: 0)
         Task { await self.updateLabel(to: "Opening Media File...") }
     }
 
@@ -54,6 +54,10 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
         return agoraEngine.updateChannel(with: channelOptions)
     }
 
+    func playMedia() { self.mediaPlayer?.play() }
+    func pauseMedia() { self.mediaPlayer?.pause() }
+    func resumeMedia() { self.mediaPlayer?.resume() }
+
     // swiftlint:disable identifier_name
     /// This method is called when the AgoraRtcMediaPlayer changes its state.
     /// - Parameters:
@@ -71,7 +75,7 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
             // Update the UI, and start playing
             DispatchQueue.main.async {[weak self] in
                 guard let weakself = self else { return }
-                self?.updateLabel(to: "Playback started")
+                weakself.updateLabel(to: "Playback started")
                 weakself.mediaDuration = weakself.mediaPlayer!.getDuration()
 
                 weakself.updateChannelPublishOptions(publishingMedia: true)
@@ -87,6 +91,14 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
             // Clean up
             agoraEngine.destroyMediaPlayer(mediaPlayer)
             mediaPlayer = nil
+        case .playing:
+            // Media started playing
+            break
+        case .failed:
+            // Media failed to play, check the URL
+            DispatchQueue.main.async {[weak self] in
+                self?.updateLabel(to: "playback failed: \(error.rawValue)")
+            }
         default: break
         }
     }
@@ -104,6 +116,17 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
         }
     }
     // swiftlint:enable identifier_name
+
+    @discardableResult
+    public override func leaveChannel(
+        leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil,
+        destroyInstance: Bool = true
+    ) -> Int32 {
+        let leaveErr = self.agoraEngine.leaveChannel(leaveChannelBlock)
+        defer { if destroyInstance { AgoraRtcEngineKit.destroy() } }
+        self.allUsers.removeAll()
+        return leaveErr
+    }
 }
 
 // MARK: - UI
@@ -115,8 +138,8 @@ public struct StreamMediaView: View {
     public var body: some View {
         ZStack {
             // Show a scrollable view of video feeds for all participants.
-            ScrollView {
-                VStack {
+            VStack {
+                ScrollView { VStack {
                     if agoraManager.mediaPlaying, let mediaPlayer = agoraManager.mediaPlayer {
                         AgoraVideoCanvasView(
                             manager: agoraManager,
@@ -127,14 +150,37 @@ public struct StreamMediaView: View {
                         ).aspectRatio(contentMode: .fit).cornerRadius(10)
                     }
                     // Show the video feeds for each participant.
-                    self.innerScrollingVideos
-                }.padding(20)
+                    ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
+                        if !agoraManager.mediaPlaying || uid != self.agoraManager.localUserId {
+                            AgoraVideoCanvasView(manager: agoraManager, uid: uid)
+                                .aspectRatio(contentMode: .fit).cornerRadius(10)
+                        }
+                    }
+                }.padding(20) }
+                if self.agoraManager.mediaPlaying {
+                    // push this button before closing the media player
+                    Button(action: {
+                        agoraManager.mediaPlayer?.stop()
+                        agoraManager.updateChannelPublishOptions(publishingMedia: false)
+                        agoraManager.agoraEngine.destroyMediaPlayer(agoraManager.mediaPlayer)
+                    }, label: {
+                        Text("Stop Media")
+                    }).padding()
+                }
             }
             ToastView(message: $agoraManager.label)
         }.onAppear {
+            #if os(macOS)
+            (self.streamURL as NSURL?)?.startAccessingSecurityScopedResource()
+            #endif
             await agoraManager.joinChannel(DocsAppConfig.shared.channel)
             agoraManager.startStreaming(from: streamURL)
-        }.onDisappear { agoraManager.leaveChannel() }
+        }.onDisappear {
+            agoraManager.leaveChannel()
+            #if os(macOS)
+            (self.streamURL as NSURL?)?.stopAccessingSecurityScopedResource()
+            #endif
+        }
     }
 
     var streamURL: URL
