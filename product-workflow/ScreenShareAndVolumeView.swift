@@ -75,28 +75,58 @@ struct ScreenShareAndVolumeView: View {
         appId: DocsAppConfig.shared.appId, role: .broadcaster
     )
 
+    #if os(macOS)
+    @State var showPopup = false
+    @State var selectedScreenName: String = ""
+    @State var selectedScreen: CGWindowID?
+    @State var screenSharingActive = false
+    #endif
+
     var body: some View {
         ZStack {
-            ScrollView {
-                VStack {
+            VStack {
+                ScrollView { VStack {
                     ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
                         AgoraVideoCanvasView(manager: agoraManager, uid: uid)
                             .aspectRatio(contentMode: .fit).cornerRadius(10)
                             .overlay(alignment: .topLeading) { VStack {
                                 Spacer()
                                 Slider(value: volumeBinding(for: uid), in: 0...100, step: 10)
-                            }.padding()}
+                            }.padding() }
                     }
-                }.padding(20)
+                }.padding(20) }
+                Group {
+                    #if os(iOS)
+                    agoraManager.broadcastPicker
+                    #elseif os(macOS)
+                    Button {
+                        if self.screenSharingActive {
+                            self.stopScreenshare()
+                        } else {
+                            self.showScreenshareModal()
+                        }
+                    } label: {
+                        Text(self.screenSharingActive ? "Stop sharing" : "Share screen")
+                    }
+                    #endif
+                }.frame(height: 44).padding(3).background(.tertiary).padding(3)
             }
             ToastView(message: $agoraManager.label)
-        }.onAppear {
+        }
+        #if os(macOS)
+        .sheet(isPresented: self.$showPopup, content: {
+            ScreenShareModal(displayed: self.$showPopup,
+                screens: agoraManager.groupedScreens,
+                             startScreenShare: self.startScreenshare(with:)
+            ).frame(width: self.popupWidth, height: self.popupHeight)
+        })
+        #endif
+        .onAppear {
             await agoraManager.joinChannel(
                 DocsAppConfig.shared.channel, uid: UInt.random(in: 1500...100_000)
             )
             #if os(iOS)
             agoraManager.setupScreenSharing()
-            #endif
             agoraManager.screenShareToken = DocsAppConfig.shared.rtcToken
             if !DocsAppConfig.shared.tokenUrl.isEmpty {
                 // try to fetch a valid token, ready for sharing our screen.
@@ -107,11 +137,8 @@ struct ScreenShareAndVolumeView: View {
                     userId: UInt(agoraManager.screenShareID)
                 )
             }
+            #endif
         }.onDisappear { agoraManager.leaveChannel() }
-        #if os(iOS)
-        Group { agoraManager.broadcastPicker }
-            .frame(height: 44).padding().background(.tertiary)
-        #endif
     }
 
     private func volumeBinding(for key: UInt) -> Binding<Double> {

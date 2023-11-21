@@ -69,4 +69,37 @@ extension ScreenShareVolumeManager {
         }
     }
 }
+
+extension ScreenShareAndVolumeView {
+    func showScreenshareModal() {
+        if let screensAndWindows = self.agoraManager.getScreensAndWindows() {
+            screensAndWindows.forEach { item in
+                if item.sourceName.contains("screen-") {
+                    item.sourceName = "00Screens"
+                }
+            }
+            self.agoraManager.groupedScreens = Dictionary(
+                grouping: screensAndWindows, by: { $0.sourceName }
+            )
+        }
+        if let mainWindow = NSApp.mainWindow {
+            let windowFrame = mainWindow.frame
+            self.popupWidth = windowFrame.width - 50
+            self.popupHeight = windowFrame.height - 50
+        }
+        self.showPopup = true
+    }
+
+    @State private var popupWidth: CGFloat = 0
+    @State private var popupHeight: CGFloat = 0
+
+    func startScreenshare(with source: AgoraScreenCaptureSourceInfo) {
+        self.screenSharingActive = true
+        self.agoraManager.startScreenShare(with: source.sourceId, isDisplay: source.sourceName.contains("Screens"))
+    }
+    func stopScreenshare() {
+        self.screenSharingActive = false
+        self.agoraManager.stopScreenShare()
+    }
+}
 #endif
