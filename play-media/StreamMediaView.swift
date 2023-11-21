@@ -118,7 +118,10 @@ public class StreamMediaManager: AgoraManager, AgoraRtcMediaPlayerDelegate {
     // swiftlint:enable identifier_name
 
     @discardableResult
-    public override func leaveChannel(leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil, destroyInstance: Bool = true) -> Int32 {
+    public override func leaveChannel(
+        leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil,
+        destroyInstance: Bool = true
+    ) -> Int32 {
         let leaveErr = self.agoraEngine.leaveChannel(leaveChannelBlock)
         defer { if destroyInstance { AgoraRtcEngineKit.destroy() } }
         self.allUsers.removeAll()
