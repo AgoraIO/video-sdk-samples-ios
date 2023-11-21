@@ -36,6 +36,7 @@ class ScreenShareVolumeManager: AgoraManager {
         self.agoraEngine.muteRemoteAudioStream(uid, mute: isMuted)
     }
 
+    #if os(iOS)
     /// Limited IDs reserved for screen sharing.
     /// This way we know what's a screen share, and what's a regular camera.
     /// Our regular UID can be set in a similar way.
@@ -43,74 +44,24 @@ class ScreenShareVolumeManager: AgoraManager {
 
     var screenShareToken: String?
 
-    #if os(iOS)
-    /// Start the socket that listens for the screen share frames
-    /// which come from the broadcast extension.
-    func setupScreenSharing() {
-        let capParams = AgoraScreenCaptureParameters2()
-        capParams.captureAudio = false
-        capParams.captureVideo = true
-        agoraEngine.startScreenCapture(capParams)
-    }
+    #elseif os(macOS)
 
-    /// Broadcast picker to start and stop screen sharing.
-    var broadcastPicker: RPSystemBroadcastPickerWrapper {
-        // screenSharer is the name of the broadcast extension in this app's case.
-        // If we can find the extension, apply the broadcast picker preferred extension
-        var bundleIdentifier: String?
-        if let url = Bundle.main.url(forResource: "screenSharer", withExtension: "appex", subdirectory: "PlugIns"),
-           let bundle = Bundle(url: url) {
-            bundleIdentifier = bundle.bundleIdentifier
-        }
-        return RPSystemBroadcastPickerWrapper(preferredExtension: bundleIdentifier)
-    }
+    @Published var groupedScreens: [String: [AgoraScreenCaptureSourceInfo]] = [:]
 
-    fileprivate func publishScreenCaptureTrack(_ connection: AgoraRtcConnection) {
-        // The broadcast extension has started capturing frames
-        let mediaOptions = AgoraRtcChannelMediaOptions()
-        mediaOptions.publishCameraTrack = false
-        mediaOptions.publishMicrophoneTrack = false
-        mediaOptions.publishScreenCaptureAudio = false
-        mediaOptions.publishScreenCaptureVideo = true
-        mediaOptions.clientRoleType = .broadcaster
-        mediaOptions.autoSubscribeAudio = false
+    @Published var screenSharingActive = false
 
-        agoraEngine.joinChannelEx(
-            byToken: self.screenShareToken, connection: connection,
-            delegate: nil, mediaOptions: mediaOptions
+    @discardableResult
+    override func leaveChannel(
+        leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil,
+        destroyInstance: Bool = true
+    ) -> Int32 {
+        self.stopScreenShare()
+        return super.leaveChannel(
+            leaveChannelBlock: leaveChannelBlock,
+            destroyInstance: destroyInstance
         )
     }
-
-    public func rtcEngine(
-        _ engine: AgoraRtcEngineKit, localVideoStateChangedOf state: AgoraVideoLocalState,
-        error: AgoraLocalVideoStreamError, sourceType: AgoraVideoSourceType
-    ) {
-        // This delegate method catches whenever a screen is being shared
-        // from a broadcast extension
-        if sourceType == .screen {
-            let connection = AgoraRtcConnection(
-                channelId: DocsAppConfig.shared.channel,
-                localUid: screenShareID
-            )
-            switch state {
-            case .capturing:
-                self.publishScreenCaptureTrack(connection)
-            case .encoding: break
-            case .stopped, .failed:
-                // The broadcast extension has finished capturing frames
-                agoraEngine.leaveChannelEx(connection)
-            @unknown default: break
-            }
-        }
-    }
-
-    override func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
-        // don't display our own screen share
-        if uid != screenShareID {
-            super.rtcEngine(engine, didJoinedOfUid: uid, elapsed: elapsed)
-        }
-    }
-#endif
+    #endif
 }
 
 /// A view that displays the video feeds of all participants in a channel, along with sliders for volume control.
@@ -131,12 +82,10 @@ struct ScreenShareAndVolumeView: View {
                     ForEach(Array(agoraManager.allUsers), id: \.self) { uid in
                         AgoraVideoCanvasView(manager: agoraManager, uid: uid)
                             .aspectRatio(contentMode: .fit).cornerRadius(10)
-                            .overlay(alignment: .topLeading) {
-                                VStack {
-                                    Spacer()
-                                    Slider(value: volumeBinding(for: uid), in: 0...100, step: 10)
-                                }.padding()
-                            }
+                            .overlay(alignment: .topLeading) { VStack {
+                                Spacer()
+                                Slider(value: volumeBinding(for: uid), in: 0...100, step: 10)
+                            }.padding()}
                     }
                 }.padding(20)
             }
