@@ -65,7 +65,9 @@ struct ContentView: View {
                     NavigationLink("Integrate an extension") {}.disabled(true)
                 }
                 Section("Integrate Features") {
-                    NavigationLink("Audio and voice effects") {}.disabled(true)
+                    NavigationLink("Audio and voice effects") {
+                        ChannelInputView(continueTo: AudioVoiceEffectsView.self)
+                    }
                     NavigationLink(SpatialAudioView.docTitle) {
                         ChannelInputView(continueTo: SpatialAudioView.self)
                     }

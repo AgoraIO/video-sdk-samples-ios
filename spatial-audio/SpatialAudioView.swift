@@ -8,7 +8,8 @@ public class SpatialAudioManager: AgoraManager {
     var localSpatial: AgoraLocalSpatialAudioKit!
 
     func configureSpatialAudioEngine() {
-        agoraEngine.setAudioProfile(.speechStandard, scenario: .gameStreaming)
+        agoraEngine.setAudioProfile(.speechStandard)
+        agoraEngine.setAudioScenario(.gameStreaming)
 
         // The next line is only required if using bluetooth headphones from iOS/iPadOS
         agoraEngine.setParameters(#"{"che.audio.force_bluetooth_a2dp":true}"#)
