@@ -135,10 +135,9 @@ struct AudioVoiceEffectsView: View {
             }.pickerStyle(SegmentedPickerStyle())
             Toggle(isOn: $agoraManager.speakerOn) {
                 Image(systemName: "speaker.\(agoraManager.speakerOn ? "wave.3" : "slash")")
-            }
+            }.frame(maxWidth: 100)
         }
          .onChange(of: agoraManager.audioEffect) { newValue in
-             print(newValue)
 //             agoraManager.stopEffect(soundEffectId: agoraManager.audioEffectId)
 //             agoraManager.stopMixing()
 //             agoraManager.applyAudioEffectPreset(preset: .off)

@@ -24,6 +24,7 @@ extension RawMediaProcessingView: HasChannelInput {}
 extension VirtualBackgroundView: HasChannelInput {}
 extension AudioVoiceEffectsView: HasChannelInput {}
 extension SpatialAudioView: HasChannelInput {}
+extension AINoiseSuppView: HasChannelInput {}
 
 /// A view that takes a user inputted `channelId` string and navigates to a view
 /// which conforms to the `HasChannelInput` protocol.

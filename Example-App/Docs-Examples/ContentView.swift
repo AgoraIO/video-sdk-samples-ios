@@ -65,13 +65,15 @@ struct ContentView: View {
                     NavigationLink("Integrate an extension") {}.disabled(true)
                 }
                 Section("Integrate Features") {
-                    NavigationLink("Audio and voice effects") {
+                    NavigationLink(AudioVoiceEffectsView.docTitle) {
                         ChannelInputView(continueTo: AudioVoiceEffectsView.self)
                     }
                     NavigationLink(SpatialAudioView.docTitle) {
                         ChannelInputView(continueTo: SpatialAudioView.self)
                     }
-                    NavigationLink("AI Noise Suppression") {}.disabled(true)
+                    NavigationLink(AINoiseSuppView.docTitle) {
+                        ChannelInputView(continueTo: AINoiseSuppView.self)
+                    }
                     NavigationLink(GeofencingView.docTitle) {
                         GeofenceInputView(continueTo: GeofencingView.self)
                     }
