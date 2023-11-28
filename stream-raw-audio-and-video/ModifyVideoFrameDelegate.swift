@@ -4,11 +4,18 @@ protocol HasModifyVideo {
     var videoModification: VideoModification { get }
 }
 
-public class ModifyVideoFrameDelegate: NSObject, AgoraVideoFrameDelegate {
+public class ModifyVideoFrameDelegate: NSObject {
 
     var modifyController: any HasModifyVideo
 
-    public func onCapture(_ videoFrame: AgoraOutputVideoFrame, sourceType: AgoraVideoSourceType) -> Bool {
+    init(modifyController: any HasModifyVideo) { self.modifyController = modifyController }
+}
+
+extension ModifyVideoFrameDelegate: AgoraVideoFrameDelegate {
+    public func onCapture(
+        _ videoFrame: AgoraOutputVideoFrame, sourceType: AgoraVideoSourceType
+    ) -> Bool {
+        // Change the video frame immediately after recording it
         guard let pixelBuffer = videoFrame.pixelBuffer else { return true }
         var outputBuffer: CVPixelBuffer?
         switch modifyController.videoModification {
@@ -23,6 +30,28 @@ public class ModifyVideoFrameDelegate: NSObject, AgoraVideoFrameDelegate {
         }
         return true
     }
+
+    // Indicate the video frame mode of the observer
+    public func getVideoFrameProcessMode() -> AgoraVideoFrameProcessMode {
+        // The process mode of the video frame: readOnly, readWrite
+        // Default is `.readOnly` function is required to change the output.
+        .readWrite
+    }
+
+    // Sets the video frame type preference
+    public func getVideoFormatPreference() -> AgoraVideoFormat {
+        // cvPixelBGRA is the default, you can omit this.
+        return .cvPixelBGRA
+    }
+
+    // Sets the frame position for the video observer
+    public func getObservedFramePosition() -> AgoraVideoFramePosition {
+        // postCapture is default, you can omit this.
+        return .postCapture
+    }
+}
+
+extension ModifyVideoFrameDelegate {
 
     /// Copies pixel data from the source CVPixelBuffer to the destination CVPixelBuffer.
     ///
@@ -56,29 +85,6 @@ public class ModifyVideoFrameDelegate: NSObject, AgoraVideoFrameDelegate {
         // Unlock the source and destination pixel buffers.
         CVPixelBufferUnlockBaseAddress(destinationPixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
         CVPixelBufferUnlockBaseAddress(sourcePixelBuffer, .readOnly)
-    }
-
-    // Indicate the video frame mode of the observer
-    public func getVideoFrameProcessMode() -> AgoraVideoFrameProcessMode {
-        // The process mode of the video frame: readOnly, readWrite
-        // Default is `.readOnly` function is required to change the output.
-        return .readWrite
-    }
-
-    // Sets the video frame type preference
-    public func getVideoFormatPreference() -> AgoraVideoFormat {
-        // cvPixelBGRA is the default, you can omit this.
-        return .cvPixelBGRA
-    }
-
-    // Sets the frame position for the video observer
-    public func getObservedFramePosition() -> AgoraVideoFramePosition {
-        // postCapture is default, you can omit this.
-        return .postCapture
-    }
-
-    init(modifyController: any HasModifyVideo) {
-        self.modifyController = modifyController
     }
 }
 

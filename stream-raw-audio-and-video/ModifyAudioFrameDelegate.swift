@@ -5,18 +5,9 @@ protocol HasModifyAudio {
     var audioModification: AudioModification { get }
 }
 
-public class ModifyAudioFrameDelegate: NSObject, AgoraAudioFrameDelegate {
+public class ModifyAudioFrameDelegate: NSObject {
 
     var modifyController: any HasModifyAudio
-
-    public func onRecordAudioFrame(_ frame: AgoraAudioFrame, channelId: String) -> Bool {
-        switch modifyController.audioModification {
-        case .louder: applyAudioVolumeModification(frame, gain: 4)
-        case .reverb: applyReverbAudioModification(frame)
-        case .none: break
-        }
-        return true
-    }
 
     init(modifyController: any HasModifyAudio) {
         self.modifyController = modifyController
@@ -25,7 +16,22 @@ public class ModifyAudioFrameDelegate: NSObject, AgoraAudioFrameDelegate {
 
 // MARK: - Audio Buffer Modifiers
 
-public extension ModifyAudioFrameDelegate {
+extension ModifyAudioFrameDelegate: AgoraAudioFrameDelegate {
+    public func onRecordAudioFrame(_ frame: AgoraAudioFrame, channelId: String) -> Bool {
+        // Change the audio frame immediately after recording it
+        switch modifyController.audioModification {
+        case .louder: applyAudioVolumeModification(frame, gain: 4)
+        case .reverb: applyReverbAudioModification(frame)
+        case .none: break
+        }
+        return true
+    }
+    public func onPlaybackAudioFrame(_ frame: AgoraAudioFrame, channelId: String) -> Bool {
+        // Change the audio frame just before playback
+        true
+    }
+}
+fileprivate extension ModifyAudioFrameDelegate {
     private func applyAudioVolumeModification(_ frame: AgoraAudioFrame, gain: Float) {
         // Implement high audio modification here.
         // You can manipulate the audio data in the `frame` parameter to apply high modification.
