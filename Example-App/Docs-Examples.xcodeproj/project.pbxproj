@@ -38,6 +38,9 @@
 		F37BC5B02A964BD500935601 /* AgoraManager+Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37BC5AF2A964BD500935601 /* AgoraManager+Permissions.swift */; };
 		F38269622B0CFE2B00F2E003 /* ScreenShareAndVolumeView+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38269612B0CFE2A00F2E003 /* ScreenShareAndVolumeView+macOS.swift */; };
 		F38269642B0CFE9700F2E003 /* ScreenShareAndVolumeView+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38269632B0CFE9700F2E003 /* ScreenShareAndVolumeView+iOS.swift */; };
+		F382696A2B0F597600F2E003 /* AudioVoiceEffectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38269692B0F597600F2E003 /* AudioVoiceEffectsView.swift */; };
+		F382696F2B0F9C8E00F2E003 /* AINoiseSuppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F382696D2B0F9C8E00F2E003 /* AINoiseSuppView.swift */; };
+		F38269722B0FA72D00F2E003 /* AINS in Frameworks */ = {isa = PBXBuildFile; productRef = F38269712B0FA72D00F2E003 /* AINS */; };
 		F38636502AA24392006A8D7C /* ReplayKit in Frameworks */ = {isa = PBXBuildFile; productRef = F386364F2AA24392006A8D7C /* ReplayKit */; };
 		F38636522AA24392006A8D7C /* RtcBasic in Frameworks */ = {isa = PBXBuildFile; productRef = F38636512AA24392006A8D7C /* RtcBasic */; };
 		F38636542AA24392006A8D7C /* VirtualBackground in Frameworks */ = {isa = PBXBuildFile; productRef = F38636532AA24392006A8D7C /* VirtualBackground */; };
@@ -131,6 +134,10 @@
 		F37BC5AF2A964BD500935601 /* AgoraManager+Permissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AgoraManager+Permissions.swift"; sourceTree = "<group>"; };
 		F38269612B0CFE2A00F2E003 /* ScreenShareAndVolumeView+macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ScreenShareAndVolumeView+macOS.swift"; path = "../../../../product-workflow/ScreenShareAndVolumeView+macOS.swift"; sourceTree = "<group>"; };
 		F38269632B0CFE9700F2E003 /* ScreenShareAndVolumeView+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ScreenShareAndVolumeView+iOS.swift"; path = "../../../../product-workflow/ScreenShareAndVolumeView+iOS.swift"; sourceTree = "<group>"; };
+		F38269692B0F597600F2E003 /* AudioVoiceEffectsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioVoiceEffectsView.swift; path = "../../../../audio-and-voice-effects/AudioVoiceEffectsView.swift"; sourceTree = "<group>"; };
+		F382696C2B0F9C8500F2E003 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../audio-and-voice-effects/README.md"; sourceTree = "<group>"; };
+		F382696D2B0F9C8E00F2E003 /* AINoiseSuppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AINoiseSuppView.swift; path = "../../../../ai-noise-suppression/AINoiseSuppView.swift"; sourceTree = "<group>"; };
+		F382696E2B0F9C8E00F2E003 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../ai-noise-suppression/README.md"; sourceTree = "<group>"; };
 		F3A88CCC2A1DE629000B2292 /* GettingStartedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GettingStartedView.swift; path = "../../../../get-started-sdk/GettingStartedView.swift"; sourceTree = "<group>"; };
 		F3A88CCD2A1DE629000B2292 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../get-started-sdk/README.md"; sourceTree = "<group>"; };
 		F3A88CD12A1DE645000B2292 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "../../../../ensure-channel-quality/README.md"; sourceTree = "<group>"; };
@@ -173,6 +180,7 @@
 			files = (
 				F3C2054F2AE67EB400736E6F /* SpatialAudio in Frameworks */,
 				F38636502AA24392006A8D7C /* ReplayKit in Frameworks */,
+				F38269722B0FA72D00F2E003 /* AINS in Frameworks */,
 				F38636522AA24392006A8D7C /* RtcBasic in Frameworks */,
 				F38636542AA24392006A8D7C /* VirtualBackground in Frameworks */,
 			);
@@ -312,6 +320,24 @@
 			path = "virtual-background";
 			sourceTree = "<group>";
 		};
+		F38269682B0F587D00F2E003 /* audio-and-voice-effects */ = {
+			isa = PBXGroup;
+			children = (
+				F382696C2B0F9C8500F2E003 /* README.md */,
+				F38269692B0F597600F2E003 /* AudioVoiceEffectsView.swift */,
+			);
+			path = "audio-and-voice-effects";
+			sourceTree = "<group>";
+		};
+		F382696B2B0F9C6200F2E003 /* ai-noise-suppression */ = {
+			isa = PBXGroup;
+			children = (
+				F382696E2B0F9C8E00F2E003 /* README.md */,
+				F382696D2B0F9C8E00F2E003 /* AINoiseSuppView.swift */,
+			);
+			path = "ai-noise-suppression";
+			sourceTree = "<group>";
+		};
 		F3A88CCA2A1DE5FE000B2292 /* app-stories */ = {
 			isa = PBXGroup;
 			children = (
@@ -325,7 +351,9 @@
 				F3A88CDF2A1DF27F000B2292 /* product-workflow */,
 				F3A88CDA2A1DEEE0000B2292 /* custom-video-and-audio */,
 				F34266572A6AD2660086B920 /* stream-raw-audio-and-video */,
+				F38269682B0F587D00F2E003 /* audio-and-voice-effects */,
 				F32F96572AE294840090C560 /* spatial-audio */,
+				F382696B2B0F9C6200F2E003 /* ai-noise-suppression */,
 				F31BF86E2A6BB676002E7AC2 /* geofencing */,
 				F37BC5A42A96149200935601 /* virtual-background */,
 			);
@@ -491,6 +519,7 @@
 				F38636512AA24392006A8D7C /* RtcBasic */,
 				F38636532AA24392006A8D7C /* VirtualBackground */,
 				F3C2054E2AE67EB400736E6F /* SpatialAudio */,
+				F38269712B0FA72D00F2E003 /* AINS */,
 			);
 			productName = "Docs-Examples";
 			productReference = F310F63429C8D02E006DB727 /* Docs-Examples.app */;
@@ -649,7 +678,9 @@
 				F32AF89A2A8A9A7B00A27ED1 /* MultiChannelInputView.swift in Sources */,
 				F3FBDEA32A6BA94A00DAB164 /* ModifyAudioFrameDelegate.swift in Sources */,
 				F31BF8712A6BB69A002E7AC2 /* GeofencingView.swift in Sources */,
+				F382696F2B0F9C8E00F2E003 /* AINoiseSuppView.swift in Sources */,
 				F3D7BD4729DB30680014DEC0 /* AgoraManager.swift in Sources */,
+				F382696A2B0F597600F2E003 /* AudioVoiceEffectsView.swift in Sources */,
 				F344EDA02A496FF400B3C313 /* AgoraCustomVideoCanvasView.swift in Sources */,
 				F37BC5B02A964BD500935601 /* AgoraManager+Permissions.swift in Sources */,
 				F3A88CCE2A1DE629000B2292 /* GettingStartedView.swift in Sources */,
@@ -842,6 +873,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -881,6 +913,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -995,6 +1028,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F38269712B0FA72D00F2E003 /* AINS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F386364E2AA24392006A8D7C /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;
+			productName = AINS;
+		};
 		F386364F2AA24392006A8D7C /* ReplayKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F386364E2AA24392006A8D7C /* XCRemoteSwiftPackageReference "AgoraRtcEngine_iOS" */;

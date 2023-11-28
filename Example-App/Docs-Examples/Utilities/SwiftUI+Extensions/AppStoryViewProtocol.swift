@@ -41,6 +41,8 @@ extension CallQualityView: AgoraStoryViewProtocol {}
 extension ScreenShareAndVolumeView: AgoraStoryViewProtocol {}
 extension CustomAudioVideoView: AgoraStoryViewProtocol {}
 extension RawMediaProcessingView: AgoraStoryViewProtocol {}
+extension AudioVoiceEffectsView: AgoraStoryViewProtocol {}
 extension SpatialAudioView: AgoraStoryViewProtocol {}
+extension AINoiseSuppView: AgoraStoryViewProtocol {}
 extension GeofencingView: AgoraStoryViewProtocol {}
 extension VirtualBackgroundView: AgoraStoryViewProtocol {}
