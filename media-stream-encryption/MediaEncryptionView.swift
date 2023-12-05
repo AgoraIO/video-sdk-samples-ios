@@ -40,6 +40,13 @@ fileprivate extension AgoraManager {
             Task { await self.updateLabel(to: "Media encryption failed.") }
         }
     }
+
+    public func rtcEngine(
+        _ engine: AgoraRtcEngineKit,
+        didOccur errorType: AgoraEncryptionErrorType
+    ) {
+        // encryption error handler
+    }
 }
 
 /// A view that encrypts your channel connection through Agora.
