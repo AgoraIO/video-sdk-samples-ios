@@ -105,7 +105,10 @@ public class CallQualityManager: AgoraManager {
 
     // MARK: - Delegate Methods
 
-    public func rtcEngine(_ engine: AgoraRtcEngineKit, lastmileQuality quality: AgoraNetworkQuality) {
+    public func rtcEngine(
+        _ engine: AgoraRtcEngineKit,
+        lastmileQuality quality: AgoraNetworkQuality
+    ) {
         self.lastMileQuality = quality
     }
 
